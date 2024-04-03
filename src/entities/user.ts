@@ -1,4 +1,4 @@
-import type { UserRole } from "@/db/schema";
+import { UserRole } from "@/db/schema";
 import bcrypt from "bcryptjs";
 
 export class UserEntity {
