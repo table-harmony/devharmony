@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 import type { UserDto } from "@/use-cases/users/types";
 
-export function toDtoMapper(user: User): UserDto {
+export function toUserDtoMapper(user: User): UserDto {
   return {
     id: user.id,
     name: user.name,
@@ -29,7 +29,7 @@ export async function getUser(userId: string): Promise<UserDto> {
 
   if (!foundUser) throw new Error("User not found!");
 
-  return toDtoMapper(foundUser);
+  return toUserDtoMapper(foundUser);
 }
 
 export async function getUserByEmail(
@@ -41,11 +41,11 @@ export async function getUserByEmail(
 
   if (!foundUser) return undefined;
 
-  return toDtoMapper(foundUser);
+  return toUserDtoMapper(foundUser);
 }
 
 export async function getUsers(): Promise<UserDto[]> {
   const users = await db.query.users.findMany();
 
-  return users.map(toDtoMapper);
+  return users.map(toUserDtoMapper);
 }

@@ -13,7 +13,7 @@ import { eq } from "drizzle-orm";
 
 import type { TokenDto } from "@/use-cases/tokens/types";
 
-export function toDtoMapper(
+export function toTokenDtoMapper(
   token: TwoFactorToken | VerificationToken | PasswordResetToken
 ) {
   return {
@@ -36,7 +36,7 @@ export async function getVerificationTokenByToken(
 
   if (!foundToken) throw new Error("Verification Token not found!");
 
-  return toDtoMapper(foundToken);
+  return toTokenDtoMapper(foundToken);
 }
 
 export async function getVerificationTokenByEmail(
@@ -48,13 +48,13 @@ export async function getVerificationTokenByEmail(
 
   if (!foundToken) return undefined;
 
-  return toDtoMapper(foundToken);
+  return toTokenDtoMapper(foundToken);
 }
 
 export async function getVerificationTokens(): Promise<TokenDto[]> {
   const verificationTokens = await db.query.verificationTokens.findMany();
 
-  return verificationTokens.map(toDtoMapper);
+  return verificationTokens.map(toTokenDtoMapper);
 }
 
 export async function getTwoFactorTokenByEmail(
@@ -66,13 +66,13 @@ export async function getTwoFactorTokenByEmail(
 
   if (!foundToken) return undefined;
 
-  return toDtoMapper(foundToken);
+  return toTokenDtoMapper(foundToken);
 }
 
 export async function getTwoFactorTokens(): Promise<TokenDto[]> {
   const twoFactorTokens = await db.query.twoFactorTokens.findMany();
 
-  return twoFactorTokens.map(toDtoMapper);
+  return twoFactorTokens.map(toTokenDtoMapper);
 }
 
 /**
@@ -87,7 +87,7 @@ export async function getPasswordResetTokenByToken(
 
   if (!foundToken) throw new Error("Password Reset Token not found!");
 
-  return toDtoMapper(foundToken);
+  return toTokenDtoMapper(foundToken);
 }
 
 export async function getPasswordResetTokenByEmail(
@@ -99,11 +99,11 @@ export async function getPasswordResetTokenByEmail(
 
   if (!foundToken) return undefined;
 
-  return toDtoMapper(foundToken);
+  return toTokenDtoMapper(foundToken);
 }
 
 export async function getPasswordResetTokens(): Promise<TokenDto[]> {
   const passwordResetTokens = await db.query.passwordResetTokens.findMany();
 
-  return passwordResetTokens.map(toDtoMapper);
+  return passwordResetTokens.map(toTokenDtoMapper);
 }

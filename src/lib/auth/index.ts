@@ -5,15 +5,19 @@ import NextAuth from "next-auth";
 import { authConfig } from "./config";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
-import { getAccountByUserUseCase } from "@/use-cases/accounts/get.use-case";
-import { getUserUseCase } from "@/use-cases/users/get.use-case";
-import { deleteTwoFactorConfirmationByUserUseCase } from "@/use-cases/two-factor-confirmations/delete.use-case";
-import { markEmailAsVerifiedUseCase } from "@/use-cases/users/update.use-case";
+import {
+  getUserUseCase,
+  markEmailAsVerifiedUseCase,
+  getAccountByUserUseCase,
+  deleteTwoFactorConfirmationByUserUseCase,
+} from "@/use-cases";
 
-import { getUser } from "@/data-access/users/get.persistence";
-import { getAccountByUser } from "@/data-access/accounts/get.persistence";
-import { deleteTwoFactorConfirmationByUser } from "@/data-access/two-factor-confirmations/delete.persistence";
-import { updateUser } from "@/data-access/users/update.persistence";
+import {
+  getUser,
+  updateUser,
+  getAccountByUser,
+  deleteTwoFactorConfirmationByUser,
+} from "@/data-access";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {

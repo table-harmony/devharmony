@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 
 import type { AccountDto } from "@/use-cases/accounts/types";
 
-export function toDtoMapper(account: Account): AccountDto {
+export function toAccountDtoMapper(account: Account): AccountDto {
   return {
     userId: account.userId,
     type: account.type,
@@ -31,11 +31,11 @@ export async function getAccountByUser(
 
   if (!foundAccount) return undefined;
 
-  return toDtoMapper(foundAccount);
+  return toAccountDtoMapper(foundAccount);
 }
 
 export async function getAccounts(): Promise<AccountDto[]> {
   const accounts = await db.query.accounts.findMany();
 
-  return accounts.map(toDtoMapper);
+  return accounts.map(toAccountDtoMapper);
 }
