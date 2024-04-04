@@ -36,7 +36,6 @@ export const ResetSchema = z.object({
 
 export const UpdateSchema = z
   .object({
-    email: z.optional(z.string().email()),
     password: z.optional(
       z.string().min(6, {
         message: "Minimum 6 characters required",

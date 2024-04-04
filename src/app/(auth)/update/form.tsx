@@ -35,7 +35,6 @@ export const UpdateForm = () => {
   const form = useForm<z.infer<typeof UpdateSchema>>({
     resolver: zodResolver(UpdateSchema),
     defaultValues: {
-      email: user?.email || undefined,
       name: user?.name || undefined,
       password: undefined,
       newPassword: undefined,
@@ -78,24 +77,6 @@ export const UpdateForm = () => {
                         {...field}
                         disabled={isPending}
                         placeholder="John Doe"
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <FormField
-                control={form.control}
-                name="email"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Email</FormLabel>
-                    <FormControl>
-                      <Input
-                        {...field}
-                        disabled={isPending}
-                        placeholder="john.doe@example.com"
-                        type="email"
                       />
                     </FormControl>
                     <FormMessage />
