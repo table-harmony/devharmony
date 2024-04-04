@@ -1,9 +1,9 @@
-import { TwoFactorConfirmationEntity } from "@/entities/two-factor-confirmation";
+import { TwoFactorConfirmationEntity } from "@/entities";
 import type {
   CreateTwoFactorConfirmation,
   DeleteTwoFactorConfirmation,
   GetTwoFactorConfirmationByUser,
-} from "@/use-cases/two-factor-confirmations/types";
+} from "@/use-cases";
 
 export async function createTwoFactorConfirmationUseCase(
   context: {

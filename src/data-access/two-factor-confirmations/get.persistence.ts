@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { TwoFactorConfirmation, twoFactorConfirmations } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-import type { TwoFactorConfirmationDto } from "@/use-cases/two-factor-confirmations/types";
+import type { TwoFactorConfirmationDto } from "@/use-cases";
 
 export function toTwoFactorConfirmationDtoMapper(
   twoFactorConfirmation: TwoFactorConfirmation

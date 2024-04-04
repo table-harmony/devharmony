@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { Account, accounts } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-import type { AccountDto } from "@/use-cases/accounts/types";
+import type { AccountDto } from "@/use-cases";
 
 export function toAccountDtoMapper(account: Account): AccountDto {
   return {

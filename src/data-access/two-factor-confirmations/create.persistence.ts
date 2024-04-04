@@ -3,7 +3,7 @@ import "server-only";
 import { db } from "@/db";
 import { twoFactorConfirmations } from "@/db/schema";
 
-import type { CreateTwoFactorConfirmationDto } from "@/use-cases/two-factor-confirmations/types";
+import type { CreateTwoFactorConfirmationDto } from "@/use-cases";
 
 export async function createTwoFactorConfirmation(
   twoFactorConfirmation: CreateTwoFactorConfirmationDto

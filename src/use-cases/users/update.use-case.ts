@@ -1,11 +1,11 @@
-import { UserEntity } from "@/entities/user";
+import { UserEntity } from "@/entities";
 import {
   GetUser,
   GetUserByEmail,
   UpdateUser,
   UpdateUserDto,
   UserDto,
-} from "@/use-cases/users/types";
+} from "@/use-cases";
 
 /**
  * @throws throws an error if user was not found

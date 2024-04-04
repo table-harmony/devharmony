@@ -1,7 +1,7 @@
 import type {
   DeleteTwoFactorConfirmation,
   DeleteTwoFactorConfirmationByUser,
-} from "@/use-cases/two-factor-confirmations/types";
+} from "@/use-cases";
 
 export async function deleteTwoFactorConfirmationUseCase(
   context: {

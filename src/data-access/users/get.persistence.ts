@@ -4,7 +4,7 @@ import { db } from "@/db";
 import { User, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-import type { UserDto } from "@/use-cases/users/types";
+import type { UserDto } from "@/use-cases";
 
 export function toUserDtoMapper(user: User): UserDto {
   return {

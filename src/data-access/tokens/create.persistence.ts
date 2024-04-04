@@ -7,7 +7,7 @@ import {
   verificationTokens,
 } from "@/db/schema";
 
-import type { CreateTokenDto } from "@/use-cases/tokens/types";
+import type { CreateTokenDto } from "@/use-cases";
 
 export async function createVerificationToken(
   token: CreateTokenDto

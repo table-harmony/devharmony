@@ -2,7 +2,7 @@ import type {
   GetTwoFactorConfirmationByUser,
   GetTwoFactorConfirmations,
   TwoFactorConfirmationDto,
-} from "@/use-cases/two-factor-confirmations/types";
+} from "@/use-cases";
 
 export async function getTwoFactorConfirmationByUserUseCase(
   context: {

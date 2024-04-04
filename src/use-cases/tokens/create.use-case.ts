@@ -5,7 +5,7 @@ import type {
   DeleteToken,
   GetTokenByEmail,
 } from "@/use-cases/tokens/types";
-import { TokenEntity } from "@/entities/token";
+import { TokenEntity } from "@/entities";
 
 /**
  * @throws throws an error if user does not exist or token was not created

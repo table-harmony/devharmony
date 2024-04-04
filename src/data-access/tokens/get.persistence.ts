@@ -11,7 +11,7 @@ import {
 } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-import type { TokenDto } from "@/use-cases/tokens/types";
+import type { TokenDto } from "@/use-cases";
 
 export function toTokenDtoMapper(
   token: TwoFactorToken | VerificationToken | PasswordResetToken

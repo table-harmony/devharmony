@@ -1,9 +1,5 @@
-import type {
-  CreateUser,
-  CreateUserDto,
-  GetUserByEmail,
-} from "@/use-cases/users/types";
-import { UserEntity } from "@/entities/user";
+import type { CreateUser, CreateUserDto, GetUserByEmail } from "@/use-cases";
+import { UserEntity } from "@/entities";
 
 /**
  * @throws throws an error if user already exists

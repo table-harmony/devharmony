@@ -4,7 +4,7 @@ import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
-import { getUserByCredentialsUseCase, UserDto } from "@/use-cases";
+import { getUserByCredentialsUseCase, type UserDto } from "@/use-cases";
 import { getUserByEmail } from "@/data-access";
 
 export const authConfig = {

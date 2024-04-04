@@ -1,4 +1,4 @@
-import type { DeleteUser } from "./types";
+import type { DeleteUser } from "@/use-cases";
 
 export async function deleteUserUseCase(
   context: {

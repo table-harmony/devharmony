@@ -1,10 +1,9 @@
-import { TokenEntity } from "@/entities/token";
-import {
+import type {
   GetTokenByEmail,
   GetTokenByToken,
   GetTokens,
   TokenDto,
-} from "@/use-cases/tokens/types";
+} from "@/use-cases";
 
 /**
  * @throws - throws an error if token was not found
