@@ -141,7 +141,7 @@ export const LoginForm = () => {
               </>
             )}
           </div>
-          <ErrorMessage message={urlError || error} />
+          <ErrorMessage message={error || urlError} />
           <SuccessMessage message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}

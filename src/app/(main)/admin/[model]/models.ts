@@ -4,6 +4,7 @@ import {
   two_factor_confirmation,
   user,
 } from "./_components/columns";
+
 import {
   getUsers,
   getAccounts,
@@ -12,6 +13,7 @@ import {
   getVerificationTokens,
   getTwoFactorConfirmations,
 } from "@/data-access";
+
 import {
   getUsersUseCase,
   getAccountsUseCase,
