@@ -1,4 +1,5 @@
 import { CheckCircleIcon } from "lucide-react";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
 interface SuccessMessageProps {
   message?: string;
@@ -8,9 +9,9 @@ export const SuccessMessage = ({ message }: SuccessMessageProps) => {
   if (!message) return null;
 
   return (
-    <div className="bg-emerald-500/15 p-3 rounded-md flex items-center gap-x-2 text-sm text-emerald-500">
+    <Alert variant="default">
       <CheckCircleIcon className="h-4 w-4" />
-      <p>{message}</p>
-    </div>
+      <AlertDescription>{message}</AlertDescription>
+    </Alert>
   );
 };

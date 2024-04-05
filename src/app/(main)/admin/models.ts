@@ -4,7 +4,6 @@ import {
   two_factor_confirmation,
   user,
 } from "./_components/columns";
-
 import {
   getUsers,
   getAccounts,
