@@ -1,13 +1,31 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { DatabaseIcon, Table2Icon } from "lucide-react";
+
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 
+import { getModelsAction } from "../_actions/get-models.action";
+
 export default function Sidebar() {
   const [filterTable, setFilterTable] = useState("");
+  const [models, setModels] = useState([""]);
+
+  const onSubmit = useCallback(() => {
+    getModelsAction()
+      .then((data) => {
+        setModels(data);
+      })
+      .catch(() => {
+        console.log("error");
+      });
+  }, []);
+
+  useEffect(() => {
+    onSubmit();
+  }, [onSubmit]);
 
   return (
     <div className="flex flex-col gap-4">
@@ -21,14 +39,7 @@ export default function Sidebar() {
           placeholder="Search tables"
           onChange={(event) => setFilterTable(event.target.value)}
         />
-        {[
-          "user",
-          "account",
-          "verification_token",
-          "two_factor_token",
-          "password_reset_token",
-          "two_factor_confirmation",
-        ]
+        {models
           .filter((model) => model.includes(filterTable.toLowerCase()))
           .map((model) => (
             <Button
