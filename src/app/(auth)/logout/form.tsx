@@ -14,7 +14,12 @@ export const LogoutForm = () => {
     >
       <div className="flex flex-col text-center gap-4">
         Are you sure you want to logout ?
-        <Button onClick={() => signOut()} className="w-full">
+        <Button
+          onClick={() =>
+            signOut({ redirect: true, callbackUrl: DEFAULT_LOGIN_REDIRECT })
+          }
+          className="w-full"
+        >
           Logout
         </Button>
       </div>
