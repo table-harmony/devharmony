@@ -1,5 +1,7 @@
 import { UserRole } from "@/db/schema";
 
+export type { UserRole };
+
 export type CreateUserDto = {
   name: string;
   email: string;
