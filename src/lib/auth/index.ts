@@ -117,3 +117,6 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   ...authConfig,
 });
+
+export * from "./utils";
+export * from "./config";

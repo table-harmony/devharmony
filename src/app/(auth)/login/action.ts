@@ -28,9 +28,12 @@ import {
   deleteTwoFactorConfirmation,
 } from "@/data-access";
 
-import { sendTwoFactorTokenEmail, sendVerificationEmail } from "../mail";
+import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/resend";
 
-export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
+export const loginAction = async (
+  values: z.infer<typeof LoginSchema>,
+  callbackUrl?: string | null
+) => {
   const validatedFields = LoginSchema.safeParse(values);
 
   if (!validatedFields.success) {
@@ -57,7 +60,6 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
         { email: existingUser.email }
       );
 
-      // send verification token
       await sendVerificationEmail(
         verificationToken.email,
         verificationToken.token
@@ -119,7 +121,7 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: "/",
+      redirectTo: callbackUrl || "/",
     });
   } catch (error) {
     if (error instanceof AuthError) {

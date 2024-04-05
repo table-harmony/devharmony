@@ -9,6 +9,7 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
+import { Suspense } from "react";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -31,7 +32,9 @@ export const CardWrapper = ({
       <CardContent>{children}</CardContent>
       {showSocial && (
         <CardFooter>
-          <Social />
+          <Suspense>
+            <Social />
+          </Suspense>
         </CardFooter>
       )}
       <CardFooter>

@@ -1,13 +1,18 @@
 "use client";
 
-import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { DEFAULT_LOGIN_REDIRECT } from "@/lib/auth/routes";
 import { ChromeIcon, GithubIcon } from "lucide-react";
+import { signIn } from "next-auth/react";
+import { useSearchParams } from "next/navigation";
 
 export const Social = () => {
+  const searchParams = useSearchParams();
+  const callbackUrl = searchParams.get("callbackUrl");
+
   const onClick = (provider: "google" | "github") => {
     signIn(provider, {
-      callbackUrl: "/",
+      callbackUrl: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
   };
 

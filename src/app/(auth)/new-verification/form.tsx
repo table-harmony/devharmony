@@ -9,6 +9,7 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { newVerificationAction } from "./action";
+import { DEFAULT_LOGIN } from "@/lib/auth/routes";
 
 export const NewVerificationForm = () => {
   const Token = () => {
@@ -52,7 +53,7 @@ export const NewVerificationForm = () => {
     <CardWrapper
       headerLabel="Confirming your verification"
       backButtonLabel="Back to login"
-      backButtonHref="/api/auth/signin"
+      backButtonHref={DEFAULT_LOGIN}
     >
       <Suspense>
         <Token />

@@ -3,6 +3,7 @@
 import * as z from "zod";
 import { NewPasswordSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { Suspense, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -22,6 +23,7 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { newPasswordAction } from "./action";
+import { DEFAULT_LOGIN } from "@/lib/auth/routes";
 
 export const NewPasswordForm = () => {
   const FormComponent = () => {
@@ -97,7 +99,7 @@ export const NewPasswordForm = () => {
     <CardWrapper
       headerLabel="Reset password"
       backButtonLabel="Back to login"
-      backButtonHref="/api/auth/signin"
+      backButtonHref={DEFAULT_LOGIN}
     >
       <Suspense>
         <FormComponent />

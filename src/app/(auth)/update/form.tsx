@@ -3,6 +3,7 @@
 import * as z from "zod";
 import { UpdateSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
 import { useCurrentUser } from "@/hooks/use-current-user";
@@ -24,6 +25,7 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { updateAction } from "./action";
+import { DEFAULT_LOGIN_REDIRECT } from "@/lib/auth/routes";
 
 export const UpdateForm = () => {
   const user = useCurrentUser();
@@ -60,7 +62,7 @@ export const UpdateForm = () => {
     <CardWrapper
       headerLabel="Update account"
       backButtonLabel="Back"
-      backButtonHref="/"
+      backButtonHref={DEFAULT_LOGIN_REDIRECT}
     >
       {!user?.isOAuth ? (
         <Form {...form}>

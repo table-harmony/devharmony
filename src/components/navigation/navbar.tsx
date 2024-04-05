@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { isLoggedIn } from "@/lib/auth/utils";
+import { isLoggedIn } from "@/lib/auth";
 
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme/toggle";

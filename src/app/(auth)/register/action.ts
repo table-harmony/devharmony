@@ -13,7 +13,7 @@ import {
   deleteVerificationToken,
 } from "@/data-access";
 
-import { sendVerificationEmail } from "../mail";
+import { sendVerificationEmail } from "@/lib/resend";
 
 export const registerAction = async (
   values: z.infer<typeof RegisterSchema>

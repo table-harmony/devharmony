@@ -4,14 +4,15 @@ import * as z from "zod";
 
 import { ResetSchema } from "../schemas";
 
-import { createPasswordResetToken } from "@/data-access/tokens/create.persistence";
-import { getUserByEmail } from "@/data-access/users/get.persistence";
+import {
+  createPasswordResetToken,
+  getUserByEmail,
+  deletePasswordResetToken,
+  getPasswordResetTokenByEmail,
+} from "@/data-access";
+import { getUserByEmailUseCase, createTokenUseCase } from "@/use-cases";
 
-import { getUserByEmailUseCase } from "@/use-cases/users/get.use-case";
-import { createTokenUseCase } from "@/use-cases/tokens/create.use-case";
-import { sendPasswordResetTokenEmail } from "../mail";
-import { getPasswordResetTokenByEmail } from "@/data-access/tokens/get.persistence";
-import { deletePasswordResetToken } from "@/data-access/tokens/delete.persistence";
+import { sendPasswordResetTokenEmail } from "@/lib/resend";
 
 export const resetAction = async (values: z.infer<typeof ResetSchema>) => {
   const validatedFields = ResetSchema.safeParse(values);
@@ -23,7 +24,6 @@ export const resetAction = async (values: z.infer<typeof ResetSchema>) => {
   const { email } = validatedFields.data;
 
   try {
-    // find user by email
     const existingUser = await getUserByEmailUseCase(
       { getUserByEmail: getUserByEmail },
       { email: email }
@@ -33,7 +33,6 @@ export const resetAction = async (values: z.infer<typeof ResetSchema>) => {
       throw new Error("User does not exist!");
     }
 
-    // create password reset token
     const passwordResetToken = await createTokenUseCase(
       {
         getUserByEmail: getUserByEmail,
