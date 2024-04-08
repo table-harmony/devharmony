@@ -1,17 +1,13 @@
-import { models } from "../models";
-
-import { ColumnDef } from "@tanstack/react-table";
 import { DataTable } from "@/components/data-table";
+import { Model } from "@/types/models";
 
 interface TableProps {
-  table: keyof typeof models;
+  model: Model<any>;
 }
 
-export async function Table<TData, TValue>({ table }: TableProps) {
-  const model = models[table];
-
-  const data = (await model.getData()) as TData[];
-  const columns = model.columns as ColumnDef<TData, TValue>[];
+export async function Table({ model }: TableProps) {
+  const data = await model.getData();
+  const columns = model.columns;
 
   return (
     <DataTable

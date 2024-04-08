@@ -22,7 +22,6 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { registerAction } from "./action";
-import { DEFAULT_LOGIN } from "@/lib/auth/routes";
 
 export const RegisterForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -60,7 +59,7 @@ export const RegisterForm = () => {
     <CardWrapper
       headerLabel="Create an account"
       backButtonLabel="Already have an account?"
-      backButtonHref={DEFAULT_LOGIN}
+      backButtonHref="/api/auth/signin"
       showSocial
     >
       <Form {...form}>

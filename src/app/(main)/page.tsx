@@ -1,8 +1,24 @@
+import Link from "next/link";
+
+import { siteConfig } from "@/config/site";
+import { cn } from "@/lib/utils";
+import { Icons } from "@/components/icons";
+import {
+  PageActions,
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header";
+
 export default function Home() {
   return (
-    <div>
-      <h1>TableHarmony</h1>
-      <p>Upload repositories and maintain your code</p>
-    </div>
+    <PageHeader>
+      <PageHeaderHeading>Welcome to TableHarmony</PageHeaderHeading>
+      <PageHeaderDescription>
+        Share and collaborate repositories while engaging in a Discord-like
+        community.
+      </PageHeaderDescription>
+      <PageActions></PageActions>
+    </PageHeader>
   );
 }

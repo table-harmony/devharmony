@@ -18,7 +18,7 @@ export async function SiteHeader() {
         <CommandMenu />
         <nav className="flex items-center gap-2">
           <ModeToggle />
-          {loggedIn ? <Profile /> : <LoginButton />}
+          {loggedIn ? <Profile /> : <LoginButton>Login</LoginButton>}
         </nav>
       </div>
     </header>

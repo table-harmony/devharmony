@@ -29,7 +29,6 @@ import {
 } from "@/data-access";
 
 import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/resend";
-import { DEFAULT_LOGIN_REDIRECT } from "@/lib/auth/routes";
 
 export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
   const validatedFields = LoginSchema.safeParse(values);
@@ -119,7 +118,7 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
     await signIn("credentials", {
       email,
       password,
-      redirectTo: DEFAULT_LOGIN_REDIRECT,
+      redirectTo: "/",
     });
   } catch (error) {
     if (error instanceof AuthError) {

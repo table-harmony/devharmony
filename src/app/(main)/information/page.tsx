@@ -23,7 +23,7 @@ export default function InformationPage() {
         </CardDescription>
       </CardHeader>
       <CardContent>
-        <Accordion className="p-2" type="multiple">
+        <Accordion type="multiple">
           <AccordionItem value="item-1">
             <AccordionTrigger>What does TableHarmony do ?</AccordionTrigger>
             <AccordionContent>
@@ -50,11 +50,6 @@ export default function InformationPage() {
           </AccordionItem>
         </Accordion>
       </CardContent>
-      <CardFooter>
-        <div className="text-xs text-muted-foreground">
-          Showing <span className="font-medium">3</span> questions
-        </div>
-      </CardFooter>
     </Card>
   );
 }

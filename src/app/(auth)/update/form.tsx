@@ -25,7 +25,6 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { updateAction } from "./action";
-import { DEFAULT_LOGIN_REDIRECT } from "@/lib/auth/routes";
 
 export const UpdateForm = () => {
   const user = useCurrentUser();
@@ -62,7 +61,7 @@ export const UpdateForm = () => {
     <CardWrapper
       headerLabel="Update account"
       backButtonLabel="Back"
-      backButtonHref={DEFAULT_LOGIN_REDIRECT}
+      backButtonHref="/"
     >
       {!user?.isOAuth ? (
         <Form {...form}>

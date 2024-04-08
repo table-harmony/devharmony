@@ -1,6 +1,12 @@
-import { CatIcon, ChromeIcon, GithubIcon, LinkedinIcon } from "lucide-react";
+import {
+  CatIcon,
+  ChromeIcon,
+  GithubIcon,
+  LinkedinIcon,
+  LucideProps,
+} from "lucide-react";
 
-type IconProps = React.HTMLAttributes<SVGElement>;
+type IconProps = LucideProps;
 
 export const Icons = {
   logo: (props: IconProps) => <CatIcon {...props} />,

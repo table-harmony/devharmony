@@ -1,10 +1,15 @@
-import { Button } from "@/components/ui/button";
+import { Button, ButtonProps } from "@/components/ui/button";
 import Link from "next/link";
 
-export const LoginButton = () => {
+interface LoginButtonProps {
+  children: React.ReactNode;
+  props?: ButtonProps;
+}
+
+export const LoginButton = ({ children, ...props }: LoginButtonProps) => {
   return (
-    <Button variant="outline">
-      <Link href="/api/auth/signin">Login</Link>
+    <Button variant="outline" {...props}>
+      <Link href="/api/auth/signin">{children}</Link>
     </Button>
   );
 };

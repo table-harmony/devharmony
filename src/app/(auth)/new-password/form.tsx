@@ -23,7 +23,6 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { newPasswordAction } from "./action";
-import { DEFAULT_LOGIN } from "@/lib/auth/routes";
 
 export const NewPasswordForm = () => {
   const FormComponent = () => {
@@ -99,7 +98,7 @@ export const NewPasswordForm = () => {
     <CardWrapper
       headerLabel="Reset password"
       backButtonLabel="Back to login"
-      backButtonHref={DEFAULT_LOGIN}
+      backButtonHref="/api/auth/signin"
     >
       <Suspense>
         <FormComponent />

@@ -18,12 +18,19 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  InputOTP,
+  InputOTPGroup,
+  InputOTPSeparator,
+  InputOTPSlot,
+} from "@/components/ui/input-otp";
 import { CardWrapper } from "../_components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";
 
 import { loginAction } from "./action";
+import { REGEXP_ONLY_DIGITS } from "input-otp";
 
 export const LoginForm = () => {
   const FormComponent = () => {
@@ -82,11 +89,21 @@ export const LoginForm = () => {
                   <FormItem>
                     <FormLabel>Two Factor Code</FormLabel>
                     <FormControl>
-                      <Input
-                        {...field}
+                      <InputOTP
+                        pattern={REGEXP_ONLY_DIGITS}
+                        maxLength={6}
                         disabled={isPending}
-                        placeholder="123456"
-                      />
+                        {...field}
+                      >
+                        <InputOTPGroup>
+                          <InputOTPSlot index={0} />
+                          <InputOTPSlot index={1} />
+                          <InputOTPSlot index={2} />
+                          <InputOTPSlot index={3} />
+                          <InputOTPSlot index={4} />
+                          <InputOTPSlot index={5} />
+                        </InputOTPGroup>
+                      </InputOTP>
                     </FormControl>
                     <FormMessage />
                   </FormItem>

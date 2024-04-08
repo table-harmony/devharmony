@@ -23,11 +23,13 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { useCallback, useState } from "react";
+import { useCurrentRole } from "@/hooks/use-current-role";
 
 export function CommandMenu() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { setTheme } = useTheme();
+  const role = useCurrentRole();
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false);
@@ -39,7 +41,7 @@ export function CommandMenu() {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full justify-start rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground sm:pr-12 md:w-40 lg:w-64"
+          "relative h-8 w-full rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground md:w-64 lg:w-96"
         )}
         onClick={() => setOpen(true)}
       >

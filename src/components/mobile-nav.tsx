@@ -38,7 +38,7 @@ export function MobileNav() {
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">
           <div className="flex flex-col space-y-3">
-            {docsConfig.mainNav?.map(
+            {docsConfig.mainNav.map(
               (item) =>
                 item.href && (
                   <MobileLink
@@ -63,7 +63,7 @@ interface MobileLinkProps extends LinkProps {
   className?: string;
 }
 
-function MobileLink({
+export function MobileLink({
   href,
   onOpenChange,
   className,

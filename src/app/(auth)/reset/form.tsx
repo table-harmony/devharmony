@@ -21,7 +21,6 @@ import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { resetAction } from "./action";
-import { DEFAULT_LOGIN } from "@/lib/auth/routes";
 
 export const ResetForm = () => {
   const [error, setError] = useState<string | undefined>("");
@@ -60,7 +59,7 @@ export const ResetForm = () => {
     <CardWrapper
       headerLabel="Forgot your password?"
       backButtonLabel="Back to login"
-      backButtonHref={DEFAULT_LOGIN}
+      backButtonHref="/api/auth/signin"
     >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
