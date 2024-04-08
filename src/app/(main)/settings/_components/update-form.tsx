@@ -1,7 +1,6 @@
 "use client";
 
 import * as z from "zod";
-import { UpdateSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useState, useTransition } from "react";
@@ -19,12 +18,53 @@ import {
   FormDescription,
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
-import { CardWrapper } from "../_components/card-wrapper";
 import { Button } from "@/components/ui/button";
 import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
 import { updateAction } from "./action";
+
+export const UpdateSchema = z
+  .object({
+    password: z.optional(
+      z.string().min(6, {
+        message: "Minimum 6 characters required",
+      })
+    ),
+    newPassword: z.optional(
+      z.string().min(6, {
+        message: "Minimum 6 characters required",
+      })
+    ),
+    name: z.optional(z.string()),
+    isTwoFactorEnabled: z.optional(z.boolean()),
+  })
+  .refine(
+    (data) => {
+      if (data.password && !data.newPassword) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "New password is required!",
+      path: ["newPassword"],
+    }
+  )
+  .refine(
+    (data) => {
+      if (data.newPassword && !data.password) {
+        return false;
+      }
+
+      return true;
+    },
+    {
+      message: "Password is required!",
+      path: ["password"],
+    }
+  );
 
 export const UpdateForm = () => {
   const user = useCurrentUser();
@@ -58,11 +98,7 @@ export const UpdateForm = () => {
   };
 
   return (
-    <CardWrapper
-      headerLabel="Update account"
-      backButtonLabel="Back"
-      backButtonHref="/"
-    >
+    <>
       {!user?.isOAuth ? (
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
@@ -152,6 +188,6 @@ export const UpdateForm = () => {
       ) : (
         <ErrorMessage message="OAuth accounts cannot update data!" />
       )}
-    </CardWrapper>
+    </>
   );
 };

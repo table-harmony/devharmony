@@ -1,8 +1,3 @@
-import Link from "next/link";
-
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
-import { Icons } from "@/components/icons";
 import {
   PageActions,
   PageHeader,
@@ -18,7 +13,6 @@ export default function Home() {
         Share and collaborate repositories while engaging in a Discord-like
         community.
       </PageHeaderDescription>
-      <PageActions></PageActions>
     </PageHeader>
   );
 }
