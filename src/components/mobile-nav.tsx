@@ -10,7 +10,8 @@ import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { AlignLeftIcon, CatIcon } from "lucide-react";
+import { AlignLeftIcon } from "lucide-react";
+import { Icons } from "./icons";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
@@ -32,7 +33,7 @@ export function MobileNav() {
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          <CatIcon className="mr-2 h-4 w-4" />
+          <Icons.logo className="mr-2 h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">

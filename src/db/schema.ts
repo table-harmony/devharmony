@@ -10,6 +10,7 @@ import {
 import type { AdapterAccount } from "@auth/core/adapters";
 import { v4 as uuidv4 } from "uuid";
 import crypto from "crypto";
+import { siteConfig } from "@/config/site";
 
 export const userRole = pgEnum("role", ["USER", "ADMIN"]);
 
@@ -21,9 +22,7 @@ export const users = pgTable("user", {
   password: text("password"),
   email: text("email").unique().notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image")
-    .default("https://cdn-icons-png.flaticon.com/512/1531/1531344.png")
-    .notNull(),
+  image: text("image").default(siteConfig.ogImage).notNull(),
   role: userRole("role").default("USER").notNull(),
   isTwoFactorEnabled: boolean("isTwoFactorEnabled").default(false).notNull(),
 });

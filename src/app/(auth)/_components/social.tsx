@@ -1,8 +1,8 @@
 "use client";
 
+import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { DEFAULT_LOGIN_REDIRECT } from "@/lib/auth/routes";
-import { ChromeIcon, GithubIcon } from "lucide-react";
 import { signIn } from "next-auth/react";
 
 export const Social = () => {
@@ -20,7 +20,7 @@ export const Social = () => {
         variant="outline"
         onClick={() => onClick("google")}
       >
-        <ChromeIcon className="mr-2 h-4 w-4" /> Google
+        <Icons.google className="mr-2 h-4 w-4" /> Google
       </Button>
       <Button
         size="lg"
@@ -28,7 +28,7 @@ export const Social = () => {
         variant="outline"
         onClick={() => onClick("github")}
       >
-        <GithubIcon className="mr-2 h-4 w-4" /> Github
+        <Icons.gitHub className="mr-2 h-4 w-4" /> Github
       </Button>
     </div>
   );
