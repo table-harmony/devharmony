@@ -6,7 +6,7 @@ import { buttonVariants } from "@/components/ui/button";
 
 export function SiteFooter() {
   return (
-    <footer className="z-50 w-full border-t border-border/40 bg-background py-4 md:px-4 md:py-0">
+    <footer className="py-4 md:px-4 md:py-0">
       <div className="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
           Bagrut project built by{" "}

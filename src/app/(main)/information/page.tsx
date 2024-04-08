@@ -44,13 +44,17 @@ export default function InformationPage() {
               What was used to build the back-end ?
             </AccordionTrigger>
             <AccordionContent>
-              The back-end was built using Node.js with Prisma middleware
-              connected to a MongoDB database.
+              The back-end was built using Node.js with Drizzle middleware
+              connected to a Postgres sql database.
             </AccordionContent>
           </AccordionItem>
         </Accordion>
       </CardContent>
-      <CardFooter></CardFooter>
+      <CardFooter>
+        <div className="text-xs text-muted-foreground">
+          Showing <span className="font-medium">3</span> questions
+        </div>
+      </CardFooter>
     </Card>
   );
 }
