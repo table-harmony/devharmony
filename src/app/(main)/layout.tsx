@@ -1,5 +1,4 @@
-import { Navbar } from "@/components/navigation/navbar";
-import { Separator } from "@/components/ui/separator";
+import { SiteHeader } from "@/components/site-header";
 
 export default function MainLayout({
   children,
@@ -7,12 +6,9 @@ export default function MainLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex flex-col">
-      <>
-        <Navbar />
-        <Separator />
-      </>
-      {children}
-    </div>
+    <>
+      <SiteHeader />
+      <main className="flex-1">{children}</main>
+    </>
   );
 }

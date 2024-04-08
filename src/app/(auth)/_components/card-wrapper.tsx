@@ -9,7 +9,6 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Suspense } from "react";
 
 interface CardWrapperProps {
   children: React.ReactNode;
@@ -27,7 +26,7 @@ export const CardWrapper = ({
   showSocial,
 }: CardWrapperProps) => {
   return (
-    <Card className="min-w-[400px] shadow-md">
+    <Card className="w-full max-w-sm">
       <CardHeader>{headerLabel}</CardHeader>
       <CardContent>{children}</CardContent>
       {showSocial && (
