@@ -2,7 +2,7 @@
 
 import * as z from "zod";
 import bcrypt from "bcryptjs";
-import { UpdateSchema } from "./update-form";
+import { UpdateSchema } from "../_components/update-form";
 
 import { currentUser } from "@/lib/auth/utils";
 

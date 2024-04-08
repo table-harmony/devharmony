@@ -6,10 +6,11 @@ import {
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { currentUser } from "@/lib/auth";
 import { UpdateForm } from "./_components/update-form";
+import { DeleteForm } from "./_components/delete-form";
+import { currentUser } from "@/lib/auth";
 
-export default async function Settings() {
+export default async function SettingsPage() {
   const user = await currentUser();
 
   return (
@@ -20,10 +21,11 @@ export default async function Settings() {
           Manage your account preferences and view or update your data.
         </PageHeaderDescription>
       </PageHeader>
-      <Tabs defaultValue="account" className="mx-auto max-w-md">
-        <TabsList className="grid w-full grid-cols-2">
+      <Tabs defaultValue="account" className="mx-auto max-w-sm">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="update">Update</TabsTrigger>
+          <TabsTrigger value="delete">Delete</TabsTrigger>
         </TabsList>
         <TabsContent value="account">
           <Card>
@@ -71,6 +73,9 @@ export default async function Settings() {
               <UpdateForm />
             </CardContent>
           </Card>
+        </TabsContent>
+        <TabsContent value="delete">
+          <DeleteForm />
         </TabsContent>
       </Tabs>
     </>

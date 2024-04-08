@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { ErrorMessage } from "@/components/error-message";
 import { SuccessMessage } from "@/components/success-message";
 
-import { updateAction } from "./action";
+import { updateAction } from "../_actions/update.action";
 
 export const UpdateSchema = z
   .object({
