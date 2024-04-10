@@ -1,8 +1,9 @@
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 import Link from "next/link";
+
 import { currentUser } from "@/lib/auth";
 
-import { LogOutIcon, SettingsIcon } from "lucide-react";
-
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -12,7 +13,6 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 export const Profile = async () => {
   const user = await currentUser();

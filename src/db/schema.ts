@@ -1,15 +1,16 @@
+import type { AdapterAccount } from "@auth/core/adapters";
+import crypto from "crypto";
 import {
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
+  boolean,
   integer,
   pgEnum,
-  boolean,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
 } from "drizzle-orm/pg-core";
-import type { AdapterAccount } from "@auth/core/adapters";
 import { v4 as uuidv4 } from "uuid";
-import crypto from "crypto";
+
 import { siteConfig } from "@/config/site";
 
 export const userRole = pgEnum("role", ["USER", "ADMIN"]);

@@ -1,15 +1,16 @@
 import "server-only";
 
+import { eq } from "drizzle-orm";
+
 import { db } from "@/db";
 import {
-  twoFactorTokens,
-  verificationTokens,
-  passwordResetTokens,
+  PasswordResetToken,
   TwoFactorToken,
   VerificationToken,
-  PasswordResetToken,
+  passwordResetTokens,
+  twoFactorTokens,
+  verificationTokens,
 } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
 import type { TokenDto } from "@/use-cases";
 

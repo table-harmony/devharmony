@@ -1,15 +1,20 @@
 import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header";
+import {
   Accordion,
   AccordionContent,
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
-import { Card, CardContent } from "@/components/ui/card";
 import {
-  PageHeader,
-  PageHeaderDescription,
-  PageHeaderHeading,
-} from "@/components/page-header";
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+} from "@/components/ui/card";
 
 export default function InformationPage() {
   return (
@@ -17,7 +22,7 @@ export default function InformationPage() {
       <PageHeader>
         <PageHeaderHeading>FAQ</PageHeaderHeading>
         <PageHeaderDescription>
-          Explore these FAQ about TableHarmony.
+          Explore these frequently asked questions about TableHarmony.
         </PageHeaderDescription>
       </PageHeader>
       <Card className="m-4">
@@ -43,8 +48,8 @@ export default function InformationPage() {
                 What was used to build the back-end ?
               </AccordionTrigger>
               <AccordionContent>
-                The back-end was built using Node.js with Drizzle middleware
-                connected to a Postgres sql database.
+                The back-end was built using Node.js with Drizzle orm connected
+                to a Postgres sql database.
               </AccordionContent>
             </AccordionItem>
           </Accordion>

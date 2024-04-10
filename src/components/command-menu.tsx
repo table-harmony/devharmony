@@ -1,6 +1,5 @@
 "use client";
 
-import { useRouter } from "next/navigation";
 import {
   LaptopIcon,
   LinkIcon,
@@ -9,9 +8,9 @@ import {
   SunIcon,
 } from "lucide-react";
 import { useTheme } from "next-themes";
+import { useRouter } from "next/navigation";
+import { useCallback, useState } from "react";
 
-import { docsConfig } from "@/config/docs";
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   CommandDialog,
@@ -22,14 +21,13 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { useCallback, useState } from "react";
-import { useCurrentRole } from "@/hooks/use-current-role";
+
+import { docsConfig } from "@/config/docs";
 
 export function CommandMenu() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { setTheme } = useTheme();
-  const role = useCurrentRole();
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false);
@@ -40,9 +38,7 @@ export function CommandMenu() {
     <>
       <Button
         variant="outline"
-        className={cn(
-          "relative h-8 w-full rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground md:w-64 lg:w-96"
-        )}
+        className="h-8 w-full md:w-64 lg:w-96 rounded-md"
         onClick={() => setOpen(true)}
       >
         <SearchIcon className="w-4 h-4 mr-2" />

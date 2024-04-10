@@ -1,8 +1,9 @@
 import "server-only";
 
+import { eq } from "drizzle-orm";
+
 import { db } from "@/db";
 import { Account, accounts } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
 import type { AccountDto } from "@/use-cases";
 

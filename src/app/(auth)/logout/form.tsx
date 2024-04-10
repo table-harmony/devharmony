@@ -1,8 +1,9 @@
 "use client";
 
 import { CardWrapper } from "../_components/card-wrapper";
-import { Button } from "@/components/ui/button";
 import { signOut } from "next-auth/react";
+
+import { Button } from "@/components/ui/button";
 
 export const LogoutForm = () => {
   return (

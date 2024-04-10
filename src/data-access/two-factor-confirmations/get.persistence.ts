@@ -1,8 +1,9 @@
 import "server-only";
 
+import { eq } from "drizzle-orm";
+
 import { db } from "@/db";
 import { TwoFactorConfirmation, twoFactorConfirmations } from "@/db/schema";
-import { eq } from "drizzle-orm";
 
 import type { TwoFactorConfirmationDto } from "@/use-cases";
 

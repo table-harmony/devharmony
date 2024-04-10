@@ -1,33 +1,32 @@
 "use server";
 
-import * as z from "zod";
-import { AuthError } from "next-auth";
-
 import { LoginSchema } from "../schemas";
-import { signIn } from "@/lib/auth";
+import { AuthError } from "next-auth";
+import * as z from "zod";
 
 import {
-  getUserByCredentialsUseCase,
-  getTokenByEmailUseCase,
-  createTokenUseCase,
-  deleteTokenByEmailUseCase,
-  createTwoFactorConfirmationUseCase,
-} from "@/use-cases";
-
-import {
-  getUserByEmail,
-  createVerificationToken,
-  getVerificationTokenByEmail,
-  deleteVerificationToken,
+  createTwoFactorConfirmation,
   createTwoFactorToken,
-  getTwoFactorTokenByEmail,
+  createVerificationToken,
+  deleteTwoFactorConfirmation,
   deleteTwoFactorToken,
   deleteTwoFactorTokenByEmail,
-  createTwoFactorConfirmation,
+  deleteVerificationToken,
   getTwoFactorConfirmationByUser,
-  deleteTwoFactorConfirmation,
+  getTwoFactorTokenByEmail,
+  getUserByEmail,
+  getVerificationTokenByEmail,
 } from "@/data-access";
 
+import {
+  createTokenUseCase,
+  createTwoFactorConfirmationUseCase,
+  deleteTokenByEmailUseCase,
+  getTokenByEmailUseCase,
+  getUserByCredentialsUseCase,
+} from "@/use-cases";
+
+import { signIn } from "@/lib/auth";
 import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/resend";
 
 export const loginAction = async (values: z.infer<typeof LoginSchema>) => {

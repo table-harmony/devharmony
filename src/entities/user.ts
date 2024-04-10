@@ -1,5 +1,6 @@
-import type { UserRole } from "@/use-cases";
 import bcrypt from "bcryptjs";
+
+import type { UserRole } from "@/use-cases";
 
 export class UserEntity {
   private id?: string;

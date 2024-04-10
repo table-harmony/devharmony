@@ -1,16 +1,16 @@
 "use server";
 
-import * as z from "zod";
-
 import { ResetSchema } from "../schemas";
+import * as z from "zod";
 
 import {
   createPasswordResetToken,
-  getUserByEmail,
   deletePasswordResetToken,
   getPasswordResetTokenByEmail,
+  getUserByEmail,
 } from "@/data-access";
-import { getUserByEmailUseCase, createTokenUseCase } from "@/use-cases";
+
+import { createTokenUseCase, getUserByEmailUseCase } from "@/use-cases";
 
 import { sendPasswordResetTokenEmail } from "@/lib/resend";
 

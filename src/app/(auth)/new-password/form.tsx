@@ -1,14 +1,16 @@
 "use client";
 
-import * as z from "zod";
+import { CardWrapper } from "../_components/card-wrapper";
 import { NewPasswordSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
-
-import { Suspense, useState, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
+import { Suspense, useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
+import * as z from "zod";
 
-import { Input } from "@/components/ui/input";
+import { ErrorMessage } from "@/components/error-message";
+import { SuccessMessage } from "@/components/success-message";
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -17,10 +19,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { CardWrapper } from "../_components/card-wrapper";
-import { Button } from "@/components/ui/button";
-import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
+import { Input } from "@/components/ui/input";
 
 import { newPasswordAction } from "./action";
 

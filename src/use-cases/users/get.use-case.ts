@@ -1,5 +1,6 @@
 import bcrypt from "bcryptjs";
-import type { GetUser, UserDto, GetUserByEmail, GetUsers } from "@/use-cases";
+
+import type { GetUser, GetUserByEmail, GetUsers, UserDto } from "@/use-cases";
 
 /**
  * @throws throws an error if user does not exist

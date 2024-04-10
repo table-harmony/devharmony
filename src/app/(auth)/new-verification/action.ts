@@ -1,18 +1,18 @@
 "use server";
 
 import {
+  deleteVerificationToken,
   getUser,
-  updateUser,
   getUserByEmail,
   getVerificationTokenByToken,
-  deleteVerificationToken,
+  updateUser,
 } from "@/data-access";
 
 import {
+  deleteTokenUseCase,
+  getTokenByTokenUseCase,
   getUserByEmailUseCase,
   markEmailAsVerifiedUseCase,
-  getTokenByTokenUseCase,
-  deleteTokenUseCase,
 } from "@/use-cases";
 
 export const newVerificationAction = async (token: string) => {

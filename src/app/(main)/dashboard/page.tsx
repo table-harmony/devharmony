@@ -4,13 +4,13 @@ import {
   PageHeaderHeading,
 } from "@/components/page-header";
 
-export default function AdminPage() {
+export default function DashboardPage() {
   return (
     <>
       <PageHeader>
-        <PageHeaderHeading>Admin</PageHeaderHeading>
+        <PageHeaderHeading>Dashboard</PageHeaderHeading>
         <PageHeaderDescription>
-          Administer and access comprehensive database records effortlessly.
+          Access comprehensive database records effortlessly.
         </PageHeaderDescription>
       </PageHeader>
     </>
