@@ -16,7 +16,7 @@ export async function markEmailAsVerifiedUseCase(
     getUser: GetUser;
     updateUser: UpdateUser;
   },
-  data: { userId: string }
+  data: { userId: number }
 ): Promise<UserDto> {
   const user = await context.getUser(data.userId);
 

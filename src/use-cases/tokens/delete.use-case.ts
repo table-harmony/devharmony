@@ -4,7 +4,7 @@ export async function deleteTokenUseCase(
   context: {
     deleteToken: DeleteToken;
   },
-  data: { id: string }
+  data: { id: number }
 ) {
   try {
     await context.deleteToken(data.id);

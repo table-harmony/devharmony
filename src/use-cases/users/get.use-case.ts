@@ -9,7 +9,7 @@ export async function getUserUseCase(
   context: {
     getUser: GetUser;
   },
-  data: { id: string }
+  data: { id: number }
 ): Promise<UserDto> {
   const foundUser = await context.getUser(data.id);
 

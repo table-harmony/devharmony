@@ -1,9 +1,10 @@
-import { TwoFactorConfirmationEntity } from "@/entities";
 import type {
   CreateTwoFactorConfirmation,
   DeleteTwoFactorConfirmation,
   GetTwoFactorConfirmationByUser,
 } from "@/use-cases";
+
+import { TwoFactorConfirmationEntity } from "@/entities";
 
 export async function createTwoFactorConfirmationUseCase(
   context: {
@@ -11,7 +12,7 @@ export async function createTwoFactorConfirmationUseCase(
     createTwoFactorConfirmation: CreateTwoFactorConfirmation;
     deleteTwoFactorConfirmation: DeleteTwoFactorConfirmation;
   },
-  data: { userId: string }
+  data: { userId: number }
 ): Promise<void> {
   try {
     const existingConfirmation = await context.getTwoFactorConfirmationByUser(

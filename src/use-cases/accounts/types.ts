@@ -1,5 +1,5 @@
 export type AccountDto = {
-  userId: string;
+  userId: number;
   type: string;
   provider: string;
   providerAccountId: string;
@@ -13,6 +13,6 @@ export type AccountDto = {
 };
 
 export type GetAccountByUser = (
-  userId: string
+  userId: number
 ) => Promise<AccountDto | undefined>;
 export type GetAccounts = () => Promise<AccountDto[]>;

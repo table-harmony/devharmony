@@ -14,6 +14,8 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 
+import { Icons } from "./icons";
+
 export const Profile = async () => {
   const user = await currentUser();
 
@@ -35,13 +37,13 @@ export const Profile = async () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/settings">
-            <SettingsIcon className="h-4 w-4 mr-2" /> Settings
+            <Icons.settings className="h-4 w-4 mr-2" /> Settings
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/api/auth/signout">
-            <LogOutIcon className="h-4 w-4 mr-2" /> Logout
+            <Icons.logout className="h-4 w-4 mr-2" /> Logout
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

@@ -1,15 +1,13 @@
 import bcrypt from "bcryptjs";
 
-import type { UserRole } from "@/use-cases";
-
 export class UserEntity {
-  private id?: string;
+  private id?: number;
   private name?: string;
   private password?: string | null;
   private email?: string;
   private emailVerified?: Date | null;
   private image?: string;
-  private role?: UserRole;
+  private roles?: string[];
   private isTwoFactorEnabled?: boolean;
 
   constructor({
@@ -19,16 +17,16 @@ export class UserEntity {
     password,
     emailVerified,
     image,
-    role,
+    roles,
     isTwoFactorEnabled,
   }: {
-    id?: string;
+    id?: number;
     name?: string;
     password?: string | null;
     email?: string;
     emailVerified?: Date | null;
     image?: string;
-    role?: UserRole;
+    roles?: string[];
     isTwoFactorEnabled?: boolean;
   }) {
     this.id = id;
@@ -37,7 +35,7 @@ export class UserEntity {
     this.email = email;
     this.emailVerified = emailVerified;
     this.image = image;
-    this.role = role;
+    this.roles = roles;
     this.isTwoFactorEnabled = isTwoFactorEnabled;
   }
 
@@ -65,8 +63,8 @@ export class UserEntity {
     return this.image;
   }
 
-  getRole() {
-    return this.role;
+  getRoles() {
+    return this.roles;
   }
 
   getIsTwoFactorEnabled() {
@@ -99,7 +97,7 @@ export class UserEntity {
       this.email === undefined ||
       this.emailVerified === undefined ||
       this.image === undefined ||
-      this.role === undefined ||
+      this.roles === undefined ||
       this.isTwoFactorEnabled === undefined
     )
       throw new Error("Expected user to have a data!");
@@ -111,7 +109,7 @@ export class UserEntity {
       email: this.email,
       emailVerified: this.emailVerified,
       image: this.image,
-      role: this.role,
+      roles: this.roles,
       isTwoFactorEnabled: this.isTwoFactorEnabled,
     };
   }
@@ -126,7 +124,7 @@ export class UserEntity {
       email: this.email,
       emailVerified: this.emailVerified,
       image: this.image,
-      role: this.role,
+      roles: this.roles,
       isTwoFactorEnabled: this.isTwoFactorEnabled,
     };
   }

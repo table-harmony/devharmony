@@ -8,7 +8,7 @@ export async function getTwoFactorConfirmationByUserUseCase(
   context: {
     getTwoFactorConfirmationByUser: GetTwoFactorConfirmationByUser;
   },
-  data: { userId: string }
+  data: { userId: number }
 ): Promise<TwoFactorConfirmationDto | undefined> {
   try {
     const foundConfirmation = await context.getTwoFactorConfirmationByUser(

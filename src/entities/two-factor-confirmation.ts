@@ -1,8 +1,8 @@
 export class TwoFactorConfirmationEntity {
-  private id?: string;
-  private userId: string;
+  private id?: number;
+  private userId: number;
 
-  constructor({ id, userId }: { id?: string; userId: string }) {
+  constructor({ id, userId }: { id?: number; userId: number }) {
     this.id = id;
     this.userId = userId;
   }

@@ -1,8 +1,10 @@
+import { UserRole } from "@/use-cases";
+
 export interface NavItem {
   title: string;
   href?: string;
   disabled?: boolean;
-  icon?: React.ReactNode;
+  authorization?: UserRole;
 }
 
 export interface NavItemWithChildren extends NavItem {

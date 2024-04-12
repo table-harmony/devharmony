@@ -15,7 +15,7 @@ export function toUserDtoMapper(user: User): UserDto {
     password: user.password,
     emailVerified: user.emailVerified,
     image: user.image,
-    role: user.role,
+    roles: user.roles,
     isTwoFactorEnabled: user.isTwoFactorEnabled,
   };
 }
@@ -23,7 +23,7 @@ export function toUserDtoMapper(user: User): UserDto {
 /**
  * @throws throws an error if user was not found
  */
-export async function getUser(userId: string): Promise<UserDto> {
+export async function getUser(userId: number): Promise<UserDto> {
   const foundUser = await db.query.users.findFirst({
     where: eq(users.id, userId),
   });

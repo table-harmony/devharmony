@@ -1,3 +1,5 @@
+import { Icons } from "@/components/icons";
+
 import { MainNavItem, SidebarNavItem } from "@/types/nav";
 
 interface DocsConfig {
@@ -14,6 +16,16 @@ export const docsConfig: DocsConfig = {
     {
       title: "Information",
       href: "/information",
+    },
+    {
+      title: "Settings",
+      href: "/settings",
+      authorization: "USER",
+    },
+    {
+      title: "Dashboard",
+      href: "/dashboard",
+      authorization: "ADMIN",
     },
   ],
   sidebarNav: [],

@@ -4,7 +4,7 @@ export async function getAccountByUserUseCase(
   context: {
     getAccountByUser: GetAccountByUser;
   },
-  data: { userId: string }
+  data: { userId: number }
 ): Promise<AccountDto | undefined> {
   try {
     const foundAccount = await context.getAccountByUser(data.userId);

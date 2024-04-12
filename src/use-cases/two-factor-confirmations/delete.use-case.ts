@@ -7,7 +7,7 @@ export async function deleteTwoFactorConfirmationUseCase(
   context: {
     deleteTwoFactorConfirmation: DeleteTwoFactorConfirmation;
   },
-  data: { id: string }
+  data: { id: number }
 ): Promise<void> {
   try {
     await context.deleteTwoFactorConfirmation(data.id);
@@ -20,7 +20,7 @@ export async function deleteTwoFactorConfirmationByUserUseCase(
   context: {
     deleteTwoFactorConfirmationByUser: DeleteTwoFactorConfirmationByUser;
   },
-  data: { userId: string }
+  data: { userId: number }
 ): Promise<void> {
   try {
     await context.deleteTwoFactorConfirmationByUser(data.userId);

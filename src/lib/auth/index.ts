@@ -47,7 +47,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       try {
         const existingUser = await getUserUseCase(
           { getUser: getUser },
-          { id: user.id as string }
+          { id: user.id as number }
         );
 
         // prevent sign in without email verification
@@ -76,7 +76,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       if (token.role && session.user) {
-        session.user.role = token.role as UserRole;
+        session.user.roles = token.roles as string[];
       }
 
       if (token.isTwoFactorEnabled && session.user)
@@ -96,7 +96,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       try {
         const existingUser = await getUserUseCase(
           { getUser: getUser },
-          { id: token.sub as string }
+          { id: token.sub as number }
         );
 
         const account = await getAccountByUserUseCase(
@@ -105,7 +105,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         );
 
         token.isOAuth = !!account;
-        token.role = existingUser.role;
+        token.roles = existingUser.roles;
         token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       } catch (error) {
         return token;

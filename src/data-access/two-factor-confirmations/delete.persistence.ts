@@ -5,14 +5,14 @@ import { eq } from "drizzle-orm";
 import { db } from "@/db";
 import { twoFactorConfirmations } from "@/db/schema";
 
-export async function deleteTwoFactorConfirmation(id: string): Promise<void> {
+export async function deleteTwoFactorConfirmation(id: number): Promise<void> {
   await db
     .delete(twoFactorConfirmations)
     .where(eq(twoFactorConfirmations.id, id));
 }
 
 export async function deleteTwoFactorConfirmationByUser(
-  userId: string
+  userId: number
 ): Promise<void> {
   await db
     .delete(twoFactorConfirmations)
