@@ -19,7 +19,7 @@ export function toTwoFactorConfirmationDtoMapper(
  * @throws throws an error if two factor confirmation was not found
  */
 export async function getTwoFactorConfirmation(
-  id: number
+  id: string
 ): Promise<TwoFactorConfirmation> {
   const foundConfirmation = await db.query.twoFactorConfirmations.findFirst({
     where: eq(twoFactorConfirmations.id, id),
@@ -31,7 +31,7 @@ export async function getTwoFactorConfirmation(
 }
 
 export async function getTwoFactorConfirmationByUser(
-  userId: number
+  userId: string
 ): Promise<TwoFactorConfirmation | undefined> {
   const foundConfirmation = await db.query.twoFactorConfirmations.findFirst({
     where: eq(twoFactorConfirmations.userId, userId),

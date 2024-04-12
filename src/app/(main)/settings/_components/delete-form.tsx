@@ -3,6 +3,17 @@
 import { useState, useTransition } from "react";
 
 import { Button } from "@/components/ui/button";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
 import { ErrorMessage } from "@/components/error-message";
 import {
   Card,
@@ -30,28 +41,27 @@ export const DeleteForm = () => {
   };
 
   return (
-    <>
-      <Card>
-        <CardHeader>Delete Account</CardHeader>
-        <CardContent className="space-y-4">
-          <form onSubmit={onSubmit}>
-            <Button
-              variant="destructive"
-              className="w-full"
-              type="submit"
-              disabled={isPending}
-            >
-              Delete
-            </Button>
-            <ErrorMessage message={error} />
-          </form>
-        </CardContent>
-        <CardFooter>
-          <p className="font-medium text-sm text-muted-foreground">
-            This action is not revertable.
-          </p>
-        </CardFooter>
-      </Card>
-    </>
+    <AlertDialog>
+      <AlertDialogTrigger asChild>
+        <Button variant="destructive" className="w-full">
+          Delete
+        </Button>
+      </AlertDialogTrigger>
+      <AlertDialogContent>
+        <AlertDialogHeader>
+          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+          <AlertDialogDescription>
+            This will permanently delete your account and remove your data from
+            our servers.
+          </AlertDialogDescription>
+        </AlertDialogHeader>
+        <AlertDialogFooter>
+          <AlertDialogCancel>Cancel</AlertDialogCancel>
+          <AlertDialogAction onClick={() => onSubmit()}>
+            Continue
+          </AlertDialogAction>
+        </AlertDialogFooter>
+      </AlertDialogContent>
+    </AlertDialog>
   );
 };

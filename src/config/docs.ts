@@ -1,5 +1,3 @@
-import { Icons } from "@/components/icons";
-
 import { MainNavItem, SidebarNavItem } from "@/types/nav";
 
 interface DocsConfig {

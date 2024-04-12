@@ -14,8 +14,6 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-import { Icons } from "./icons";
-
 export const Profile = async () => {
   const user = await currentUser();
 
@@ -37,13 +35,13 @@ export const Profile = async () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/settings">
-            <Icons.settings className="h-4 w-4 mr-2" /> Settings
+            <SettingsIcon className="h-4 w-4 mr-2" /> Settings
           </Link>
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/api/auth/signout">
-            <Icons.logout className="h-4 w-4 mr-2" /> Logout
+            <LogOutIcon className="h-4 w-4 mr-2" /> Logout
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

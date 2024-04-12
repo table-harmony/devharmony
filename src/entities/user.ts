@@ -1,17 +1,14 @@
-<<<<<<< HEAD
-=======
 import type { UserRole } from "@/use-cases";
->>>>>>> parent of 9ecaca5 (prettier)
 import bcrypt from "bcryptjs";
 
 export class UserEntity {
-  private id?: number;
+  private id?: string;
   private name?: string;
   private password?: string | null;
   private email?: string;
   private emailVerified?: Date | null;
   private image?: string;
-  private roles?: string[];
+  private role?: UserRole;
   private isTwoFactorEnabled?: boolean;
 
   constructor({
@@ -21,16 +18,16 @@ export class UserEntity {
     password,
     emailVerified,
     image,
-    roles,
+    role,
     isTwoFactorEnabled,
   }: {
-    id?: number;
+    id?: string;
     name?: string;
     password?: string | null;
     email?: string;
     emailVerified?: Date | null;
     image?: string;
-    roles?: string[];
+    role?: UserRole;
     isTwoFactorEnabled?: boolean;
   }) {
     this.id = id;
@@ -39,7 +36,7 @@ export class UserEntity {
     this.email = email;
     this.emailVerified = emailVerified;
     this.image = image;
-    this.roles = roles;
+    this.role = role;
     this.isTwoFactorEnabled = isTwoFactorEnabled;
   }
 
@@ -67,8 +64,8 @@ export class UserEntity {
     return this.image;
   }
 
-  getRoles() {
-    return this.roles;
+  getRole() {
+    return this.role;
   }
 
   getIsTwoFactorEnabled() {
@@ -101,7 +98,7 @@ export class UserEntity {
       this.email === undefined ||
       this.emailVerified === undefined ||
       this.image === undefined ||
-      this.roles === undefined ||
+      this.role === undefined ||
       this.isTwoFactorEnabled === undefined
     )
       throw new Error("Expected user to have a data!");
@@ -113,7 +110,7 @@ export class UserEntity {
       email: this.email,
       emailVerified: this.emailVerified,
       image: this.image,
-      roles: this.roles,
+      role: this.role,
       isTwoFactorEnabled: this.isTwoFactorEnabled,
     };
   }
@@ -128,7 +125,7 @@ export class UserEntity {
       email: this.email,
       emailVerified: this.emailVerified,
       image: this.image,
-      roles: this.roles,
+      role: this.role,
       isTwoFactorEnabled: this.isTwoFactorEnabled,
     };
   }

@@ -1,24 +1,24 @@
 export type CreateTwoFactorConfirmationDto = {
-  userId: number;
+  userId: string;
 };
 
 export type TwoFactorConfirmationDto = {
-  id: number;
-  userId: number;
+  id: string;
+  userId: string;
 };
 
 export type GetTwoFactorConfirmation = (
-  id: number
+  id: string
 ) => Promise<TwoFactorConfirmationDto>;
 export type GetTwoFactorConfirmations = () => Promise<
   TwoFactorConfirmationDto[]
 >;
 export type GetTwoFactorConfirmationByUser = (
-  userId: number
+  userId: string
 ) => Promise<TwoFactorConfirmationDto | undefined>;
-export type DeleteTwoFactorConfirmation = (id: number) => Promise<void>;
+export type DeleteTwoFactorConfirmation = (id: string) => Promise<void>;
 export type DeleteTwoFactorConfirmationByUser = (
-  userId: number
+  userId: string
 ) => Promise<void>;
 export type CreateTwoFactorConfirmation = (
   twoFactorConfirmation: CreateTwoFactorConfirmationDto

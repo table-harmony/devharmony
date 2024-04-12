@@ -12,7 +12,7 @@ export async function createTwoFactorConfirmationUseCase(
     createTwoFactorConfirmation: CreateTwoFactorConfirmation;
     deleteTwoFactorConfirmation: DeleteTwoFactorConfirmation;
   },
-  data: { userId: number }
+  data: { userId: string }
 ): Promise<void> {
   try {
     const existingConfirmation = await context.getTwoFactorConfirmationByUser(

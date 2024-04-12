@@ -1,3 +1,7 @@
+import { UserRole } from "@/db/schema";
+
+export type { UserRole };
+
 export type CreateUserDto = {
   name: string;
   email: string;
@@ -5,30 +9,30 @@ export type CreateUserDto = {
 };
 
 export type UserDto = {
-  id: number;
+  id: string;
   name: string;
   password: string | null;
   email: string;
   emailVerified: Date | null;
   image: string;
-  roles: string[];
+  role: UserRole;
   isTwoFactorEnabled: boolean;
 };
 
 export type UpdateUserDto = {
-  id: number;
+  id: string;
   name?: string;
   password?: string | null;
   email?: string;
   emailVerified?: Date | null;
   image?: string;
-  roles?: string[];
+  role?: UserRole;
   isTwoFactorEnabled?: boolean;
 };
 
 export type CreateUser = (user: CreateUserDto) => Promise<void>;
-export type DeleteUser = (userId: number) => Promise<void>;
+export type DeleteUser = (userId: string) => Promise<void>;
 export type UpdateUser = (user: UpdateUserDto) => Promise<void>;
-export type GetUser = (userId: number) => Promise<UserDto>;
+export type GetUser = (userId: string) => Promise<UserDto>;
 export type GetUsers = () => Promise<UserDto[]>;
 export type GetUserByEmail = (email: string) => Promise<UserDto | undefined>;

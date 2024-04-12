@@ -23,7 +23,7 @@ export function toAccountDtoMapper(account: Account): AccountDto {
 }
 
 export async function getAccountByUser(
-  userId: number
+  userId: string
 ): Promise<AccountDto | undefined> {
   const foundAccount = await db.query.accounts.findFirst({
     where: eq(accounts.userId, userId),

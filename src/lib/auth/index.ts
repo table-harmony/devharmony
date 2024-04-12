@@ -1,11 +1,12 @@
 import { db } from "@/db";
-import type { UserRole } from "@/db/schema";
 
 import NextAuth from "next-auth";
 import { authConfig } from "./config";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import {
+  UserDto,
+  UserRole,
   getUserUseCase,
   markEmailAsVerifiedUseCase,
   getAccountByUserUseCase,
@@ -46,7 +47,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       try {
         const existingUser = await getUserUseCase(
           { getUser: getUser },
-          { id: user.id as number }
+          { id: user.id as string }
         );
 
         // prevent sign in without email verification
@@ -75,14 +76,14 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       }
 
       if (token.role && session.user) {
-        session.user.roles = token.roles as string[];
+        session.user.role = token.role as UserRole;
       }
 
       if (token.isTwoFactorEnabled && session.user)
         session.user.isTwoFactorEnabled = token.isTwoFactorEnabled as boolean;
 
       if (session.user) {
-        session.user.name = token.name;
+        session.user.name = token.name as string;
         session.user.email = token.email as string;
         session.user.isOAuth = token.isOAuth as boolean;
       }
@@ -95,7 +96,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
       try {
         const existingUser = await getUserUseCase(
           { getUser: getUser },
-          { id: token.sub as number }
+          { id: token.sub as string }
         );
 
         const account = await getAccountByUserUseCase(
@@ -104,7 +105,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         );
 
         token.isOAuth = !!account;
-        token.roles = existingUser.roles;
+        token.role = existingUser.role;
         token.isTwoFactorEnabled = existingUser.isTwoFactorEnabled;
       } catch (error) {
         return token;

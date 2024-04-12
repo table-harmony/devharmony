@@ -53,18 +53,21 @@ export function CommandMenu() {
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Pages">
-            {docsConfig.mainNav.map((navItem) => (
-              <CommandItem
-                key={navItem.href}
-                value={navItem.title}
-                onSelect={() => {
-                  runCommand(() => router.push(navItem.href as string));
-                }}
-              >
-                <LinkIcon className="mr-2 h-4 w-4" />
-                {navItem.title}
-              </CommandItem>
-            ))}
+            {docsConfig.mainNav.map(
+              (navItem) =>
+                navItem.authorization === role && (
+                  <CommandItem
+                    key={navItem.href}
+                    value={navItem.title}
+                    onSelect={() => {
+                      runCommand(() => router.push(navItem.href as string));
+                    }}
+                  >
+                    <LinkIcon className="mr-2 h-4 w-4" />
+                    {navItem.title}
+                  </CommandItem>
+                )
+            )}
           </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Theme">
