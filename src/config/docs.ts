@@ -18,12 +18,12 @@ export const docsConfig: DocsConfig = {
     {
       title: "Settings",
       href: "/settings",
-      authorization: "USER",
+      authorization: ["USER", "ADMIN"],
     },
     {
       title: "Dashboard",
       href: "/dashboard",
-      authorization: "ADMIN",
+      authorization: ["ADMIN"],
     },
   ],
   sidebarNav: [],

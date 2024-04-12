@@ -14,29 +14,15 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { ErrorMessage } from "@/components/error-message";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-} from "@/components/ui/card";
 
 import { deleteAction } from "../_actions/delete.action";
 
 export const DeleteForm = () => {
-  const [error, setError] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const onSubmit = () => {
-    setError("");
-
     startTransition(() => {
-      deleteAction()
-        .then((data) => {
-          if (data?.error) setError(data.error);
-        })
-        .catch(() => setError("Something went wrong!"));
+      deleteAction();
     });
   };
 

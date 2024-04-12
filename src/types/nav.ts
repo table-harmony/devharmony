@@ -4,7 +4,7 @@ export interface NavItem {
   title: string;
   href?: string;
   disabled?: boolean;
-  authorization?: UserRole;
+  authorization?: UserRole[];
 }
 
 export interface NavItemWithChildren extends NavItem {

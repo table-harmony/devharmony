@@ -55,7 +55,8 @@ export function CommandMenu() {
           <CommandGroup heading="Pages">
             {docsConfig.mainNav.map(
               (navItem) =>
-                navItem.authorization === role && (
+                (!navItem.authorization ||
+                  (role && navItem.authorization.includes(role))) && (
                   <CommandItem
                     key={navItem.href}
                     value={navItem.title}

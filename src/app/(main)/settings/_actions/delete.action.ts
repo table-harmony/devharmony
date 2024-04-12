@@ -16,7 +16,7 @@ export const deleteAction = async () => {
     await deleteUserUseCase({ deleteUser: deleteUser }, { id: user.id });
   } catch (err) {
     const error = err as Error;
-    return { error: error.message };
+    console.log(error.message);
   }
   await signOut();
 };
