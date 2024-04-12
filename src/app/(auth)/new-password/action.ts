@@ -1,18 +1,18 @@
 "use server";
 
-import { NewPasswordSchema } from "../schemas";
 import * as z from "zod";
+import { NewPasswordSchema } from "../schemas";
 
 import {
-  deletePasswordResetToken,
-  getPasswordResetTokenByToken,
   getUserByEmail,
   updateUser,
+  getPasswordResetTokenByToken,
+  deletePasswordResetToken,
 } from "@/data-access";
 
 import {
-  deleteTokenUseCase,
   getTokenByTokenUseCase,
+  deleteTokenUseCase,
   resetPasswordUseCase,
 } from "@/use-cases";
 

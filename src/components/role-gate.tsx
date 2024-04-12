@@ -1,8 +1,6 @@
 import type { UserRole } from "@/use-cases";
-
-import { currentRole } from "@/lib/auth";
-
 import { ErrorMessage } from "@/components/error-message";
+import { currentRole } from "@/lib/auth";
 
 interface RoleGateProps {
   children: React.ReactNode;

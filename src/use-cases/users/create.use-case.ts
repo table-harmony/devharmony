@@ -1,5 +1,4 @@
 import type { CreateUser, CreateUserDto, GetUserByEmail } from "@/use-cases";
-
 import { UserEntity } from "@/entities";
 
 /**

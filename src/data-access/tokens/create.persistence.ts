@@ -2,8 +2,8 @@ import "server-only";
 
 import { db } from "@/db";
 import {
-  passwordResetTokens,
   twoFactorTokens,
+  passwordResetTokens,
   verificationTokens,
 } from "@/db/schema";
 

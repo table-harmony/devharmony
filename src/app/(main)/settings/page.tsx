@@ -3,14 +3,16 @@ import {
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { UserInfo } from "@/components/user-info";
-
-import { DeleteForm } from "./_components/delete-form";
+import { Card, CardContent, CardHeader } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
 import { UpdateForm } from "./_components/update-form";
+import { DeleteForm } from "./_components/delete-form";
+import { currentUser } from "@/lib/auth";
 
 export default async function SettingsPage() {
+  const user = await currentUser();
+
   return (
     <>
       <PageHeader>
@@ -19,17 +21,48 @@ export default async function SettingsPage() {
           Manage your account preferences and view or update your data.
         </PageHeaderDescription>
       </PageHeader>
-      <Tabs defaultValue="view" className="mx-auto max-w-sm">
+      <Tabs defaultValue="account" className="mx-auto max-w-sm">
         <TabsList className="grid w-full grid-cols-3">
-          <TabsTrigger value="view">View</TabsTrigger>
+          <TabsTrigger value="account">Account</TabsTrigger>
           <TabsTrigger value="update">Update</TabsTrigger>
           <TabsTrigger value="delete">Delete</TabsTrigger>
         </TabsList>
-        <TabsContent value="view">
+        <TabsContent value="account">
           <Card>
-            <CardHeader>View Account</CardHeader>
+            <CardHeader>Account Information</CardHeader>
             <CardContent className="space-y-4">
-              <UserInfo />
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <p className="text-sm font-medium">ID</p>
+                <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-muted rounded-md">
+                  {user?.id}
+                </p>
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <p className="text-sm font-medium">Name</p>
+                <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-muted rounded-md">
+                  {user?.name}
+                </p>
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <p className="text-sm font-medium">Email</p>
+                <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-muted rounded-md">
+                  {user?.email}
+                </p>
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <p className="text-sm font-medium">Role</p>
+                <p className="truncate text-xs max-w-[180px] font-mono p-1 bg-muted rounded-md">
+                  {user?.role}
+                </p>
+              </div>
+              <div className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                <p className="text-sm font-medium">Two Factor Authentication</p>
+                <Badge
+                  variant={user?.isTwoFactorEnabled ? "outline" : "destructive"}
+                >
+                  {user?.isTwoFactorEnabled ? "ON" : "OFF"}
+                </Badge>
+              </div>
             </CardContent>
           </Card>
         </TabsContent>
@@ -42,12 +75,7 @@ export default async function SettingsPage() {
           </Card>
         </TabsContent>
         <TabsContent value="delete">
-          <Card>
-            <CardHeader>Delete Account</CardHeader>
-            <CardContent className="space-y-4">
-              <DeleteForm />
-            </CardContent>
-          </Card>
+          <DeleteForm />
         </TabsContent>
       </Tabs>
     </>

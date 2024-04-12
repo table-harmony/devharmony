@@ -1,24 +1,23 @@
-import { DrizzleAdapter } from "@auth/drizzle-adapter";
-import NextAuth from "next-auth";
-
 import { db } from "@/db";
 import type { UserRole } from "@/db/schema";
 
-import {
-  deleteTwoFactorConfirmationByUser,
-  getAccountByUser,
-  getUser,
-  updateUser,
-} from "@/data-access";
+import NextAuth from "next-auth";
+import { authConfig } from "./config";
+import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import {
-  deleteTwoFactorConfirmationByUserUseCase,
-  getAccountByUserUseCase,
   getUserUseCase,
   markEmailAsVerifiedUseCase,
+  getAccountByUserUseCase,
+  deleteTwoFactorConfirmationByUserUseCase,
 } from "@/use-cases";
 
-import { authConfig } from "./config";
+import {
+  getUser,
+  updateUser,
+  getAccountByUser,
+  deleteTwoFactorConfirmationByUser,
+} from "@/data-access";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {

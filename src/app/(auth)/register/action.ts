@@ -1,17 +1,17 @@
 "use server";
 
-import { RegisterSchema } from "../schemas";
 import * as z from "zod";
+import { RegisterSchema } from "../schemas";
+
+import { createUserUseCase, createTokenUseCase } from "@/use-cases";
 
 import {
   createUser,
-  createVerificationToken,
-  deleteVerificationToken,
   getUserByEmail,
+  createVerificationToken,
   getVerificationTokenByEmail,
+  deleteVerificationToken,
 } from "@/data-access";
-
-import { createTokenUseCase, createUserUseCase } from "@/use-cases";
 
 import { sendVerificationEmail } from "@/lib/resend";
 

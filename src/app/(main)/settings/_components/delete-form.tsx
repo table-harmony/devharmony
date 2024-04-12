@@ -1,58 +1,57 @@
 "use client";
 
-import { deleteAction } from "../_actions/delete.action";
-import { useTransition } from "react";
+import { useState, useTransition } from "react";
 
-import {
-  AlertDialog,
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-  AlertDialogTrigger,
-} from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { ErrorMessage } from "@/components/error-message";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
+
+import { deleteAction } from "../_actions/delete.action";
 
 export const DeleteForm = () => {
+  const [error, setError] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
 
   const onSubmit = () => {
+    setError("");
+
     startTransition(() => {
       deleteAction()
         .then((data) => {
-          if (data?.error) console.log(data.error);
+          if (data?.error) setError(data.error);
         })
-        .catch(() => console.log("Something went wrong!"));
+        .catch(() => setError("Something went wrong!"));
     });
   };
 
   return (
-    <AlertDialog>
-      <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="w-full">
-          Delete
-        </Button>
-      </AlertDialogTrigger>
-      <AlertDialogContent>
-        <AlertDialogHeader>
-          <AlertDialogTitle className="text-2xl">
-            Are you absolutely sure?
-          </AlertDialogTitle>
-          <AlertDialogDescription className="font-medium text-muted-foreground">
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </AlertDialogDescription>
-        </AlertDialogHeader>
-        <AlertDialogFooter>
-          <AlertDialogCancel disabled={isPending}>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onSubmit} disabled={isPending}>
-            Confirm
-          </AlertDialogAction>
-        </AlertDialogFooter>
-      </AlertDialogContent>
-    </AlertDialog>
+    <>
+      <Card>
+        <CardHeader>Delete Account</CardHeader>
+        <CardContent className="space-y-4">
+          <form onSubmit={onSubmit}>
+            <Button
+              variant="destructive"
+              className="w-full"
+              type="submit"
+              disabled={isPending}
+            >
+              Delete
+            </Button>
+            <ErrorMessage message={error} />
+          </form>
+        </CardContent>
+        <CardFooter>
+          <p className="font-medium text-sm text-muted-foreground">
+            This action is not revertable.
+          </p>
+        </CardFooter>
+      </Card>
+    </>
   );
 };

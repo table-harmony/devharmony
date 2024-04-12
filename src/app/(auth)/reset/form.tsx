@@ -1,15 +1,12 @@
 "use client";
 
-import { CardWrapper } from "../_components/card-wrapper";
+import * as z from "zod";
 import { ResetSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
 
-import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
@@ -18,7 +15,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
+import { CardWrapper } from "../_components/card-wrapper";
+import { Button } from "@/components/ui/button";
+import { ErrorMessage } from "@/components/error-message";
+import { SuccessMessage } from "@/components/success-message";
 
 import { resetAction } from "./action";
 

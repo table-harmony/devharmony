@@ -1,11 +1,11 @@
 import type { NextAuthConfig } from "next-auth";
+
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
 
+import { getUserByCredentialsUseCase, type UserDto } from "@/use-cases";
 import { getUserByEmail } from "@/data-access";
-
-import { type UserDto, getUserByCredentialsUseCase } from "@/use-cases";
 
 export const authConfig = {
   providers: [

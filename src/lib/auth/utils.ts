@@ -1,6 +1,5 @@
-import { auth } from ".";
-
 import { UserRole } from "@/use-cases";
+import { auth } from ".";
 
 export const currentUser = async () => {
   const session = await auth();

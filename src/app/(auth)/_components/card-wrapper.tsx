@@ -1,16 +1,14 @@
 "use client";
 
 import Link from "next/link";
-
-import { Button } from "@/components/ui/button";
+import { Social } from "./social";
 import {
   Card,
   CardContent,
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-
-import { Social } from "./social";
+import { Button } from "@/components/ui/button";
 
 interface CardWrapperProps {
   children: React.ReactNode;

@@ -1,14 +1,13 @@
 "use server";
 
-import { UpdateSchema } from "../_components/update-form";
-import bcrypt from "bcryptjs";
 import * as z from "zod";
-
-import { getUser, updateUser } from "@/data-access";
-
-import { getUserUseCase, updateUserUseCase } from "@/use-cases";
+import bcrypt from "bcryptjs";
+import { UpdateSchema } from "../_components/update-form";
 
 import { currentUser } from "@/lib/auth/utils";
+
+import { getUserUseCase, updateUserUseCase } from "@/use-cases";
+import { getUser, updateUser } from "@/data-access";
 
 export const updateAction = async (values: z.infer<typeof UpdateSchema>) => {
   const user = await currentUser();

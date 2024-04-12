@@ -1,21 +1,19 @@
-import Link from "next/link";
-
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-
+import Link from "next/link";
 import { Icons } from "@/components/icons";
 import { buttonVariants } from "@/components/ui/button";
 
-import { siteConfig } from "@/config/site";
-
 export function SiteFooter() {
   return (
-    <footer className="mt-4 p-4 bg-muted/60">
-      <div className="container flex flex-col-reverse items-center justify-between gap-4 md:flex-row">
-        <p className="text-balance text-center text-sm leading-loose text-muted-foreground">
-          Bagrut project by <span className="font-medium">Liron kaner.</span>{" "}
-          Source code available on <span className="font-medium">GitHub.</span>
+    <footer className="py-4 md:px-4 md:py-0">
+      <div className="container flex flex-col items-center justify-between gap-4 md:h-20 md:flex-row">
+        <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
+          Bagrut project built by{" "}
+          <span className="font-medium">Liron kaner.</span> Source code
+          available on <span className="font-medium">GitHub.</span>
         </p>
-        <nav className="flex gap-2">
+        <nav className="hidden md:flex md:gap-2">
           <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
             <div
               className={cn(

@@ -5,17 +5,14 @@ import {
   PageHeaderHeading,
 } from "@/components/page-header";
 
-export default async function Home() {
+export default function Home() {
   return (
-    <>
-      <PageHeader>
-        <PageHeaderHeading>Welcome to TableHarmony</PageHeaderHeading>
-        <PageHeaderDescription>
-          Share, Collaborate, and Engage with Ease. Accessible, Open Source, and
-          Fun-filled.
-        </PageHeaderDescription>
-        <PageActions></PageActions>
-      </PageHeader>
-    </>
+    <PageHeader>
+      <PageHeaderHeading>Welcome to TableHarmony</PageHeaderHeading>
+      <PageHeaderDescription>
+        Share and collaborate repositories while engaging in a Discord-like
+        community.
+      </PageHeaderDescription>
+    </PageHeader>
   );
 }

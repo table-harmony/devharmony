@@ -1,27 +1,28 @@
 "use client";
 
-import { updateAction } from "../_actions/update.action";
+import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
+
 import { useState, useTransition } from "react";
 import { useForm } from "react-hook-form";
-import * as z from "zod";
+import { useCurrentUser } from "@/hooks/use-current-user";
 
-import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
-import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
-import { Input } from "@/components/ui/input";
 import { Switch } from "@/components/ui/switch";
+import { Button } from "@/components/ui/button";
+import { ErrorMessage } from "@/components/error-message";
+import { SuccessMessage } from "@/components/success-message";
 
-import { useCurrentUser } from "@/hooks/use-current-user";
+import { updateAction } from "../_actions/update.action";
 
 export const UpdateSchema = z
   .object({

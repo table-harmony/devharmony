@@ -1,9 +1,8 @@
 import "server-only";
 
-import { eq } from "drizzle-orm";
-
 import { db } from "@/db";
 import { twoFactorConfirmations } from "@/db/schema";
+import { eq } from "drizzle-orm";
 
 export async function deleteTwoFactorConfirmation(id: number): Promise<void> {
   await db

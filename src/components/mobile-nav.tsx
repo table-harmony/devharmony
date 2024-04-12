@@ -1,19 +1,17 @@
 "use client";
 
-import { AlignLeftIcon } from "lucide-react";
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
+import { docsConfig } from "@/config/docs";
+import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-
+import { AlignLeftIcon } from "lucide-react";
 import { Icons } from "./icons";
-import { docsConfig } from "@/config/docs";
-import { siteConfig } from "@/config/site";
 
 export function MobileNav() {
   const [open, setOpen] = useState(false);
