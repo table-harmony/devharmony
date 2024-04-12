@@ -1,8 +1,7 @@
-import type { UserRole } from "@/use-cases";
 import NextAuth, { type DefaultSession } from "next-auth";
 
 export type ExtendedUser = DefaultSession["user"] & {
-  role: UserRole;
+  roles: string[];
   isTwoFactorEnabled: boolean;
   isOAuth: boolean;
 };

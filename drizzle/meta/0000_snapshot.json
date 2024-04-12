@@ -1,5 +1,5 @@
 {
-  "id": "f0d9513d-eef2-4e13-a9c1-d45f39e3c0a1",
+  "id": "623d807f-ffde-4d3f-8f1b-e72c434f2863",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -10,7 +10,7 @@
       "columns": {
         "userId": {
           "name": "userId",
-          "type": "text",
+          "type": "serial",
           "primaryKey": false,
           "notNull": true
         },
@@ -108,7 +108,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
@@ -120,9 +120,10 @@
         },
         "token": {
           "name": "token",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "expires": {
           "name": "expires",
@@ -148,15 +149,7 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "password_reset_token_token_unique": {
-          "name": "password_reset_token_token_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     },
     "two_factor_confirmation": {
       "name": "two_factor_confirmation",
@@ -164,13 +157,13 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
         "userId": {
           "name": "userId",
-          "type": "text",
+          "type": "serial",
           "primaryKey": false,
           "notNull": true
         }
@@ -200,7 +193,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
@@ -256,7 +249,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
@@ -289,14 +282,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "default": "'https://cdn-icons-png.flaticon.com/512/1531/1531344.png'"
+          "default": "'https://i.pinimg.com/564x/67/35/2a/67352af8c516bd7ade3fa75757f70923.jpg'"
         },
-        "role": {
-          "name": "role",
-          "type": "role",
+        "roles": {
+          "name": "roles",
+          "type": "text[]",
           "primaryKey": false,
-          "notNull": true,
-          "default": "'USER'"
+          "notNull": true
         },
         "isTwoFactorEnabled": {
           "name": "isTwoFactorEnabled",
@@ -325,7 +317,7 @@
       "columns": {
         "id": {
           "name": "id",
-          "type": "text",
+          "type": "serial",
           "primaryKey": true,
           "notNull": true
         },
@@ -337,9 +329,10 @@
         },
         "token": {
           "name": "token",
-          "type": "text",
+          "type": "uuid",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "gen_random_uuid()"
         },
         "expires": {
           "name": "expires",
@@ -365,26 +358,10 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {
-        "verification_token_token_unique": {
-          "name": "verification_token_token_unique",
-          "nullsNotDistinct": false,
-          "columns": [
-            "token"
-          ]
-        }
-      }
+      "uniqueConstraints": {}
     }
   },
-  "enums": {
-    "role": {
-      "name": "role",
-      "values": {
-        "USER": "USER",
-        "ADMIN": "ADMIN"
-      }
-    }
-  },
+  "enums": {},
   "schemas": {},
   "_meta": {
     "columns": {},

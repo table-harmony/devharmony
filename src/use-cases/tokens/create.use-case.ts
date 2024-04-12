@@ -1,10 +1,10 @@
-import type { GetUserByEmail } from "@/use-cases";
+import type { GetUserByEmail } from "@/use-cases/users/types";
 import type {
   CreateToken,
   CreateTokenDto,
   DeleteToken,
   GetTokenByEmail,
-} from "@/use-cases";
+} from "@/use-cases/tokens/types";
 import { TokenEntity } from "@/entities";
 
 /**
