@@ -48,7 +48,10 @@
     "react-dom": "^18",
     "react-hook-form": "^7.51.2",
 <<<<<<< HEAD
+<<<<<<< HEAD
     "react-resizable-panels": "^2.0.16",
+=======
+>>>>>>> parent of 9ecaca5 (prettier)
     "react-spinners": "^0.13.8",
     "react-wrap-balancer": "^1.1.0",
     "resend": "^3.2.0",
@@ -62,7 +65,6 @@
     "zod": "^3.22.4"
   },
   "devDependencies": {
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/bcryptjs": "^2.4.6",
     "@types/node": "^20",
     "@types/pg": "^8.11.4",

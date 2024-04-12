@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+import type { UserRole } from "@/use-cases";
+>>>>>>> parent of 9ecaca5 (prettier)
 import bcrypt from "bcryptjs";
 
 export class UserEntity {

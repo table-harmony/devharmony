@@ -1,9 +1,11 @@
-import type { AdapterAccount } from "@auth/core/adapters";
-import crypto from "crypto";
 import {
-  boolean,
+  timestamp,
+  pgTable,
+  text,
+  primaryKey,
   integer,
   pgEnum,
+<<<<<<< HEAD
   pgTable,
   primaryKey,
   serial,
@@ -12,6 +14,13 @@ import {
   uuid,
 } from "drizzle-orm/pg-core";
 
+=======
+  boolean,
+} from "drizzle-orm/pg-core";
+import type { AdapterAccount } from "@auth/core/adapters";
+import { v4 as uuidv4 } from "uuid";
+import crypto from "crypto";
+>>>>>>> parent of 9ecaca5 (prettier)
 import { siteConfig } from "@/config/site";
 
 export const users = pgTable("user", {
