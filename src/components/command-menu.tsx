@@ -41,7 +41,7 @@ export function CommandMenu() {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full rounded-[0.5rem] bg-background text-sm font-normal text-muted-foreground md:w-64 lg:w-96"
+          "relative h-8 w-full rounded-[0.5rem] bg-background md:w-64 lg:w-96"
         )}
         onClick={() => setOpen(true)}
       >
@@ -54,7 +54,7 @@ export function CommandMenu() {
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandGroup heading="Pages">
             {docsConfig.mainNav.map(
-              (navItem) =>
+              navItem =>
                 (!navItem.authorization ||
                   (role && navItem.authorization.includes(role))) && (
                   <CommandItem

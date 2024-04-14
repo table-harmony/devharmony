@@ -16,7 +16,7 @@ import { UserInfo } from "@/components/user-info";
 
 export default async function SettingsPage() {
   return (
-    <>
+    <div className="container relative">
       <PageHeader>
         <PageHeaderHeading>Settings</PageHeaderHeading>
         <PageHeaderDescription>
@@ -57,6 +57,6 @@ export default async function SettingsPage() {
           </Card>
         </TabsContent>
       </Tabs>
-    </>
+    </div>
   );
 }

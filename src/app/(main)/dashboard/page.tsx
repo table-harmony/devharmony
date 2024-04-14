@@ -1,51 +1,39 @@
-import { getUsers } from "@/data-access";
-import { getUsersUseCase } from "@/use-cases";
+import { redirect } from "next/navigation";
+import { models } from "./models";
 import {
-  TableProvider,
-  TableContent,
-  TableFooter,
-  TableHeader,
-} from "@/components/data-table";
-import {
+  PageActions,
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header";
-import { user } from "./_components/columns";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
+import { CommandMenu } from "./_components/command-menu";
+import { Table } from "./_components/table";
 
-export default async function DashboardPage() {
-  const data = await getUsersUseCase({ getUsers: getUsers });
+interface DashboardPageProps {
+  searchParams: {
+    table: string;
+  };
+}
+
+export default async function DashboardPage({
+  searchParams,
+}: DashboardPageProps) {
+  const table = searchParams.table as keyof typeof models;
+
+  if (table && !(table in models)) redirect("/dashboard");
+
   return (
-    <>
+    <div className="container relative">
       <PageHeader>
         <PageHeaderHeading>Dashboard</PageHeaderHeading>
         <PageHeaderDescription>
           Administer and access comprehensive database records effortlessly.
         </PageHeaderDescription>
+        <PageActions>
+          <CommandMenu />
+        </PageActions>
       </PageHeader>
-      <TableProvider data={data} columns={user}>
-        <TableHeader />
-        <Card className="space-y-4">
-          <CardHeader>
-            <CardTitle>Users</CardTitle>
-            <CardDescription>Manage Users</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <TableContent />
-          </CardContent>
-          <CardFooter>
-            <TableFooter />
-          </CardFooter>
-        </Card>
-      </TableProvider>
-    </>
+      {table && <Table table={table} />}
+    </div>
   );
 }

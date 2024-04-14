@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { currentUser } from "@/lib/auth";
+import { currentUser } from "@/lib/auth/utils";
 
 import { LogOutIcon, SettingsIcon } from "lucide-react";
 

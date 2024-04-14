@@ -5,7 +5,6 @@ import { authConfig } from "./config";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import {
-  UserDto,
   UserRole,
   getUserUseCase,
   markEmailAsVerifiedUseCase,
@@ -118,6 +117,3 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   ...authConfig,
 });
-
-export * from "./utils";
-export * from "./config";

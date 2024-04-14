@@ -13,14 +13,14 @@ import {
 
 export default function InformationPage() {
   return (
-    <>
+    <div className="container relative">
       <PageHeader>
         <PageHeaderHeading>FAQ</PageHeaderHeading>
         <PageHeaderDescription>
           Explore these FAQ about TableHarmony.
         </PageHeaderDescription>
       </PageHeader>
-      <Card className="m-4">
+      <Card className="max-w-2xl mx-auto">
         <CardContent>
           <Accordion type="multiple">
             <AccordionItem value="item-1">
@@ -50,6 +50,6 @@ export default function InformationPage() {
           </Accordion>
         </CardContent>
       </Card>
-    </>
+    </div>
   );
 }

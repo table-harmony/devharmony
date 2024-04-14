@@ -1,5 +1,3 @@
-"use client";
-
 export * from "./column-header";
 export * from "./content";
 export * from "./context";

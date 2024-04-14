@@ -21,7 +21,6 @@ import {
 import {
   InputOTP,
   InputOTPGroup,
-  InputOTPSeparator,
   InputOTPSlot,
 } from "@/components/ui/input-otp";
 import { CardWrapper } from "../_components/card-wrapper";
@@ -59,7 +58,7 @@ export const LoginForm = () => {
 
       startTransition(() => {
         loginAction(values)
-          .then((data) => {
+          .then(data => {
             if (data?.error) {
               setError(data.error);
             }

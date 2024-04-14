@@ -1,8 +1,4 @@
-"use client";
-
-import { useTransition } from "react";
-
-import { Button } from "@/components/ui/button";
+import type { UserDto } from "@/use-cases";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -14,22 +10,19 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-
+import { Button } from "@/components/ui/button";
+import { Row } from "@tanstack/react-table";
 import { deleteAction } from "../_actions/delete.action";
 
-export const DeleteForm = () => {
-  const [isPending, startTransition] = useTransition();
+interface DeleteUserFormProps {
+  row: Row<UserDto>;
+}
 
-  const onSubmit = () => {
-    startTransition(() => {
-      deleteAction();
-    });
-  };
-
+export function DeleteUserForm({ row }: DeleteUserFormProps) {
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
-        <Button variant="destructive" className="w-full">
+        <Button variant="ghost" className="h-8 w-full justify-start">
           Delete
         </Button>
       </AlertDialogTrigger>
@@ -37,17 +30,17 @@ export const DeleteForm = () => {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete your account and remove your data from
-            our servers.
+            This will permanently delete the account and remove the data from
+            the servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => onSubmit()}>
+          <AlertDialogAction onClick={() => deleteAction(row.getValue("id"))}>
             Continue
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
   );
-};
+}

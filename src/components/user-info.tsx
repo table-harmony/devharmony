@@ -1,5 +1,5 @@
 import { Badge } from "@/components/ui/badge";
-import { currentUser } from "@/lib/auth";
+import { currentUser } from "@/lib/auth/utils";
 
 export const UserInfo = async () => {
   const user = await currentUser();
