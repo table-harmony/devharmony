@@ -1,6 +1,6 @@
 {
-  "id": "28671b6c-539f-49ec-82c6-1286e4f283ef",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "1a4f0a37-3455-4359-bb86-c947702c4f41",
+  "prevId": "28671b6c-539f-49ec-82c6-1286e4f283ef",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -288,7 +288,8 @@
           "name": "image",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "'https://i.pinimg.com/564x/67/35/2a/67352af8c516bd7ade3fa75757f70923.jpg'"
         },
         "role": {
           "name": "role",

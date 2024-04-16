@@ -36,7 +36,14 @@ function TableViewOptions() {
     <div className="flex items-center gap-2">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="h-8">
+          <Button
+            variant="outline"
+            className="h-8"
+            disabled={
+              table.getAllColumns().filter(column => column.getCanHide())
+                .length === 0
+            }
+          >
             <SlidersHorizontalIcon className="h-4 w-4 md:mr-2" />
             <span className="sr-only md:not-sr-only whitespace-nowrap">
               View
@@ -86,7 +93,17 @@ function TableFilter() {
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="h-8">
+          <Button
+            variant="outline"
+            className="h-8"
+            disabled={
+              table
+                .getAllColumns()
+                .filter(
+                  column => !["actions", "image", "select"].includes(column.id)
+                ).length === 0
+            }
+          >
             <SearchIcon className="h-4 w-4 md:mr-2" />
             <span className="sr-only md:not-sr-only whitespace-nowrap">
               Search

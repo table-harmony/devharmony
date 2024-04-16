@@ -13,17 +13,15 @@ export async function createUserUseCase(
 ): Promise<void> {
   const existingUser = await context.getUserByEmail(data.email);
 
-  // user already exists
   if (existingUser) throw new Error("User already exists!");
 
-  // create entity from data
   const user = new UserEntity({
     email: data.email,
     password: data.password,
     name: data.name,
+    image: `https://api.dicebear.com/8.x/initials/svg?seed=${data.name}`,
   });
   await user.encryptPassword();
 
-  // create user from entity data
   await context.createUser(user.toCreateDto());
 }

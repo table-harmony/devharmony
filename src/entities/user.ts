@@ -138,6 +138,7 @@ export class UserEntity {
       name: this.name,
       email: this.email,
       password: this.password,
+      image: this.image,
     };
   }
 }

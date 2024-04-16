@@ -2,8 +2,7 @@ export const siteConfig = {
   name: "TableHarmony",
   url: "https://tableharmony.io",
   description: "Bagrut project by liron kaner",
-  ogImage:
-    "https://i.pinimg.com/564x/67/35/2a/67352af8c516bd7ade3fa75757f70923.jpg",
+  ogImage: "https://cdn-icons-png.flaticon.com/512/1531/1531344.png",
   links: {
     github: "https://github.com/liron1111/tableharmony",
     linkedin:
