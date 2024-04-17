@@ -29,7 +29,12 @@ export const registerAction = async (
   try {
     await createUserUseCase(
       { getUserByEmail: getUserByEmail, createUser: createUser },
-      { email: email, password: password, name: name }
+      {
+        email: email,
+        password: password,
+        name: name,
+        image: `https://api.dicebear.com/8.x/initials/svg?seed=${name}`,
+      }
     );
 
     const verificationToken = await createTokenUseCase(

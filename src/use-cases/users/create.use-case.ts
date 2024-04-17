@@ -19,7 +19,7 @@ export async function createUserUseCase(
     email: data.email,
     password: data.password,
     name: data.name,
-    image: `https://api.dicebear.com/8.x/initials/svg?seed=${data.name}`,
+    image: data.image,
   });
   await user.encryptPassword();
 

@@ -1,0 +1,1 @@
+ALTER TABLE "user" ALTER COLUMN "image" SET DEFAULT 'https://cdn-icons-png.flaticon.com/512/1531/1531344.png';

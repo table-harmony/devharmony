@@ -15,6 +15,13 @@
       "when": 1713274194465,
       "tag": "0001_thin_warbound",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1713286035229,
+      "tag": "0002_faulty_wither",
+      "breakpoints": true
     }
   ]
 }
