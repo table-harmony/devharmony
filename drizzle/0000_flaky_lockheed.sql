@@ -46,7 +46,7 @@ CREATE TABLE IF NOT EXISTS "user" (
 	"password" text,
 	"email" text NOT NULL,
 	"emailVerified" timestamp,
-	"image" text NOT NULL,
+	"image" text DEFAULT 'https://cdn-icons-png.flaticon.com/512/1531/1531344.png' NOT NULL,
 	"role" "role" DEFAULT 'USER' NOT NULL,
 	"isTwoFactorEnabled" boolean DEFAULT false NOT NULL,
 	CONSTRAINT "user_email_unique" UNIQUE("email")

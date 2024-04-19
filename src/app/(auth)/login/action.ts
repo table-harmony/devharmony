@@ -45,7 +45,6 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
       { email: email, password: password }
     );
 
-    // existing user email has not been verified
     if (!existingUser.emailVerified) {
       const verificationToken = await createTokenUseCase(
         {
@@ -65,7 +64,6 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
       return { success: "Confirmation email sent!" };
     }
 
-    // existing user two factor code is enabled
     if (existingUser.isTwoFactorEnabled) {
       if (code) {
         const existingToken = await getTokenByEmailUseCase(

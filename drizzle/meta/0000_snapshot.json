@@ -1,5 +1,5 @@
 {
-  "id": "28671b6c-539f-49ec-82c6-1286e4f283ef",
+  "id": "ca5e3705-ef5b-4bb3-821b-25547be50512",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "5",
   "dialect": "pg",
@@ -288,7 +288,8 @@
           "name": "image",
           "type": "text",
           "primaryKey": false,
-          "notNull": true
+          "notNull": true,
+          "default": "'https://cdn-icons-png.flaticon.com/512/1531/1531344.png'"
         },
         "role": {
           "name": "role",
