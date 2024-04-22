@@ -24,8 +24,6 @@ export async function getUserByEmailUseCase(
   try {
     const foundUser = await context.getUserByEmail(data.email);
 
-    if (!foundUser) return undefined;
-
     return foundUser;
   } catch (error) {
     console.log("[GET_USER_BY_EMAIL_USE_CASE]: ERROR", error);

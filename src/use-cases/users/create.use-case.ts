@@ -13,15 +13,9 @@ export async function createUserUseCase(
   data: CreateUserDto
 ) {
   const existingUser = await context.getUserByEmail(data.email);
-
   if (existingUser) throw new Error("User already exists!");
 
-  const user = new UserEntity({
-    email: data.email,
-    password: data.password,
-    name: data.name,
-    image: data.image,
-  });
+  const user = new UserEntity(data);
   await encryptUserPassword(user);
 
   await context.createUser(userToCreateDto(user));

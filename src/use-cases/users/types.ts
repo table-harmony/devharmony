@@ -1,4 +1,4 @@
-import { UserRole } from "@/db/schema";
+import { UserRole } from "@/entities";
 
 export type { UserRole };
 

@@ -1,4 +1,6 @@
-import type { UserRole } from "@/use-cases";
+import { UserRole } from "@/db/schema";
+
+export type { UserRole };
 
 export class UserEntity {
   private id?: string;
@@ -71,7 +73,7 @@ export class UserEntity {
     return this.isTwoFactorEnabled;
   }
 
-  async setPassword(password: string) {
+  setPassword(password: string) {
     this.password = password;
   }
 
