@@ -1,5 +1,4 @@
 import type { UserRole } from "@/use-cases";
-import bcrypt from "bcryptjs";
 
 export class UserEntity {
   private id?: string;
@@ -74,71 +73,9 @@ export class UserEntity {
 
   async setPassword(password: string) {
     this.password = password;
-    await this.encryptPassword();
   }
 
   verifyEmail() {
     this.emailVerified = new Date();
-  }
-
-  async encryptPassword() {
-    if (!this.password) {
-      throw new Error("Expected user to have a password");
-    }
-
-    const hashedPassword = await bcrypt.hash(this.password, 10);
-    this.password = hashedPassword;
-  }
-
-  toDto() {
-    if (
-      this.id === undefined ||
-      this.name === undefined ||
-      this.password === undefined ||
-      this.email === undefined ||
-      this.emailVerified === undefined ||
-      this.image === undefined ||
-      this.role === undefined ||
-      this.isTwoFactorEnabled === undefined
-    )
-      throw new Error("Expected user to have a data!");
-
-    return {
-      id: this.id,
-      name: this.name,
-      password: this.password,
-      email: this.email,
-      emailVerified: this.emailVerified,
-      image: this.image,
-      role: this.role,
-      isTwoFactorEnabled: this.isTwoFactorEnabled,
-    };
-  }
-
-  toUpdateDto() {
-    if (this.id === undefined) throw new Error("Expected user to have a id!");
-
-    return {
-      id: this.id,
-      name: this.name,
-      password: this.password,
-      email: this.email,
-      emailVerified: this.emailVerified,
-      image: this.image,
-      role: this.role,
-      isTwoFactorEnabled: this.isTwoFactorEnabled,
-    };
-  }
-
-  toCreateDto() {
-    if (this.name === undefined || !this.password || this.email === undefined)
-      throw new Error("Expected user to have data!");
-
-    return {
-      name: this.name,
-      email: this.email,
-      password: this.password,
-      image: this.image,
-    };
   }
 }

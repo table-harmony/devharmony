@@ -1,5 +1,5 @@
-import bcrypt from "bcryptjs";
-import type { GetUser, UserDto, GetUserByEmail, GetUsers } from "@/use-cases";
+import { GetUser, UserDto, GetUserByEmail, GetUsers } from "./types";
+import { compareStrings } from "./utils";
 
 /**
  * @throws throws an error if user does not exist
@@ -45,7 +45,7 @@ export async function getUserByCredentialsUseCase(
 
   if (!foundUser || !foundUser.password) throw new Error("User not found!");
 
-  const passwordsMatch = await bcrypt.compare(
+  const passwordsMatch = await compareStrings(
     data.password,
     foundUser.password
   );

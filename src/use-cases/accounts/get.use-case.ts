@@ -1,4 +1,4 @@
-import type { AccountDto, GetAccountByUser, GetAccounts } from "@/use-cases";
+import { AccountDto, GetAccountByUser, GetAccounts } from "./types";
 
 export async function getAccountByUserUseCase(
   context: {

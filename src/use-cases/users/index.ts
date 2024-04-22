@@ -3,3 +3,4 @@ export * from "./delete.use-case";
 export * from "./get.use-case";
 export * from "./types";
 export * from "./update.use-case";
+export * from "./utils";

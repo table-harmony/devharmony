@@ -1,4 +1,4 @@
-import type { DeleteToken, DeleteTokenByEmail } from "@/use-cases";
+import type { DeleteToken, DeleteTokenByEmail } from "./types";
 
 export async function deleteTokenUseCase(
   context: {

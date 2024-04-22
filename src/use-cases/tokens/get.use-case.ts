@@ -1,9 +1,4 @@
-import type {
-  GetTokenByEmail,
-  GetTokenByToken,
-  GetTokens,
-  TokenDto,
-} from "@/use-cases";
+import { GetTokenByEmail, GetTokenByToken, GetTokens, TokenDto } from "./types";
 
 /**
  * @throws - throws an error if token was not found

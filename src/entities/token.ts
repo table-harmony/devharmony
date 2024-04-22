@@ -36,22 +36,4 @@ export class TokenEntity {
   getExpires() {
     return this.expires;
   }
-
-  toDto() {
-    if (!this.id || !this.token || !this.expires)
-      throw new Error("Expected token to have data!");
-
-    return {
-      id: this.id,
-      email: this.email,
-      token: this.token,
-      expires: this.expires,
-    };
-  }
-
-  toCreateDto() {
-    return {
-      email: this.email,
-    };
-  }
 }

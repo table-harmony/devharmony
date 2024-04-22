@@ -1,5 +1,6 @@
-import type { CreateUser, CreateUserDto, GetUserByEmail } from "@/use-cases";
 import { UserEntity } from "@/entities";
+import { encryptUserPassword, userToCreateDto } from "./utils";
+import { CreateUser, CreateUserDto, GetUserByEmail } from "./types";
 
 /**
  * @throws throws an error if user already exists
@@ -10,7 +11,7 @@ export async function createUserUseCase(
     createUser: CreateUser;
   },
   data: CreateUserDto
-): Promise<void> {
+) {
   const existingUser = await context.getUserByEmail(data.email);
 
   if (existingUser) throw new Error("User already exists!");
@@ -21,7 +22,7 @@ export async function createUserUseCase(
     name: data.name,
     image: data.image,
   });
-  await user.encryptPassword();
+  await encryptUserPassword(user);
 
-  await context.createUser(user.toCreateDto());
+  await context.createUser(userToCreateDto(user));
 }

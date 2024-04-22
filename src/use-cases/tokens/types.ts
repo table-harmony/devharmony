@@ -7,6 +7,8 @@ export type TokenDto = {
 
 export type CreateTokenDto = {
   email: string;
+  token?: string;
+  expires?: Date;
 };
 
 export type CreateToken = (token: CreateTokenDto) => Promise<void>;

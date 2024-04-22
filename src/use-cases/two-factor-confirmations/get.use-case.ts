@@ -1,8 +1,8 @@
-import type {
+import {
   GetTwoFactorConfirmationByUser,
   GetTwoFactorConfirmations,
   TwoFactorConfirmationDto,
-} from "@/use-cases";
+} from "./types";
 
 export async function getTwoFactorConfirmationByUserUseCase(
   context: {

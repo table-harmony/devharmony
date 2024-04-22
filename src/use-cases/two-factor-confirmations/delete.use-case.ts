@@ -1,14 +1,14 @@
-import type {
+import {
   DeleteTwoFactorConfirmation,
   DeleteTwoFactorConfirmationByUser,
-} from "@/use-cases";
+} from "./types";
 
 export async function deleteTwoFactorConfirmationUseCase(
   context: {
     deleteTwoFactorConfirmation: DeleteTwoFactorConfirmation;
   },
   data: { id: string }
-): Promise<void> {
+) {
   try {
     await context.deleteTwoFactorConfirmation(data.id);
   } catch (error) {
@@ -21,7 +21,7 @@ export async function deleteTwoFactorConfirmationByUserUseCase(
     deleteTwoFactorConfirmationByUser: DeleteTwoFactorConfirmationByUser;
   },
   data: { userId: string }
-): Promise<void> {
+) {
   try {
     await context.deleteTwoFactorConfirmationByUser(data.userId);
   } catch (error) {

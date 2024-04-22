@@ -5,7 +5,8 @@ import {
   UpdateUser,
   UpdateUserDto,
   UserDto,
-} from "@/use-cases";
+} from "./types";
+import { encryptUserPassword, userToDto, userToUpdateDto } from "./utils";
 
 /**
  * @throws throws an error if user was not found
@@ -17,16 +18,14 @@ export async function markEmailAsVerifiedUseCase(
   },
   data: { userId: string }
 ): Promise<UserDto> {
-  const user = await context.getUser(data.userId);
+  const foundUser = await context.getUser(data.userId);
 
-  // entity
-  const userEntity = new UserEntity(user);
-  userEntity.verifyEmail();
+  const user = new UserEntity(foundUser);
+  user.verifyEmail();
 
-  // update user by entity
-  await context.updateUser(userEntity.toDto());
+  await context.updateUser(userToDto(user));
 
-  return userEntity.toDto();
+  return userToDto(user);
 }
 
 /**
@@ -39,19 +38,16 @@ export async function resetPasswordUseCase(
   },
   data: { email: string; password: string }
 ): Promise<UserDto> {
-  const user = await context.getUserByEmail(data.email);
+  const foundUser = await context.getUserByEmail(data.email);
 
-  // user does not exist
-  if (!user) throw new Error("User not found!");
+  if (!foundUser) throw new Error("User not found!");
 
-  // entity
-  const userEntity = new UserEntity(user);
-  await userEntity.setPassword(data.password);
+  const user = new UserEntity(foundUser);
+  if (user.getPassword()) await encryptUserPassword(user);
 
-  // update user by entity
-  await context.updateUser(userEntity.toDto());
+  await context.updateUser(userToUpdateDto(user));
 
-  return userEntity.toDto();
+  return userToDto(user);
 }
 
 /**
@@ -66,14 +62,11 @@ export async function updateUserUseCase(
 ): Promise<UserDto> {
   await context.getUser(data.id);
 
-  // entity
-  const userEntity = new UserEntity(data);
-  if (userEntity.getPassword()) await userEntity.encryptPassword();
+  const user = new UserEntity(data);
+  if (user.getPassword()) await encryptUserPassword(user);
 
-  // update user by entity
-  await context.updateUser(userEntity.toUpdateDto());
+  await context.updateUser(userToUpdateDto(user));
 
-  // get updated user by id
   const updatedUser = await context.getUser(data.id);
 
   return updatedUser;
