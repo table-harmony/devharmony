@@ -39,14 +39,14 @@ export async function resetPasswordUseCase(
   data: { email: string; password: string }
 ): Promise<UserDto> {
   const foundUser = await context.getUserByEmail(data.email);
-
   if (!foundUser) throw new Error("User not found!");
 
   const user = new UserEntity(foundUser);
-  if (user.getPassword()) await encryptUserPassword(user);
+
+  user.setPassword(data.password);
+  await encryptUserPassword(user);
 
   await context.updateUser(userToUpdateDto(user));
-
   return userToDto(user);
 }
 
@@ -63,11 +63,13 @@ export async function updateUserUseCase(
   await context.getUser(data.id);
 
   const user = new UserEntity(data);
-  if (user.getPassword()) await encryptUserPassword(user);
+  if (data.password) {
+    user.setPassword(data.password);
+    await encryptUserPassword(user);
+  }
 
   await context.updateUser(userToUpdateDto(user));
 
   const updatedUser = await context.getUser(data.id);
-
   return updatedUser;
 }

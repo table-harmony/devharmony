@@ -38,7 +38,6 @@ export const newPasswordAction = async (
       { token: token }
     );
 
-    // update password
     await resetPasswordUseCase(
       { getUserByEmail: getUserByEmail, updateUser: updateUser },
       { email: existingToken.email, password }

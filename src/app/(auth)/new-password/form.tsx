@@ -4,7 +4,7 @@ import * as z from "zod";
 import { NewPasswordSchema } from "../schemas";
 import { zodResolver } from "@hookform/resolvers/zod";
 
-import { Suspense, useState, useTransition } from "react";
+import { Suspense, useTransition } from "react";
 import { useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
 
@@ -19,16 +19,15 @@ import {
 } from "@/components/ui/form";
 import { CardWrapper } from "../_components/card-wrapper";
 import { Button } from "@/components/ui/button";
-import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
+import { useToast } from "@/components/ui/use-toast";
 
 import { newPasswordAction } from "./action";
 
 export const NewPasswordForm = () => {
   const FormComponent = () => {
-    const [error, setError] = useState<string | undefined>("");
-    const [success, setSuccess] = useState<string | undefined>("");
     const [isPending, startTransition] = useTransition();
+
+    const { toast } = useToast();
 
     const searchParams = useSearchParams();
     const token = searchParams.get("token");
@@ -41,23 +40,29 @@ export const NewPasswordForm = () => {
     });
 
     const onSubmit = (values: z.infer<typeof NewPasswordSchema>) => {
-      setError("");
-      setSuccess("");
-
       startTransition(() => {
         newPasswordAction(values, token)
           .then((data) => {
             if (data?.error) {
               form.reset();
-              setError(data.error);
+              toast({
+                variant: "destructive",
+                description: data.error,
+              });
             }
 
             if (data?.success) {
               form.reset();
-              setSuccess(data.success);
+              toast({ description: data.success });
             }
           })
-          .catch(() => setError("Something went wrong!"));
+          .catch(() =>
+            toast({
+              variant: "destructive",
+              title: "Uh oh! Something went wrong.",
+              description: "There was a problem with your request.",
+            })
+          );
       });
     };
 
@@ -84,8 +89,6 @@ export const NewPasswordForm = () => {
               )}
             />
           </div>
-          <ErrorMessage message={error} />
-          <SuccessMessage message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             Reset password
           </Button>

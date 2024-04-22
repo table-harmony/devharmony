@@ -17,15 +17,14 @@ import {
 } from "@/components/ui/form";
 import { CardWrapper } from "../_components/card-wrapper";
 import { Button } from "@/components/ui/button";
-import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
+import { useToast } from "@/components/ui/use-toast";
 
 import { resetAction } from "./action";
 
 export const ResetForm = () => {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof ResetSchema>>({
     resolver: zodResolver(ResetSchema),
@@ -35,23 +34,28 @@ export const ResetForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof ResetSchema>) => {
-    setError("");
-    setSuccess("");
-
     startTransition(() => {
       resetAction(values)
         .then((data) => {
           if (data?.error) {
-            form.reset();
-            setError(data.error);
+            toast({
+              variant: "destructive",
+              description: data.error,
+            });
           }
 
           if (data?.success) {
             form.reset();
-            setSuccess(data.success);
+            toast({ description: data.success });
           }
         })
-        .catch(() => setError("Something went wrong!"));
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          })
+        );
     });
   };
 
@@ -83,8 +87,6 @@ export const ResetForm = () => {
               )}
             />
           </div>
-          <ErrorMessage message={error} />
-          <SuccessMessage message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             Send reset email
           </Button>

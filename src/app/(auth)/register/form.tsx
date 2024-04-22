@@ -18,15 +18,14 @@ import {
 } from "@/components/ui/form";
 import { CardWrapper } from "../_components/card-wrapper";
 import { Button } from "@/components/ui/button";
-import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
+import { useToast } from "@/components/ui/use-toast";
 
 import { registerAction } from "./action";
 
 export const RegisterForm = () => {
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof RegisterSchema>>({
     resolver: zodResolver(RegisterSchema),
@@ -38,20 +37,28 @@ export const RegisterForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof RegisterSchema>) => {
-    setError("");
-    setSuccess("");
-
     startTransition(() => {
       registerAction(values)
         .then((data) => {
           if (data?.error) {
-            setError(data.error);
+            toast({
+              variant: "destructive",
+              description: data.error,
+            });
           }
+
           if (data?.success) {
-            setSuccess(data.success);
+            form.reset();
+            toast({ description: data.success });
           }
         })
-        .catch(() => setError("Something went wrong!"));
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          })
+        );
     });
   };
 
@@ -119,8 +126,6 @@ export const RegisterForm = () => {
               )}
             />
           </div>
-          <ErrorMessage message={error} />
-          <SuccessMessage message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             Register
           </Button>

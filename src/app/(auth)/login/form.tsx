@@ -25,58 +25,62 @@ import {
 } from "@/components/ui/input-otp";
 import { CardWrapper } from "../_components/card-wrapper";
 import { Button } from "@/components/ui/button";
-import { SuccessMessage } from "@/components/success-message";
-import { ErrorMessage } from "@/components/error-message";
+import { useToast } from "@/components/ui/use-toast";
 
 import { loginAction } from "./action";
 import { REGEXP_ONLY_DIGITS } from "input-otp";
 
 export const LoginForm = () => {
-  const FormComponent = () => {
-    const [error, setError] = useState<string | undefined>("");
-    const [success, setSuccess] = useState<string | undefined>("");
-    const [isPending, startTransition] = useTransition();
-    const [showTwoFactor, setShowTwoFactor] = useState(false);
+  const [isPending, startTransition] = useTransition();
+  const [showTwoFactor, setShowTwoFactor] = useState(false);
 
-    const searchParams = useSearchParams();
-    const urlError =
-      searchParams.get("error") === "OAuthAccountNotLinked"
-        ? "Email already in use with different provider!"
-        : "";
+  const { toast } = useToast();
 
-    const form = useForm<z.infer<typeof LoginSchema>>({
-      resolver: zodResolver(LoginSchema),
-      defaultValues: {
-        email: "",
-        password: "",
-      },
-    });
+  const form = useForm<z.infer<typeof LoginSchema>>({
+    resolver: zodResolver(LoginSchema),
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
-    const onSubmit = (values: z.infer<typeof LoginSchema>) => {
-      setError("");
-      setSuccess("");
+  const onSubmit = (values: z.infer<typeof LoginSchema>) => {
+    startTransition(() => {
+      loginAction(values)
+        .then((data) => {
+          if (data?.error) {
+            toast({
+              variant: "destructive",
+              description: data.error,
+            });
+          }
 
-      startTransition(() => {
-        loginAction(values)
-          .then(data => {
-            if (data?.error) {
-              setError(data.error);
-            }
+          if (data?.twoFactor) {
+            setShowTwoFactor(true);
+          }
 
-            if (data?.twoFactor) {
-              setShowTwoFactor(true);
-            }
-
-            if (data?.success) {
-              form.reset();
-              setSuccess(data.success);
-            }
+          if (data?.success) {
+            form.reset();
+            toast({ description: data.success });
+          }
+        })
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
           })
-          .catch(() => setError("Something went wrong!"));
-      });
-    };
+        );
+    });
+  };
 
-    return (
+  return (
+    <CardWrapper
+      headerLabel="Welcome back"
+      backButtonLabel="Don't have an account?"
+      backButtonHref="/register"
+      showSocial
+    >
       <Form {...form}>
         <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
           <div className="space-y-4">
@@ -157,26 +161,11 @@ export const LoginForm = () => {
               </>
             )}
           </div>
-          <ErrorMessage message={error || urlError} />
-          <SuccessMessage message={success} />
           <Button disabled={isPending} type="submit" className="w-full">
             {showTwoFactor ? "Confirm" : "Login"}
           </Button>
         </form>
       </Form>
-    );
-  };
-
-  return (
-    <CardWrapper
-      headerLabel="Welcome back"
-      backButtonLabel="Don't have an account?"
-      backButtonHref="/register"
-      showSocial
-    >
-      <Suspense>
-        <FormComponent />
-      </Suspense>
     </CardWrapper>
   );
 };

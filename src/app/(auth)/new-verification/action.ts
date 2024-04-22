@@ -27,11 +27,8 @@ export const newVerificationAction = async (token: string) => {
       { email: existingToken.email }
     );
 
-    if (!existingUser) {
-      throw new Error("Email does not exist!");
-    }
+    if (!existingUser) throw new Error("Email does not exist!");
 
-    // mark email as verified
     await markEmailAsVerifiedUseCase(
       { getUser: getUser, updateUser: updateUser },
       { userId: existingUser.id }

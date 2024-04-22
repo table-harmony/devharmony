@@ -19,8 +19,8 @@ import {
 } from "@/components/ui/form";
 import { Switch } from "@/components/ui/switch";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
 import { ErrorMessage } from "@/components/error-message";
-import { SuccessMessage } from "@/components/success-message";
 
 import { updateAction } from "../_actions/update.action";
 
@@ -69,9 +69,8 @@ export const UpdateSchema = z
 export const UpdateForm = () => {
   const user = useCurrentUser();
 
-  const [error, setError] = useState<string | undefined>("");
-  const [success, setSuccess] = useState<string | undefined>("");
   const [isPending, startTransition] = useTransition();
+  const { toast } = useToast();
 
   const form = useForm<z.infer<typeof UpdateSchema>>({
     resolver: zodResolver(UpdateSchema),
@@ -84,16 +83,28 @@ export const UpdateForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof UpdateSchema>) => {
-    setError("");
-    setSuccess("");
-
     startTransition(() => {
       updateAction(values)
         .then((data) => {
-          if (data.error) setError(data.error);
-          if (data.success) setSuccess(data.success);
+          if (data?.error) {
+            toast({
+              variant: "destructive",
+              description: data.error,
+            });
+          }
+
+          if (data?.success) {
+            form.reset();
+            toast({ description: data.success });
+          }
         })
-        .catch(() => setError("Something went wrong!"));
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          })
+        );
     });
   };
 
@@ -178,8 +189,6 @@ export const UpdateForm = () => {
                 )}
               />
             </div>
-            <ErrorMessage message={error} />
-            <SuccessMessage message={success} />
             <Button disabled={isPending} type="submit" className="w-full">
               Update
             </Button>

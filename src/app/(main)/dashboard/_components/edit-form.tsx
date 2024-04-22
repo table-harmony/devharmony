@@ -62,7 +62,7 @@ export function EditUserForm({ row }: EditUserFormProps) {
 
     startTransition(() => {
       editAction(row.getValue("id"), values)
-        .then(data => {
+        .then((data) => {
           if (data.error) setError(data.error);
           if (data.success) setSuccess(data.success);
         })
@@ -100,7 +100,7 @@ export function EditUserForm({ row }: EditUserFormProps) {
                         <SelectValue placeholder={row.getValue("role")} />
                       </SelectTrigger>
                       <SelectContent side="top">
-                        {["ADMIN", "USER"].map(role => (
+                        {["ADMIN", "USER"].map((role) => (
                           <SelectItem key={role} value={role}>
                             {role}
                           </SelectItem>

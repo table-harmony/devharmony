@@ -20,7 +20,7 @@ export function userToDto(user: UserEntity): UserDto {
     emailVerified === undefined ||
     !image ||
     !role ||
-    !isTwoFactorEnabled
+    isTwoFactorEnabled === undefined
   )
     throw new Error("User expected data");
 
