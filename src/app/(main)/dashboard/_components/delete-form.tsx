@@ -12,6 +12,7 @@ import {
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
 import { Row } from "@tanstack/react-table";
+import { useToast } from "@/components/ui/use-toast";
 import { deleteAction } from "../_actions/delete.action";
 
 interface DeleteUserFormProps {
@@ -19,6 +20,29 @@ interface DeleteUserFormProps {
 }
 
 export function DeleteUserForm({ row }: DeleteUserFormProps) {
+  const { toast } = useToast();
+
+  const onSubmit = () => {
+    deleteAction(row.getValue("id"))
+      .then((data) => {
+        if (data?.error) {
+          toast({
+            variant: "destructive",
+            description: data.error,
+          });
+        }
+        if (data?.success) {
+          toast({ description: data.success });
+        }
+      })
+      .catch(() =>
+        toast({
+          variant: "destructive",
+          title: "Uh oh! Something went wrong.",
+          description: "There was a problem with your request.",
+        })
+      );
+  };
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>
@@ -36,9 +60,7 @@ export function DeleteUserForm({ row }: DeleteUserFormProps) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={() => deleteAction(row.getValue("id"))}>
-            Continue
-          </AlertDialogAction>
+          <AlertDialogAction onClick={onSubmit}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
