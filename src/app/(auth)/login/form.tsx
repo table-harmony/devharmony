@@ -57,7 +57,6 @@ export const LoginForm = () => {
 
           if (data?.twoFactor) {
             setShowTwoFactor(true);
-            toast({ description: "Two factor token has been sent!" });
           }
 
           if (data?.success) {

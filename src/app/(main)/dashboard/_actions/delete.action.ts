@@ -11,9 +11,8 @@ export const deleteAction = async (userId: string) => {
     await deleteUserUseCase({ deleteUser: deleteUser }, { id: userId });
 
     revalidatePath("data");
-    return { success: "User was successfully deleted!" };
   } catch (err) {
     const error = err as Error;
-    return { error: error.message };
+    console.log(error.message);
   }
 };
