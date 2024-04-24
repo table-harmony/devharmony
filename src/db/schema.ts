@@ -8,12 +8,12 @@ import {
   uuid,
   boolean,
 } from "drizzle-orm/pg-core";
-import crypto from "crypto";
 import { v4 as uuidv4 } from "uuid";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { siteConfig } from "@/config/site";
 
 export const userRole = pgEnum("role", ["USER", "ADMIN"]);
+export const tokenType = pgEnum("type", ["VERIFICATION", "PASSWORD_RESET", "TWO_FACTOR"]);
 
 export const users = pgTable("user", {
   id: text("id")
@@ -52,7 +52,7 @@ export const accounts = pgTable(
   })
 );
 
-export const verificationTokens = pgTable("verification_token", {
+export const tokens = pgTable("token", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => uuidv4()),
@@ -63,41 +63,10 @@ export const verificationTokens = pgTable("verification_token", {
     .unique()
     .notNull()
     .$defaultFn(() => uuidv4()),
+  type: tokenType("role").notNull(),
   expires: timestamp("expires")
     .notNull()
     .$defaultFn(() => new Date(Date.now() + 3600 * 1000)),
-});
-
-export const passwordResetTokens = pgTable("password_reset_token", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
-  email: text("email")
-    .notNull()
-    .references(() => users.email, { onDelete: "cascade" }),
-  token: text("token")
-    .unique()
-    .notNull()
-    .$defaultFn(() => uuidv4()),
-  expires: timestamp("expires")
-    .notNull()
-    .$defaultFn(() => new Date(Date.now() + 3600 * 1000)),
-});
-
-export const twoFactorTokens = pgTable("two_factor_token", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => uuidv4()),
-  email: text("email")
-    .notNull()
-    .references(() => users.email, { onDelete: "cascade" }),
-  token: text("token")
-    .unique()
-    .notNull()
-    .$defaultFn(() => crypto.randomInt(100_000, 1_000_000).toString()),
-  expires: timestamp("expires")
-    .notNull()
-    .$defaultFn(() => new Date(Date.now() + 5 * 60 * 1000)),
 });
 
 export const twoFactorConfirmations = pgTable("two_factor_confirmation", {
@@ -110,10 +79,9 @@ export const twoFactorConfirmations = pgTable("two_factor_confirmation", {
 });
 
 export type UserRole = "USER" | "ADMIN";
+export type TokenType = "VERIFICATION" | "PASSWORD_RESET" | "TWO_FACTOR";
 
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
-export type VerificationToken = typeof verificationTokens.$inferSelect;
-export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
-export type TwoFactorToken = typeof twoFactorTokens.$inferSelect;
+export type Token = typeof tokens.$inferSelect;
 export type TwoFactorConfirmation = typeof twoFactorConfirmations.$inferSelect;

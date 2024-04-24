@@ -12,7 +12,5 @@ export type AccountDto = {
   session_state: string | null;
 };
 
-export type GetAccountByUser = (
-  userId: string
-) => Promise<AccountDto | undefined>;
+export type GetAccountByUser = (userId: string) => Promise<AccountDto | undefined>;
 export type GetAccounts = () => Promise<AccountDto[]>;

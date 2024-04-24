@@ -1,7 +1,4 @@
-import {
-  DeleteTwoFactorConfirmation,
-  DeleteTwoFactorConfirmationByUser,
-} from "../types";
+import { DeleteTwoFactorConfirmation, DeleteTwoFactorConfirmationByUser } from "../types";
 
 export async function deleteTwoFactorConfirmationUseCase(
   context: {

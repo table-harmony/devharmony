@@ -22,9 +22,7 @@ function toDtoMapper(account: Account): AccountDto {
   };
 }
 
-export async function getAccountByUser(
-  userId: string
-): Promise<AccountDto | undefined> {
+export async function getAccountByUser(userId: string): Promise<AccountDto | undefined> {
   const foundAccount = await db.query.accounts.findFirst({
     where: eq(accounts.userId, userId),
   });

@@ -6,9 +6,7 @@ import { eq } from "drizzle-orm";
 
 import type { TwoFactorConfirmationDto } from "../types";
 
-function toDtoMapper(
-  twoFactorConfirmation: TwoFactorConfirmation
-): TwoFactorConfirmationDto {
+function toDtoMapper(twoFactorConfirmation: TwoFactorConfirmation): TwoFactorConfirmationDto {
   return {
     id: twoFactorConfirmation.id,
     userId: twoFactorConfirmation.userId,
@@ -18,9 +16,7 @@ function toDtoMapper(
 /**
  * @throws throws an error if two factor confirmation was not found
  */
-export async function getTwoFactorConfirmation(
-  id: string
-): Promise<TwoFactorConfirmation> {
+export async function getTwoFactorConfirmation(id: string): Promise<TwoFactorConfirmation> {
   const foundConfirmation = await db.query.twoFactorConfirmations.findFirst({
     where: eq(twoFactorConfirmations.id, id),
   });
@@ -42,11 +38,8 @@ export async function getTwoFactorConfirmationByUser(
   return toDtoMapper(foundConfirmation);
 }
 
-export async function getTwoFactorConfirmations(): Promise<
-  TwoFactorConfirmation[]
-> {
-  const twoFactorConfirmations =
-    await db.query.twoFactorConfirmations.findMany();
+export async function getTwoFactorConfirmations(): Promise<TwoFactorConfirmation[]> {
+  const twoFactorConfirmations = await db.query.twoFactorConfirmations.findMany();
 
   return twoFactorConfirmations.map(toDtoMapper);
 }

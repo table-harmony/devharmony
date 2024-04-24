@@ -1,8 +1,5 @@
 import { TwoFactorConfirmationEntity } from "./entity";
-import {
-  CreateTwoFactorConfirmationDto,
-  TwoFactorConfirmationDto,
-} from "./types";
+import { CreateTwoFactorConfirmationDto, TwoFactorConfirmationDto } from "./types";
 
 export function TwoFactorConfirmationToDto(
   confirmation: TwoFactorConfirmationEntity
