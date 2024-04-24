@@ -1,0 +1,17 @@
+export class TwoFactorConfirmationEntity {
+  private id?: string;
+  private userId: string;
+
+  constructor({ id, userId }: { id?: string; userId: string }) {
+    this.id = id;
+    this.userId = userId;
+  }
+
+  getId() {
+    return this.id;
+  }
+
+  getUserId() {
+    return this.userId;
+  }
+}

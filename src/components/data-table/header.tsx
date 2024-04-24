@@ -13,12 +13,8 @@ import {
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
-import {
-  ListFilterIcon,
-  SearchIcon,
-  SlidersHorizontalIcon,
-} from "lucide-react";
 import { Input } from "@/components/ui/input";
+import { SearchIcon, SlidersHorizontalIcon } from "lucide-react";
 
 export function TableHeader() {
   return (
@@ -40,7 +36,7 @@ function TableViewOptions() {
             variant="outline"
             className="h-8"
             disabled={
-              table.getAllColumns().filter(column => column.getCanHide())
+              table.getAllColumns().filter((column) => column.getCanHide())
                 .length === 0
             }
           >
@@ -55,8 +51,8 @@ function TableViewOptions() {
           <DropdownMenuSeparator />
           {table
             .getAllColumns()
-            .filter(column => column.getCanHide())
-            .map(column => {
+            .filter((column) => column.getCanHide())
+            .map((column) => {
               return (
                 <DropdownMenuCheckboxItem
                   key={column.id}
@@ -85,7 +81,7 @@ function TableFilter() {
       <Input
         placeholder="Filter..."
         value={(table.getColumn(search)?.getFilterValue() as string) ?? ""}
-        onChange={event =>
+        onChange={(event) =>
           table.getColumn(search)?.setFilterValue(event.target.value)
         }
         className="h-8 sm:w-[300px] lg:w-[350px]"
@@ -100,7 +96,8 @@ function TableFilter() {
               table
                 .getAllColumns()
                 .filter(
-                  column => !["actions", "image", "select"].includes(column.id)
+                  (column) =>
+                    !["actions", "image", "select"].includes(column.id)
                 ).length === 0
             }
           >
@@ -117,9 +114,9 @@ function TableFilter() {
             {table
               .getAllColumns()
               .filter(
-                column => !["actions", "image", "select"].includes(column.id)
+                (column) => !["actions", "image", "select"].includes(column.id)
               )
-              .map(column => {
+              .map((column) => {
                 return (
                   <DropdownMenuRadioItem
                     key={column.id}

@@ -5,18 +5,17 @@ import { authConfig } from "./config";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import {
-  UserRole,
   getUserUseCase,
   markEmailAsVerifiedUseCase,
-  getAccountByUserUseCase,
+  UserRole,
   deleteTwoFactorConfirmationByUserUseCase,
+  getAccountByUserUseCase,
 } from "@/use-cases";
-
 import {
+  deleteTwoFactorConfirmationByUser,
+  getAccountByUser,
   getUser,
   updateUser,
-  getAccountByUser,
-  deleteTwoFactorConfirmationByUser,
 } from "@/data-access";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
@@ -52,9 +51,7 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
         // prevent sign in without email verification
         if (!existingUser.emailVerified) return false;
 
-        // user two factor code enabled
         if (existingUser.isTwoFactorEnabled) {
-          // delete two factor confirmation otherwise throw an error
           await deleteTwoFactorConfirmationByUserUseCase(
             {
               deleteTwoFactorConfirmationByUser:
