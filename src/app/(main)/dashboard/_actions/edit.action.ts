@@ -1,12 +1,11 @@
 "use server";
 
 import { z } from "zod";
-import { getUser, updateUser } from "@/data-access";
-import { updateUserUseCase } from "@/use-cases";
 
 import { EditSchema } from "../_components/edit-form";
 
 import { revalidatePath } from "next/cache";
+import { getUser, updateUser, updateUserUseCase } from "@/infrastructure/users";
 
 export const editAction = async (
   id: string,

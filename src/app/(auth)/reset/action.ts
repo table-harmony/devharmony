@@ -4,15 +4,14 @@ import * as z from "zod";
 
 import { ResetSchema } from "../schemas";
 
+import { sendPasswordResetTokenEmail } from "@/lib/resend";
+import { getUserByEmail, getUserByEmailUseCase } from "@/infrastructure/users";
 import {
   createPasswordResetToken,
-  getUserByEmail,
+  createPasswordResetTokenUseCase,
   deletePasswordResetToken,
   getPasswordResetTokenByEmail,
-} from "@/data-access";
-import { getUserByEmailUseCase, createTokenUseCase } from "@/use-cases";
-
-import { sendPasswordResetTokenEmail } from "@/lib/resend";
+} from "@/infrastructure/password-reset-tokens";
 
 export const resetAction = async (values: z.infer<typeof ResetSchema>) => {
   const validatedFields = ResetSchema.safeParse(values);
@@ -33,7 +32,7 @@ export const resetAction = async (values: z.infer<typeof ResetSchema>) => {
       throw new Error("User does not exist!");
     }
 
-    const passwordResetToken = await createTokenUseCase(
+    const passwordResetToken = await createPasswordResetTokenUseCase(
       {
         getUserByEmail: getUserByEmail,
         getTokenByEmail: getPasswordResetTokenByEmail,
@@ -43,7 +42,6 @@ export const resetAction = async (values: z.infer<typeof ResetSchema>) => {
       { email: existingUser.email }
     );
 
-    // send password reset token
     await sendPasswordResetTokenEmail(
       passwordResetToken.email,
       passwordResetToken.token

@@ -4,17 +4,16 @@ import * as z from "zod";
 import { NewPasswordSchema } from "../schemas";
 
 import {
-  getUserByEmail,
-  updateUser,
-  getPasswordResetTokenByToken,
   deletePasswordResetToken,
-} from "@/data-access";
-
+  deletePasswordResetTokenUseCase,
+  getPasswordResetTokenByToken,
+  getPasswordResetTokenByTokenUseCase,
+} from "@/infrastructure/password-reset-tokens";
 import {
-  getTokenByTokenUseCase,
-  deleteTokenUseCase,
+  getUserByEmail,
   resetPasswordUseCase,
-} from "@/use-cases";
+  updateUser,
+} from "@/infrastructure/users";
 
 export const newPasswordAction = async (
   values: z.infer<typeof NewPasswordSchema>,
@@ -33,7 +32,7 @@ export const newPasswordAction = async (
   const { password } = validatedFields.data;
 
   try {
-    const existingToken = await getTokenByTokenUseCase(
+    const existingToken = await getPasswordResetTokenByTokenUseCase(
       { getTokenByToken: getPasswordResetTokenByToken },
       { token: token }
     );
@@ -43,7 +42,7 @@ export const newPasswordAction = async (
       { email: existingToken.email, password }
     );
 
-    await deleteTokenUseCase(
+    await deletePasswordResetTokenUseCase(
       { deleteToken: deletePasswordResetToken },
       { id: existingToken.id }
     );

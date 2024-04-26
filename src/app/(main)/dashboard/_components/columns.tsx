@@ -1,11 +1,11 @@
 "use client";
 
-import type {
-  UserDto,
-  TokenDto,
-  AccountDto,
-  TwoFactorConfirmationDto,
-} from "@/use-cases";
+import { UserDto } from "@/infrastructure/users";
+import { AccountDto } from "@/infrastructure/accounts";
+import { TwoFactorConfirmationDto } from "@/infrastructure/two-factor-confirmations";
+import { TwoFactorTokenDto } from "@/infrastructure/two-factor-tokens";
+import { VerificationTokenDto } from "@/infrastructure/verification-tokens";
+import { PasswordResetTokenDto } from "@/infrastructure/password-reset-tokens";
 
 import { DeleteUserForm } from "./delete-form";
 import { EditUserForm } from "./edit-form";
@@ -34,7 +34,7 @@ export const user: ColumnDef<UserDto>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
       />
@@ -42,7 +42,7 @@ export const user: ColumnDef<UserDto>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
         className="translate-y-[2px]"
       />
@@ -142,7 +142,7 @@ export const user: ColumnDef<UserDto>[] = [
   },
 ];
 
-export const token: ColumnDef<TokenDto>[] = [
+export const password_reset_token: ColumnDef<PasswordResetTokenDto>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -151,7 +151,7 @@ export const token: ColumnDef<TokenDto>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
       />
@@ -159,7 +159,107 @@ export const token: ColumnDef<TokenDto>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="translate-y-[2px]"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "id",
+    header: ({ column }) => <TableColumnHeader column={column} title="id" />,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => <TableColumnHeader column={column} title="email" />,
+  },
+  {
+    accessorKey: "token",
+    header: ({ column }) => <TableColumnHeader column={column} title="token" />,
+  },
+  {
+    accessorKey: "expires",
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title="expires" />
+    ),
+    cell: ({ row }) => {
+      if (!row.getValue("expires")) return <>null</>;
+      return new Date(row.getValue("expires")).toLocaleDateString("en-GB");
+    },
+  },
+];
+
+export const verification_token: ColumnDef<VerificationTokenDto>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="translate-y-[2px]"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
+        aria-label="Select row"
+        className="translate-y-[2px]"
+      />
+    ),
+    enableSorting: false,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "id",
+    header: ({ column }) => <TableColumnHeader column={column} title="id" />,
+    enableHiding: false,
+  },
+  {
+    accessorKey: "email",
+    header: ({ column }) => <TableColumnHeader column={column} title="email" />,
+  },
+  {
+    accessorKey: "token",
+    header: ({ column }) => <TableColumnHeader column={column} title="token" />,
+  },
+  {
+    accessorKey: "expires",
+    header: ({ column }) => (
+      <TableColumnHeader column={column} title="expires" />
+    ),
+    cell: ({ row }) => {
+      if (!row.getValue("expires")) return <>null</>;
+      return new Date(row.getValue("expires")).toLocaleDateString("en-GB");
+    },
+  },
+];
+
+export const two_factor_token: ColumnDef<TwoFactorTokenDto>[] = [
+  {
+    id: "select",
+    header: ({ table }) => (
+      <Checkbox
+        checked={
+          table.getIsAllPageRowsSelected() ||
+          (table.getIsSomePageRowsSelected() && "indeterminate")
+        }
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+        aria-label="Select all"
+        className="translate-y-[2px]"
+      />
+    ),
+    cell: ({ row }) => (
+      <Checkbox
+        checked={row.getIsSelected()}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
         className="translate-y-[2px]"
       />
@@ -201,7 +301,7 @@ export const two_factor_confirmation: ColumnDef<TwoFactorConfirmationDto>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
       />
@@ -209,7 +309,7 @@ export const two_factor_confirmation: ColumnDef<TwoFactorConfirmationDto>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
         className="translate-y-[2px]"
       />
@@ -240,7 +340,7 @@ export const account: ColumnDef<AccountDto>[] = [
           table.getIsAllPageRowsSelected() ||
           (table.getIsSomePageRowsSelected() && "indeterminate")
         }
-        onCheckedChange={value => table.toggleAllPageRowsSelected(!!value)}
+        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
         aria-label="Select all"
         className="translate-y-[2px]"
       />
@@ -248,7 +348,7 @@ export const account: ColumnDef<AccountDto>[] = [
     cell: ({ row }) => (
       <Checkbox
         checked={row.getIsSelected()}
-        onCheckedChange={value => row.toggleSelected(!!value)}
+        onCheckedChange={(value) => row.toggleSelected(!!value)}
         aria-label="Select row"
         className="translate-y-[2px]"
       />

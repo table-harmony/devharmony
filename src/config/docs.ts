@@ -1,4 +1,4 @@
-import { DocsConfig } from "@/types/nav";
+import { DocsConfig } from "./types";
 
 export const docsConfig: DocsConfig = {
   mainNav: [

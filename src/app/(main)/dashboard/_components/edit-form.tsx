@@ -1,6 +1,6 @@
 "use client";
 
-import { UserDto } from "@/use-cases";
+import { UserDto } from "@/infrastructure/users";
 
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -23,13 +23,7 @@ import {
   SelectValue,
   SelectContent,
 } from "@/components/ui/select";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from "@/components/ui/form";
+import { Form, FormControl, FormField, FormItem, FormLabel } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { SuccessMessage } from "@/components/success-message";
 import { ErrorMessage } from "@/components/error-message";

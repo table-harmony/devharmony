@@ -6,8 +6,7 @@ import { UpdateSchema } from "../../settings/_components/update-form";
 
 import { currentUser } from "@/lib/auth/utils";
 
-import { getUserUseCase, updateUserUseCase } from "@/use-cases";
-import { getUser, updateUser } from "@/data-access";
+import { getUser, updateUser, getUserUseCase, updateUserUseCase } from "@/infrastructure/users";
 
 export const updateAction = async (values: z.infer<typeof UpdateSchema>) => {
   const user = await currentUser();
@@ -24,10 +23,7 @@ export const updateAction = async (values: z.infer<typeof UpdateSchema>) => {
     const dbUser = await getUserUseCase({ getUser: getUser }, { id: user.id });
 
     if (values.password && values.newPassword && dbUser.password) {
-      const passwordsMatch = await bcrypt.compare(
-        values.password,
-        dbUser.password
-      );
+      const passwordsMatch = await bcrypt.compare(values.password, dbUser.password);
 
       if (!passwordsMatch) {
         throw new Error("Incorrect password!");

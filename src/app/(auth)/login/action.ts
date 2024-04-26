@@ -7,26 +7,30 @@ import { LoginSchema } from "../schemas";
 import { signIn } from "@/lib/auth";
 
 import {
-  getUserByCredentialsUseCase,
-  getTokenByEmailUseCase,
-  createTokenUseCase,
-  deleteTokenByEmailUseCase,
-  createTwoFactorConfirmationUseCase,
-} from "@/use-cases";
-
-import {
   getUserByEmail,
-  createVerificationToken,
-  getVerificationTokenByEmail,
-  deleteVerificationToken,
-  createTwoFactorToken,
-  getTwoFactorTokenByEmail,
-  deleteTwoFactorToken,
-  deleteTwoFactorTokenByEmail,
+  getUserByCredentialsUseCase,
+} from "@/infrastructure/users";
+import {
   createTwoFactorConfirmation,
   getTwoFactorConfirmationByUser,
   deleteTwoFactorConfirmation,
-} from "@/data-access";
+  createTwoFactorConfirmationUseCase,
+} from "@/infrastructure/two-factor-confirmations";
+import {
+  createVerificationToken,
+  createVerificationTokenUseCase,
+  deleteVerificationToken,
+  getVerificationTokenByEmail,
+} from "@/infrastructure/verification-tokens";
+import {
+  createTwoFactorToken,
+  createTwoFactorTokenUseCase,
+  deleteTwoFactorToken,
+  deleteTwoFactorTokenByEmail,
+  deleteTwoFactorTokenByEmailUseCase,
+  getTwoFactorTokenByEmail,
+  getTwoFactorTokenByEmailUseCase,
+} from "@/infrastructure/two-factor-tokens";
 
 import { sendTwoFactorTokenEmail, sendVerificationEmail } from "@/lib/resend";
 
@@ -46,7 +50,7 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
     );
 
     if (!existingUser.emailVerified) {
-      const verificationToken = await createTokenUseCase(
+      const verificationToken = await createVerificationTokenUseCase(
         {
           getUserByEmail: getUserByEmail,
           getTokenByEmail: getVerificationTokenByEmail,
@@ -66,7 +70,7 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
 
     if (existingUser.isTwoFactorEnabled) {
       if (code) {
-        const existingToken = await getTokenByEmailUseCase(
+        const existingToken = await getTwoFactorTokenByEmailUseCase(
           { getTokenByEmail: getTwoFactorTokenByEmail },
           { email: existingUser.email }
         );
@@ -75,7 +79,7 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
 
         if (existingToken.token !== code) throw new Error("Incorrect code!");
 
-        await deleteTokenByEmailUseCase(
+        await deleteTwoFactorTokenByEmailUseCase(
           { deleteTokenByEmail: deleteTwoFactorTokenByEmail },
           { email: existingToken.email }
         );
@@ -89,7 +93,7 @@ export const loginAction = async (values: z.infer<typeof LoginSchema>) => {
           { userId: existingUser.id }
         );
       } else {
-        const twoFactorToken = await createTokenUseCase(
+        const twoFactorToken = await createTwoFactorTokenUseCase(
           {
             getUserByEmail: getUserByEmail,
             getTokenByEmail: getTwoFactorTokenByEmail,

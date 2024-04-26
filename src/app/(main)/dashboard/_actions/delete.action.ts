@@ -1,7 +1,6 @@
 "use server";
 
-import { deleteUserUseCase } from "@/use-cases";
-import { deleteUser } from "@/data-access";
+import { deleteUser, deleteUserUseCase } from "@/infrastructure/users";
 import { revalidatePath } from "next/cache";
 
 export const deleteAction = async (userId: string) => {

@@ -3,17 +3,18 @@
 import * as z from "zod";
 import { RegisterSchema } from "../schemas";
 
-import { createUserUseCase, createTokenUseCase } from "@/use-cases";
-
+import { sendVerificationEmail } from "@/lib/resend";
 import {
   createUser,
+  createUserUseCase,
   getUserByEmail,
+} from "@/infrastructure/users";
+import {
   createVerificationToken,
-  getVerificationTokenByEmail,
+  createVerificationTokenUseCase,
   deleteVerificationToken,
-} from "@/data-access";
-
-import { sendVerificationEmail } from "@/lib/resend";
+  getVerificationTokenByEmail,
+} from "@/infrastructure/verification-tokens";
 
 export const registerAction = async (
   values: z.infer<typeof RegisterSchema>
@@ -37,7 +38,7 @@ export const registerAction = async (
       }
     );
 
-    const verificationToken = await createTokenUseCase(
+    const verificationToken = await createVerificationTokenUseCase(
       {
         getUserByEmail: getUserByEmail,
         getTokenByEmail: getVerificationTokenByEmail,

@@ -5,18 +5,20 @@ import { authConfig } from "./config";
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import {
-  getUserUseCase,
-  markEmailAsVerifiedUseCase,
-  UserRole,
-  deleteTwoFactorConfirmationByUserUseCase,
-  getAccountByUserUseCase,
-} from "@/use-cases";
-import {
-  deleteTwoFactorConfirmationByUser,
-  getAccountByUser,
   getUser,
   updateUser,
-} from "@/data-access";
+  markEmailAsVerifiedUseCase,
+  getUserUseCase,
+  UserRole,
+} from "@/infrastructure/users";
+import {
+  deleteTwoFactorConfirmationByUser,
+  deleteTwoFactorConfirmationByUserUseCase,
+} from "@/infrastructure/two-factor-confirmations";
+import {
+  getAccountByUser,
+  getAccountByUserUseCase,
+} from "@/infrastructure/accounts";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {

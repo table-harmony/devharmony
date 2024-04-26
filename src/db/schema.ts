@@ -10,10 +10,8 @@ import {
 } from "drizzle-orm/pg-core";
 import { v4 as uuidv4 } from "uuid";
 import type { AdapterAccount } from "@auth/core/adapters";
-import { siteConfig } from "@/config/site";
 
 export const userRole = pgEnum("role", ["USER", "ADMIN"]);
-export const tokenType = pgEnum("type", ["VERIFICATION", "PASSWORD_RESET", "TWO_FACTOR"]);
 
 export const users = pgTable("user", {
   id: text("id")
@@ -23,7 +21,9 @@ export const users = pgTable("user", {
   password: text("password"),
   email: text("email").unique().notNull(),
   emailVerified: timestamp("emailVerified", { mode: "date" }),
-  image: text("image").default(siteConfig.ogImage).notNull(),
+  image: text("image")
+    .default("https://api.dicebear.com/8.x/initials/svg")
+    .notNull(),
   role: userRole("role").default("USER").notNull(),
   isTwoFactorEnabled: boolean("isTwoFactorEnabled").default(false).notNull(),
 });
@@ -52,21 +52,37 @@ export const accounts = pgTable(
   })
 );
 
-export const tokens = pgTable("token", {
+export const verificationTokens = pgTable("verification_token", {
   id: text("id")
     .primaryKey()
     .$defaultFn(() => uuidv4()),
   email: text("email")
     .notNull()
     .references(() => users.email, { onDelete: "cascade" }),
-  token: text("token")
-    .unique()
-    .notNull()
+  token: text("token").unique().notNull(),
+  expires: timestamp("expires").notNull(),
+});
+
+export const passwordResetTokens = pgTable("password_reset_tokens", {
+  id: text("id")
+    .primaryKey()
     .$defaultFn(() => uuidv4()),
-  type: tokenType("role").notNull(),
-  expires: timestamp("expires")
+  email: text("email")
     .notNull()
-    .$defaultFn(() => new Date(Date.now() + 3600 * 1000)),
+    .references(() => users.email, { onDelete: "cascade" }),
+  token: text("token").unique().notNull(),
+  expires: timestamp("expires").notNull(),
+});
+
+export const twoFactorTokens = pgTable("two_factor_tokens", {
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => uuidv4()),
+  email: text("email")
+    .notNull()
+    .references(() => users.email, { onDelete: "cascade" }),
+  token: text("token").unique().notNull(),
+  expires: timestamp("expires").notNull(),
 });
 
 export const twoFactorConfirmations = pgTable("two_factor_confirmation", {
@@ -79,9 +95,10 @@ export const twoFactorConfirmations = pgTable("two_factor_confirmation", {
 });
 
 export type UserRole = "USER" | "ADMIN";
-export type TokenType = "VERIFICATION" | "PASSWORD_RESET" | "TWO_FACTOR";
 
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
-export type Token = typeof tokens.$inferSelect;
+export type VerificationToken = typeof verificationTokens.$inferSelect;
+export type PasswordResetToken = typeof passwordResetTokens.$inferSelect;
+export type TwoFactorToken = typeof twoFactorTokens.$inferSelect;
 export type TwoFactorConfirmation = typeof twoFactorConfirmations.$inferSelect;

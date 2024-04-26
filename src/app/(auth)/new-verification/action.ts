@@ -2,22 +2,21 @@
 
 import {
   getUser,
-  updateUser,
   getUserByEmail,
-  getVerificationTokenByToken,
-  deleteVerificationToken,
-} from "@/data-access";
-
-import {
   getUserByEmailUseCase,
   markEmailAsVerifiedUseCase,
-  getTokenByTokenUseCase,
-  deleteTokenUseCase,
-} from "@/use-cases";
+  updateUser,
+} from "@/infrastructure/users";
+import {
+  deleteVerificationToken,
+  deleteVerificationTokenUseCase,
+  getVerificationTokenByToken,
+  getVerificationTokenByTokenUseCase,
+} from "@/infrastructure/verification-tokens";
 
 export const newVerificationAction = async (token: string) => {
   try {
-    const existingToken = await getTokenByTokenUseCase(
+    const existingToken = await getVerificationTokenByTokenUseCase(
       { getTokenByToken: getVerificationTokenByToken },
       { token: token }
     );
@@ -34,7 +33,7 @@ export const newVerificationAction = async (token: string) => {
       { userId: existingUser.id }
     );
 
-    await deleteTokenUseCase(
+    await deleteVerificationTokenUseCase(
       { deleteToken: deleteVerificationToken },
       { id: existingToken.id }
     );

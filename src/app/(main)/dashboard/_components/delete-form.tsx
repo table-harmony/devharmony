@@ -1,4 +1,4 @@
-import type { UserDto } from "@/use-cases";
+import type { UserDto } from "@/infrastructure/users";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -54,8 +54,7 @@ export function DeleteUserForm({ row }: DeleteUserFormProps) {
         <AlertDialogHeader>
           <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
           <AlertDialogDescription>
-            This will permanently delete the account and remove the data from
-            the servers.
+            This will permanently delete the account and remove the data from the servers.
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>

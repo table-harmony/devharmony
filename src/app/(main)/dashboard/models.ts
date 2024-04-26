@@ -1,30 +1,38 @@
 import { ColumnDef } from "@tanstack/react-table";
 import {
   account,
-  token,
+  two_factor_token,
+  verification_token,
+  password_reset_token,
   two_factor_confirmation,
   user,
 } from "./_components/columns";
+import { getUsers, getUsersUseCase, UserDto } from "@/infrastructure/users";
 import {
-  getUsers,
   getAccounts,
-  getPasswordResetTokens,
-  getTwoFactorTokens,
-  getVerificationTokens,
-  getTwoFactorConfirmations,
-} from "@/data-access";
-import type {
-  AccountDto,
-  TokenDto,
-  TwoFactorConfirmationDto,
-  UserDto,
-} from "@/use-cases";
-import {
-  getUsersUseCase,
   getAccountsUseCase,
-  getTokensUseCase,
+  AccountDto,
+} from "@/infrastructure/accounts";
+import {
+  getTwoFactorConfirmations,
   getTwoFactorConfirmationsUseCase,
-} from "@/use-cases";
+  TwoFactorConfirmationDto,
+} from "@/infrastructure/two-factor-confirmations";
+import {
+  PasswordResetTokenDto,
+  getPasswordResetTokens,
+  getPasswordResetTokensUseCase,
+} from "@/infrastructure/password-reset-tokens";
+import {
+  TwoFactorTokenDto,
+  getTwoFactorTokens,
+  getTwoFactorTokensUseCase,
+} from "@/infrastructure/two-factor-tokens";
+import {
+  VerificationTokenDto,
+  getVerificationTokens,
+  getVerificationTokensUseCase,
+} from "@/infrastructure/verification-tokens";
 
 export interface Model<TData> {
   name: string;
@@ -36,9 +44,9 @@ export interface Model<TData> {
 export interface Models {
   user: Model<UserDto>;
   account: Model<AccountDto>;
-  verification_token: Model<TokenDto>;
-  two_factor_token: Model<TokenDto>;
-  password_reset_token: Model<TokenDto>;
+  verification_token: Model<VerificationTokenDto>;
+  two_factor_token: Model<TwoFactorTokenDto>;
+  password_reset_token: Model<PasswordResetTokenDto>;
   two_factor_confirmation: Model<TwoFactorConfirmationDto>;
 }
 
@@ -56,28 +64,27 @@ export const models: Models = {
     getData: async () => await getAccountsUseCase({ getAccounts: getAccounts }),
   },
   verification_token: {
-    name: "Verification Tokens",
-    description:
-      "Manage tokens used for verification purposes and view their details.",
-    columns: token,
+    name: "Verification tokens",
+    description: "Manage tokens used for purposes and view their details.",
+    columns: verification_token,
     getData: async () =>
-      await getTokensUseCase({ getTokens: getVerificationTokens }),
-  },
-  two_factor_token: {
-    name: "Two factor tokens",
-    description:
-      "Manage tokens for two-factor authentication and access their details.",
-    columns: token,
-    getData: async () =>
-      await getTokensUseCase({ getTokens: getTwoFactorTokens }),
+      await getVerificationTokensUseCase({ getTokens: getVerificationTokens }),
   },
   password_reset_token: {
-    name: "Password reset tokens",
-    description:
-      "Manage tokens used for resetting passwords purposes and view their details.",
-    columns: token,
+    name: "Password reset token",
+    description: "Manage tokens used for purposes and view their details.",
+    columns: password_reset_token,
     getData: async () =>
-      await getTokensUseCase({ getTokens: getPasswordResetTokens }),
+      await getPasswordResetTokensUseCase({
+        getTokens: getPasswordResetTokens,
+      }),
+  },
+  two_factor_token: {
+    name: "Two factor token",
+    description: "Manage tokens used for purposes and view their details.",
+    columns: two_factor_token,
+    getData: async () =>
+      await getTwoFactorTokensUseCase({ getTokens: getTwoFactorTokens }),
   },
   two_factor_confirmation: {
     name: "Two factor confirmations",

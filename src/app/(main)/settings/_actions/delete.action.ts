@@ -1,9 +1,8 @@
 "use server";
 
-import { currentUser } from "@/lib/auth/utils";
+import { deleteUser, deleteUserUseCase } from "@/infrastructure/users";
 
-import { deleteUserUseCase } from "@/use-cases";
-import { deleteUser } from "@/data-access";
+import { currentUser } from "@/lib/auth/utils";
 import { signOut } from "@/lib/auth";
 
 export const deleteAction = async () => {
