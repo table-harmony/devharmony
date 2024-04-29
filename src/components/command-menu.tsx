@@ -22,6 +22,7 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { useCallback, useState } from "react";
+import { docsConfig } from "@/config/docs";
 
 export function CommandMenu() {
   const router = useRouter();
@@ -48,6 +49,18 @@ export function CommandMenu() {
       <CommandDialog open={open} onOpenChange={setOpen}>
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
+          {docsConfig.mainNav.map((navItem) => (
+            <CommandItem
+              key={navItem.href}
+              value={navItem.title}
+              onSelect={() => {
+                runCommand(() => router.push(navItem.href as string));
+              }}
+            >
+              <LinkIcon className="mr-2 h-4 w-4" />
+              {navItem.title}
+            </CommandItem>
+          ))}
           <CommandEmpty>No results found.</CommandEmpty>
           <CommandSeparator />
           <CommandGroup heading="Theme">
