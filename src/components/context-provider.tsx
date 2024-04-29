@@ -1,8 +1,8 @@
 "use client";
 
 import { ThemeProvider } from "@/components/theme-provider";
+import { ClerkProvider } from "@clerk/nextjs";
 import { Toaster } from "@/components/ui/toaster";
-import { SessionProvider } from "next-auth/react";
 
 export function ContextProvider({ children }: { children: React.ReactNode }) {
   return (
@@ -12,10 +12,10 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <SessionProvider>
+      <ClerkProvider>
         {children}
         <Toaster />
-      </SessionProvider>
+      </ClerkProvider>
     </ThemeProvider>
   );
 }

@@ -1,5 +1,5 @@
-import { CreateUser, CreateUserDto, GetUserByEmail } from "../types";
-import { encryptUserPassword, userToCreateDto } from "../utils";
+import { CreateUser, CreateUserDto } from "../types";
+import { userToCreateDto } from "../utils";
 
 import { UserEntity } from "../entity";
 
@@ -8,16 +8,11 @@ import { UserEntity } from "../entity";
  */
 export async function createUserUseCase(
   context: {
-    getUserByEmail: GetUserByEmail;
     createUser: CreateUser;
   },
   data: CreateUserDto
 ) {
-  const existingUser = await context.getUserByEmail(data.email);
-  if (existingUser) throw new Error("User already exists!");
-
   const user = new UserEntity(data);
-  await encryptUserPassword(user);
 
   await context.createUser(userToCreateDto(user));
 }

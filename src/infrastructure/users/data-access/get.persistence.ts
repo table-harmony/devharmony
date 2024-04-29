@@ -12,10 +12,8 @@ function toDtoMapper(user: User): UserDto {
     name: user.name,
     email: user.email,
     password: user.password,
-    emailVerified: user.emailVerified,
     image: user.image,
     role: user.role,
-    isTwoFactorEnabled: user.isTwoFactorEnabled,
   };
 }
 
@@ -32,7 +30,9 @@ export async function getUser(userId: string): Promise<UserDto> {
   return toDtoMapper(foundUser);
 }
 
-export async function getUserByEmail(email: string): Promise<UserDto | undefined> {
+export async function getUserByEmail(
+  email: string
+): Promise<UserDto | undefined> {
   const foundUser = await db.query.users.findFirst({
     where: eq(users.email, email),
   });

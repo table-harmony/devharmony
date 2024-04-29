@@ -10,7 +10,6 @@ import {
 } from "lucide-react";
 import { useTheme } from "next-themes";
 
-import { docsConfig } from "@/config/docs";
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
@@ -23,13 +22,11 @@ import {
   CommandSeparator,
 } from "@/components/ui/command";
 import { useCallback, useState } from "react";
-import { useCurrentRole } from "@/hooks/use-current-role";
 
 export function CommandMenu() {
   const router = useRouter();
   const [open, setOpen] = useState(false);
   const { setTheme } = useTheme();
-  const role = useCurrentRole();
 
   const runCommand = useCallback((command: () => unknown) => {
     setOpen(false);
@@ -52,24 +49,6 @@ export function CommandMenu() {
         <CommandInput placeholder="Type a command or search..." />
         <CommandList>
           <CommandEmpty>No results found.</CommandEmpty>
-          <CommandGroup heading="Pages">
-            {docsConfig.mainNav.map(
-              navItem =>
-                (!navItem.authorization ||
-                  (role && navItem.authorization.includes(role))) && (
-                  <CommandItem
-                    key={navItem.href}
-                    value={navItem.title}
-                    onSelect={() => {
-                      runCommand(() => router.push(navItem.href as string));
-                    }}
-                  >
-                    <LinkIcon className="mr-2 h-4 w-4" />
-                    {navItem.title}
-                  </CommandItem>
-                )
-            )}
-          </CommandGroup>
           <CommandSeparator />
           <CommandGroup heading="Theme">
             <CommandItem onSelect={() => runCommand(() => setTheme("light"))}>
