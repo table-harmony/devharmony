@@ -17,10 +17,10 @@ export default function InformationPage() {
       <PageHeader>
         <PageHeaderHeading>FAQ</PageHeaderHeading>
         <PageHeaderDescription>
-          Explore these FAQ about TableHarmony.
+          Explore these frequently asked questions
         </PageHeaderDescription>
       </PageHeader>
-      <Card className="max-w-2xl mx-auto">
+      <Card>
         <CardContent>
           <Accordion type="multiple">
             <AccordionItem value="item-1">
