@@ -1,15 +1,12 @@
 {
-  "name": "tableharmony",
+  "name": "devharmony",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint",
-    "migration:generate": "drizzle-kit generate:pg --schema=./src/db/schema.ts",
-    "migration:push": "node -r esbuild-register src/db/migrate.ts",
-    "migrate": "drizzle-kit generate:pg --schema=./src/db/schema.ts && node -r esbuild-register src/db/migrate.ts"
+    "lint": "next lint"
   },
   "dependencies": {
     "@clerk/nextjs": "^5.0.3",
