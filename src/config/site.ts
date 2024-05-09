@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "devharmony",
   url: "https://devharmony.vercel.app",
-  description: "Bagrut project by liron kaner",
+  description: "Bagrut project by TableHarmony",
   ogImage: "https://cdn-icons-png.flaticon.com/512/1531/1531344.png",
   links: {
     github: "https://github.com/table-harmony/devharmony",

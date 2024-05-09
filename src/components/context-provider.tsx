@@ -1,7 +1,6 @@
 "use client";
 
 import { ThemeProvider } from "@/components/theme-provider";
-import { ClerkProvider } from "@/components/clerk-provider";
 import { Toaster } from "@/components/ui/toaster";
 
 export function ContextProvider({ children }: { children: React.ReactNode }) {
@@ -12,10 +11,8 @@ export function ContextProvider({ children }: { children: React.ReactNode }) {
       enableSystem
       disableTransitionOnChange
     >
-      <ClerkProvider>
-        {children}
-        <Toaster />
-      </ClerkProvider>
+      {children}
+      <Toaster />
     </ThemeProvider>
   );
 }

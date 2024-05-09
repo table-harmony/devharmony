@@ -28,11 +28,11 @@ export const metadata: Metadata = {
   ],
   authors: [
     {
-      name: "liron1111",
-      url: "https://github.com/liron1111",
+      name: "TableHarmony",
+      url: "https://github.com/table-harmony",
     },
   ],
-  creator: "liron1111",
+  creator: "TableHarmony",
   openGraph: {
     type: "website",
     locale: "he_IL",
