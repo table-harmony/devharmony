@@ -9,6 +9,7 @@ export class UserEntity {
   private email?: string;
   private image?: string;
   private role?: UserRole;
+  private emailVerified?: Date | null;
 
   constructor({
     id,
@@ -87,7 +88,8 @@ export class UserEntity {
       this.password === undefined ||
       !this.email ||
       !this.image ||
-      !this.role
+      !this.role ||
+      !this.emailVerified
     )
       throw new Error("User expected data");
 
@@ -98,6 +100,7 @@ export class UserEntity {
       email: this.email,
       image: this.image,
       role: this.role,
+      emailVerified: this.emailVerified,
     };
   }
 
@@ -110,6 +113,20 @@ export class UserEntity {
       password: this.password,
       email: this.email,
       image: this.image,
+    };
+  }
+
+  toUpdateDto() {
+    if (!this.id) throw new Error("User expected id");
+
+    return {
+      id: this.id,
+      name: this.name,
+      password: this.password,
+      email: this.email,
+      emailVerified: this.emailVerified,
+      image: this.image,
+      role: this.role,
     };
   }
 }

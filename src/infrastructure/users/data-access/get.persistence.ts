@@ -14,6 +14,7 @@ function toDtoMapper(user: User): UserDto {
     password: user.password,
     image: user.image,
     role: user.role,
+    emailVerified: user.emailVerified,
   };
 }
 

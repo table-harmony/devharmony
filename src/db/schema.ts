@@ -4,6 +4,7 @@ import {
   pgTable,
   primaryKey,
   text,
+  timestamp,
 } from "drizzle-orm/pg-core";
 import type { AdapterAccount } from "@auth/core/adapters";
 import { randomUUID } from "crypto";
@@ -21,6 +22,7 @@ export const users = pgTable("user", {
     .default("https://api.dicebear.com/8.x/initials/svg")
     .notNull(),
   role: userRole("role").default("USER").notNull(),
+  emailVerified: timestamp("emailVerified", { mode: "date" }),
 });
 
 export const accounts = pgTable(
