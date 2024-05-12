@@ -13,4 +13,5 @@ export const Icons = {
   gitHub: (props: IconProps) => <GithubIcon {...props} />,
   linkedin: (props: IconProps) => <LinkedinIcon {...props} />,
   google: (props: IconProps) => <ChromeIcon {...props} />,
+  discord: (props: IconProps) => <ChromeIcon {...props} />,
 };

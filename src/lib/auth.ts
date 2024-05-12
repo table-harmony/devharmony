@@ -4,6 +4,8 @@ import NextAuth from "next-auth";
 import Credentials from "next-auth/providers/credentials";
 import Github from "next-auth/providers/github";
 import Google from "next-auth/providers/google";
+import Discord from "next-auth/providers/discord";
+
 import { DrizzleAdapter } from "@auth/drizzle-adapter";
 
 import {
@@ -18,6 +20,7 @@ import {
   getAccountByUser,
   getAccountByUserUseCase,
 } from "@/infrastructure/accounts";
+import { env } from "@/env";
 
 export const { handlers, auth, signIn, signOut } = NextAuth({
   pages: {
@@ -80,12 +83,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   session: { strategy: "jwt" },
   providers: [
     Google({
-      clientId: process.env.GOOGLE_ID,
-      clientSecret: process.env.GOOGLE_SECRET,
+      clientId: env.NEXT_PUBLIC_GOOGLE_ID,
+      clientSecret: env.NEXT_PUBLIC_GOOGLE_SECRET,
     }),
     Github({
-      clientId: process.env.GITHUB_ID,
-      clientSecret: process.env.GITHUB_SECRET,
+      clientId: env.NEXT_PUBLIC_GITHUB_ID,
+      clientSecret: env.NEXT_PUBLIC_GITHUB_SECRET,
+    }),
+    Discord({
+      clientId: env.NEXT_PUBLIC_DISCORD_ID,
+      clientSecret: env.NEXT_PUBLIC_DISCORD_SECRET,
     }),
     Credentials({
       credentials: {
