@@ -4,14 +4,9 @@ import { CommandMenu } from "@/components/command-menu";
 import { MainNav } from "@/components/main-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { MobileNav } from "@/components/mobile-nav";
-import { Profile } from "@/components/profile";
 import { Button } from "@/components/ui/button";
 
-import { isLoggedIn } from "@/utils/auth";
-
 export async function SiteHeader() {
-  const loggedIn = await isLoggedIn();
-
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-muted/60 backdrop-blur supports-[backdrop-filter]:bg-muted/60">
       <div className="container flex h-14 items-center md:justify-between gap-2">
@@ -20,13 +15,6 @@ export async function SiteHeader() {
         <CommandMenu />
         <nav className="flex items-center gap-2">
           <ModeToggle />
-          {loggedIn ? (
-            <Profile />
-          ) : (
-            <Button variant="outline">
-              <Link href="/api/auth/signin">Login</Link>
-            </Button>
-          )}
         </nav>
       </div>
     </header>

@@ -115,18 +115,4 @@ export class UserEntity {
       image: this.image,
     };
   }
-
-  toUpdateDto() {
-    if (!this.id) throw new Error("User expected id");
-
-    return {
-      id: this.id,
-      name: this.name,
-      password: this.password,
-      email: this.email,
-      emailVerified: this.emailVerified,
-      image: this.image,
-      role: this.role,
-    };
-  }
 }
