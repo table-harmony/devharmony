@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migration:generate": "drizzle-kit generate:pg --schema=./src/db/schema.ts",
-    "migration:push": "node -r esbuild-register src/db/migrate.ts",
-    "migrate": "drizzle-kit generate:pg --schema=./src/db/schema.ts && node -r esbuild-register src/db/migrate.ts"
+    "db:push": "dotenv drizzle-kit push:pg",
+    "db:generate": "dotenv drizzle-kit generate:pg",
+    "db:migrate": "dotenv tsx src/db/migrate.ts",
+    "db:studio": "dotenv drizzle-kit studio"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -36,8 +37,7 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "cmdk": "^1.0.0",
-    "dotenv": "^16.4.5",
-    "drizzle-orm": "^0.30.6",
+    "drizzle-orm": "^0.30.10",
     "lucide-react": "^0.364.0",
     "next": "^14.2.3",
     "next-themes": "^0.3.0",
@@ -60,11 +60,13 @@
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
-    "drizzle-kit": "^0.20.17",
+    "dotenv-cli": "^7.4.2",
+    "drizzle-kit": "^0.20.18",
     "eslint": "^8",
     "eslint-config-next": "^14.2.3",
     "postcss": "^8",
     "tailwindcss": "^3.3.0",
+    "tsx": "^4.11.0",
     "typescript": "^5"
   }
 }

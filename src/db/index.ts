@@ -1,21 +1,12 @@
-import * as schema from "./schema";
-import { PostgresJsDatabase, drizzle } from "drizzle-orm/postgres-js";
+import { env } from "@/env";
+
+import { drizzle } from "drizzle-orm/postgres-js";
 import postgres from "postgres";
+import * as schema from "./schema";
 
-declare global {
-  // eslint-disable-next-line no-var -- only var works here
-  var db: PostgresJsDatabase<typeof schema> | undefined;
-}
+export const connection = postgres(env.DATABASE_URL, {
+  max_lifetime: 10, // Remove this line if you're deploying to Docker / VPS
+  // idle_timeout: 20, // Uncomment this line if you're deploying to Docker / VPS
+});
 
-let db: PostgresJsDatabase<typeof schema>;
-
-if (process.env.NODE_ENV === "production") {
-  db = drizzle(postgres(process.env.POSTGRES_URL!), { schema });
-} else {
-  if (!global.db) {
-    global.db = drizzle(postgres(process.env.POSTGRES_URL!), { schema });
-  }
-  db = global.db;
-}
-
-export { db };
+export const db = drizzle(connection, { schema });

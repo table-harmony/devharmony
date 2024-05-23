@@ -1,19 +1,31 @@
-import "dotenv/config";
+import postgres from "postgres";
+import { drizzle } from "drizzle-orm/postgres-js";
+import { migrate } from "drizzle-orm/postgres-js/migrator";
 
-import { drizzle } from "drizzle-orm/vercel-postgres";
-import { migrate } from "drizzle-orm/vercel-postgres/migrator";
-import { sql } from "@vercel/postgres";
+import { env } from "@/env";
+import * as schema from "./schema";
 
-const db = drizzle(sql);
+export async function runMigrate() {
+  const connection = postgres(env.DATABASE_URL);
+  const db = drizzle(connection, { schema });
 
-async function main() {
-  console.log("migration started...");
+  console.log("⏳ Running migrations...");
+
+  const start = Date.now();
+
   await migrate(db, { migrationsFolder: "drizzle" });
-  console.log("migration ended...");
+
+  await connection.end();
+
+  const end = Date.now();
+
+  console.log(`✅ Migrations completed in ${end - start}ms`);
+
   process.exit(0);
 }
 
-main().catch((err) => {
-  console.log(err);
-  process.exit(0);
+runMigrate().catch((err) => {
+  console.error("❌ Migration failed");
+  console.error(err);
+  process.exit(1);
 });
