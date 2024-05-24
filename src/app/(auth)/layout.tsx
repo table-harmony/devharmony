@@ -5,7 +5,7 @@ export default function AuthLayout({
 }) {
   return (
     <>
-      <main className="py-2 md:py-10">{children}</main>
+      <main className="py-2 md:py-20">{children}</main>
     </>
   );
 }
