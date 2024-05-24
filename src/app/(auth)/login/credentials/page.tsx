@@ -3,7 +3,7 @@ import { cn } from "@/lib/utils";
 
 import { Legend } from "@/components/legend";
 import { buttonVariants } from "@/components/ui/button";
-import { CredentialsForm } from "../_components/credentials-form";
+import { CredentialsForm } from "./form";
 
 export default function CredentialsSignInPage() {
   return (

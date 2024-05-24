@@ -9,7 +9,6 @@ export async function createUser(data: CreateUserDto): Promise<UserDto> {
     .insert(users)
     .values({
       email: data.email,
-      accountType: "email",
       password: data.password,
       username: "Anonymus",
       salt: data.salt,

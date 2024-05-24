@@ -15,7 +15,7 @@ export async function getUserByCredentialsUseCase(
   const entity = new UserEntity(foundUser);
   const isPasswordVerified = await verifyPassword(entity, data.password);
 
-  if (!isPasswordVerified) throw new Error("Invalid credentials!");
+  if (!isPasswordVerified) throw new Error("The password does not match!");
 
   return foundUser;
 }

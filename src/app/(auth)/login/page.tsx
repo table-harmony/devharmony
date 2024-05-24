@@ -3,8 +3,8 @@ import { cn } from "@/lib/utils";
 
 import { Legend } from "@/components/legend";
 import { buttonVariants } from "@/components/ui/button";
-import { MagicLinkForm } from "./_components/magic-link-form";
-import { Socials } from "./_components/socials";
+import { MagicLinkForm } from "./magic-link-form";
+import { Socials } from "./socials";
 import { MailIcon } from "lucide-react";
 
 export default function LoginPage() {

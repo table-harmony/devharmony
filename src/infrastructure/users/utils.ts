@@ -1,5 +1,4 @@
 import crypto from "crypto";
-
 import { UserEntity } from "./entity";
 
 const ITERATIONS = 10000;
@@ -29,12 +28,11 @@ export async function verifyPassword(
   user: UserEntity,
   plainTextPassword: string
 ) {
-  if (!user) return false;
-
   const hashedPassword = user.getPassword();
   const salt = user.getSalt();
 
-  if (!hashedPassword || !salt) return false;
+  if (!hashedPassword || !salt)
+    throw new Error("The account does not have password!");
 
   const hash = await hashPassword(plainTextPassword, salt);
 

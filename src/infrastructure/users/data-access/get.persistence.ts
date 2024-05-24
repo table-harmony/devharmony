@@ -2,19 +2,16 @@ import "server-only";
 
 import { db } from "@/db";
 import { User, users } from "@/db/schema";
-import { and, eq } from "drizzle-orm";
+import { eq } from "drizzle-orm";
 
 import type { UserDto } from "../types";
 
 export function toDtoMapper(user: User): UserDto {
   return {
     id: user.id,
-    accountType: user.accountType,
     username: user.username,
     email: user.email,
     emailVerified: user.emailVerified,
-    googleId: user.googleId,
-    githubId: user.githubId,
     password: user.password,
     salt: user.salt,
     image: user.image,
@@ -39,7 +36,7 @@ export async function getUserByEmail(
   email: string
 ): Promise<UserDto | undefined> {
   const foundUser = await db.query.users.findFirst({
-    where: and(eq(users.email, email), eq(users.accountType, "email")),
+    where: eq(users.email, email),
   });
 
   if (!foundUser) return undefined;

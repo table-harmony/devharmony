@@ -1,6 +1,6 @@
-import { UserRole, AccountType } from "@/db/schema";
+import { UserRole } from "@/db/schema";
 
-export type { UserRole, AccountType };
+export type { UserRole };
 
 export type CreateUserDto = {
   email: string;
@@ -10,12 +10,9 @@ export type CreateUserDto = {
 
 export type UserDto = {
   id: string;
-  accountType: AccountType;
   username: string | null;
   email: string;
   emailVerified: Date | null;
-  googleId: string | null;
-  githubId: string | null;
   password: string | null;
   salt: string | null;
   image: string | null;

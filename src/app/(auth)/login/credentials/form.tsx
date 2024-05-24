@@ -18,7 +18,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/loader-button";
 import { MailIcon } from "lucide-react";
-import { loginAction } from "../credentials/actions";
+import { loginAction } from "./actions";
 
 const schema = z.object({
   email: z.string().email({
