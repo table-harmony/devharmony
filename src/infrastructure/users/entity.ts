@@ -1,35 +1,52 @@
-import { UserRole } from "./types";
-
-import bcrypt from "bcryptjs";
+import { AccountType, UserRole } from "./types";
 
 export class UserEntity {
-  private id?: string;
-  private name?: string;
-  private password?: string | null;
-  private email?: string;
-  private image?: string;
-  private role?: UserRole;
-  private emailVerified?: Date | null;
+  private id: string;
+  private accountType: AccountType;
+  private username: string;
+  private email: string;
+  private emailVerified: Date | null;
+  private googleId: string | null;
+  private githubId: string | null;
+  private password: string | null;
+  private salt: string | null;
+  private image: string;
+  private role: UserRole;
 
   constructor({
     id,
-    name,
+    accountType,
+    username,
     email,
+    emailVerified,
+    githubId,
+    googleId,
     password,
+    salt,
     image,
     role,
   }: {
-    id?: string;
-    name?: string;
-    password?: string | null;
-    email?: string;
-    image?: string;
-    role?: UserRole;
+    id: string;
+    accountType: AccountType;
+    username: string;
+    email: string;
+    emailVerified: Date | null;
+    googleId: string | null;
+    githubId: string | null;
+    password: string | null;
+    salt: string | null;
+    image: string;
+    role: UserRole;
   }) {
     this.id = id;
-    this.name = name;
-    this.password = password;
+    this.accountType = accountType;
+    this.username = username;
     this.email = email;
+    this.emailVerified = emailVerified;
+    this.googleId = googleId;
+    this.githubId = githubId;
+    this.password = password;
+    this.salt = salt;
     this.image = image;
     this.role = role;
   }
@@ -38,8 +55,8 @@ export class UserEntity {
     return this.id;
   }
 
-  getName() {
-    return this.name;
+  getUsername() {
+    return this.username;
   }
 
   getPassword() {
@@ -58,61 +75,19 @@ export class UserEntity {
     return this.role;
   }
 
-  getData() {
-    return {
-      id: this.id,
-      name: this.name,
-      password: this.password,
-      email: this.email,
-      image: this.image,
-      role: this.role,
-    };
-  }
-
-  setPassword(password: string) {
-    this.password = password;
-  }
-
-  async encryptPassword() {
-    if (!this.password) throw new Error("User expected password");
-
-    const hashedPassword = await bcrypt.hash(this.password, 10);
-
-    this.password = hashedPassword;
-  }
-
   toDto() {
-    if (
-      !this.id ||
-      !this.name ||
-      this.password === undefined ||
-      !this.email ||
-      !this.image ||
-      !this.role ||
-      !this.emailVerified
-    )
-      throw new Error("User expected data");
-
     return {
       id: this.id,
-      name: this.name,
-      password: this.password,
+      accountType: this.accountType,
+      username: this.username,
       email: this.email,
+      emailVerified: this.emailVerified,
+      googleId: this.googleId,
+      githubId: this.githubId,
+      password: this.password,
+      salt: this.salt,
       image: this.image,
       role: this.role,
-      emailVerified: this.emailVerified,
-    };
-  }
-
-  toCreateDto() {
-    if (!this.name || !this.password || !this.email)
-      throw new Error("User expected data");
-
-    return {
-      name: this.name,
-      password: this.password,
-      email: this.email,
-      image: this.image,
     };
   }
 }

@@ -1,10 +1,20 @@
-import "server-only";
-
 import { db } from "@/db";
 import { users } from "@/db/schema";
 
-import type { CreateUserDto } from "../types";
+import { toDtoMapper } from "./get.persistence";
+import { CreateUserDto, UserDto } from "../types";
 
-export async function createUser(user: CreateUserDto): Promise<void> {
-  await db.insert(users).values(user);
+export async function createUser(data: CreateUserDto): Promise<UserDto> {
+  const [user] = await db
+    .insert(users)
+    .values({
+      email: data.email,
+      accountType: "email",
+      password: data.password,
+      username: "Anonymus",
+      salt: data.salt,
+    })
+    .returning();
+
+  return toDtoMapper(user);
 }

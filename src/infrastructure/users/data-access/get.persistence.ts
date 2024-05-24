@@ -6,12 +6,17 @@ import { eq } from "drizzle-orm";
 
 import type { UserDto } from "../types";
 
-function toDtoMapper(user: User): UserDto {
+export function toDtoMapper(user: User): UserDto {
   return {
     id: user.id,
-    name: user.name,
+    accountType: user.accountType,
+    username: user.username,
     email: user.email,
+    emailVerified: user.emailVerified,
+    googleId: user.googleId,
+    githubId: user.githubId,
     password: user.password,
+    salt: user.salt,
     image: user.image,
     role: user.role,
   };

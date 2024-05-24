@@ -1,25 +1,29 @@
-import { UserRole } from "@/db/schema";
+import { UserRole, AccountType } from "@/db/schema";
 
-export type { UserRole };
+export type { UserRole, AccountType };
 
 export type CreateUserDto = {
-  name: string;
   email: string;
   password: string;
-  image?: string;
+  salt: string;
 };
 
 export type UserDto = {
   id: string;
-  name: string;
-  password: string | null;
+  accountType: AccountType;
+  username: string | null;
   email: string;
+  emailVerified: Date | null;
+  googleId: string | null;
+  githubId: string | null;
+  password: string | null;
+  salt: string | null;
   image: string | null;
   role: UserRole;
 };
 
-export type CreateUser = (user: CreateUserDto) => Promise<void>;
-export type DeleteUser = (userId: string) => Promise<void>;
+export type CreateUser = (data: CreateUserDto) => Promise<UserDto>;
 export type GetUser = (userId: string) => Promise<UserDto>;
-export type GetUsers = () => Promise<UserDto[]>;
 export type GetUserByEmail = (email: string) => Promise<UserDto | undefined>;
+export type GetUsers = () => Promise<UserDto[]>;
+export type DeleteUser = (userId: string) => Promise<void>;

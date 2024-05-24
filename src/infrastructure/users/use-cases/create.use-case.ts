@@ -1,22 +1,26 @@
-import { CreateUser, CreateUserDto, GetUserByEmail } from "../types";
+import { CreateUser, GetUserByEmail } from "../types";
+import { generateSalt, hashPassword } from "../utils";
 
-import { UserEntity } from "../entity";
-
-/**
- * @throws throws an error if user already exists
- */
 export async function createUserUseCase(
   context: {
     getUserByEmail: GetUserByEmail;
     createUser: CreateUser;
   },
-  data: CreateUserDto
+  data: { email: string; password: string }
 ) {
   const existingUser = await context.getUserByEmail(data.email);
-  if (existingUser) throw new Error("User already exists!");
 
-  const user = new UserEntity(data);
-  await user.encryptPassword();
+  if (existingUser)
+    throw new Error("An account with that email already exists!");
 
-  await context.createUser(user.toCreateDto());
+  const salt = generateSalt();
+  const hashedPassword = await hashPassword(data.password, salt);
+
+  const user = await context.createUser({
+    email: data.email,
+    password: hashedPassword,
+    salt: salt,
+  });
+
+  return user;
 }
