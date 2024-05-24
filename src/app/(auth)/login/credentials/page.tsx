@@ -7,7 +7,7 @@ import { CredentialsForm } from "../_components/credentials-form";
 
 export default function CredentialsSignIn() {
   return (
-    <div className="container relative md:max-w-lg space-y-6">
+    <div className="container relative md:max-w-lg 2xl:max-w-xl space-y-6">
       <header className="text-center">
         <h1 className="text-xl font-medium md:text-3xl">Login</h1>
         <p className="text-sm text-muted-foreground">

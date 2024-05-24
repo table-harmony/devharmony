@@ -18,6 +18,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/loader-button";
 import { MailIcon } from "lucide-react";
+import { loginAction } from "../credentials/actions";
 
 const schema = z.object({
   email: z.string().email({
@@ -27,10 +28,6 @@ const schema = z.object({
     message: "Password is required",
   }),
 });
-
-function timeout(delay: number) {
-  return new Promise((res) => setTimeout(res, delay));
-}
 
 export const CredentialsForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -45,8 +42,19 @@ export const CredentialsForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
-    startTransition(async () => {
-      await timeout(1000);
+    startTransition(() => {
+      loginAction(values.email, values.password)
+        .then((data) => {
+          if (data?.error)
+            toast({ variant: "destructive", description: data.error });
+        })
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          })
+        );
     });
   };
 

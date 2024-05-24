@@ -1,19 +1,18 @@
 "use server";
 
 import {
-  createUser,
+  getUserByCredentialsUseCase,
   getUserByEmail,
-  createUserUseCase,
 } from "@/infrastructure/users";
 
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
-export async function registerAction(email: string, password: string) {
+export async function loginAction(email: string, password: string) {
   try {
-    const user = await createUserUseCase(
-      { getUserByEmail: getUserByEmail, createUser: createUser },
+    const user = await getUserByCredentialsUseCase(
+      { getUserByEmail: getUserByEmail },
       { email, password }
     );
     const session = await lucia.createSession(user.id, {});

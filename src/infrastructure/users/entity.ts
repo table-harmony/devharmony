@@ -3,14 +3,14 @@ import { AccountType, UserRole } from "./types";
 export class UserEntity {
   private id: string;
   private accountType: AccountType;
-  private username: string;
+  private username: string | null;
   private email: string;
   private emailVerified: Date | null;
   private googleId: string | null;
   private githubId: string | null;
   private password: string | null;
   private salt: string | null;
-  private image: string;
+  private image: string | null;
   private role: UserRole;
 
   constructor({
@@ -28,14 +28,14 @@ export class UserEntity {
   }: {
     id: string;
     accountType: AccountType;
-    username: string;
+    username: string | null;
     email: string;
     emailVerified: Date | null;
     googleId: string | null;
     githubId: string | null;
     password: string | null;
     salt: string | null;
-    image: string;
+    image: string | null;
     role: UserRole;
   }) {
     this.id = id;
@@ -55,16 +55,36 @@ export class UserEntity {
     return this.id;
   }
 
+  getAccountType() {
+    return this.accountType;
+  }
+
   getUsername() {
     return this.username;
+  }
+
+  getEmail() {
+    return this.email;
+  }
+
+  getEmailVerified() {
+    return this.emailVerified;
+  }
+
+  getGoogleId() {
+    return this.googleId;
+  }
+
+  getGithubId() {
+    return this.githubId;
   }
 
   getPassword() {
     return this.password;
   }
 
-  getEmail() {
-    return this.email;
+  getSalt() {
+    return this.salt;
   }
 
   getImage() {

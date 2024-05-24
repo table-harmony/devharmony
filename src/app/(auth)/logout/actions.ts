@@ -5,7 +5,7 @@ import { validateRequest } from "@/lib/auth/validate-request";
 import { redirect } from "next/navigation";
 import { cookies } from "next/headers";
 
-async function logoutAction(): Promise<ActionResult> {
+export async function logoutAction(): Promise<ActionResult> {
   const { session } = await validateRequest();
   if (!session) {
     return {
@@ -21,7 +21,7 @@ async function logoutAction(): Promise<ActionResult> {
     sessionCookie.value,
     sessionCookie.attributes
   );
-  return redirect("/sign-in");
+  return redirect("/");
 }
 
 interface ActionResult {

@@ -2,7 +2,7 @@ import "server-only";
 
 import { db } from "@/db";
 import { User, users } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import type { UserDto } from "../types";
 
@@ -39,7 +39,7 @@ export async function getUserByEmail(
   email: string
 ): Promise<UserDto | undefined> {
   const foundUser = await db.query.users.findFirst({
-    where: eq(users.email, email),
+    where: and(eq(users.email, email), eq(users.accountType, "email")),
   });
 
   if (!foundUser) return undefined;

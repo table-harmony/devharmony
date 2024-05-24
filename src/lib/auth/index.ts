@@ -3,6 +3,8 @@ import { env } from "@/env";
 import { db } from "@/db";
 import { sessions, users } from "@/db/schema";
 
+import { UserRole, AccountType } from "@/infrastructure/users";
+
 import { Lucia } from "lucia";
 import { GitHub } from "arctic";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
@@ -18,8 +20,16 @@ export const lucia = new Lucia(adapter, {
   },
   getUserAttributes: (attributes) => {
     return {
-      githubId: attributes.github_id,
+      accountType: attributes.accountType,
       username: attributes.username,
+      email: attributes.email,
+      emailVerified: attributes.emailVerified,
+      googleId: attributes.googleId,
+      githubId: attributes.githubId,
+      password: attributes.password,
+      salt: attributes.salt,
+      image: attributes.image,
+      role: attributes.role,
     };
   },
 });
@@ -32,8 +42,17 @@ declare module "lucia" {
 }
 
 interface DatabaseUserAttributes {
-  github_id: number;
-  username: string;
+  id: string;
+  accountType: AccountType;
+  username: string | null;
+  email: string;
+  emailVerified: Date | null;
+  googleId: string | null;
+  githubId: string | null;
+  password: string | null;
+  salt: string | null;
+  image: string | null;
+  role: UserRole;
 }
 
 export const github = new GitHub(
