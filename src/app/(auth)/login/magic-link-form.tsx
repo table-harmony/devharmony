@@ -19,15 +19,13 @@ import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/loader-button";
 import { LinkIcon } from "lucide-react";
 
+import { magicLinkLoginAction } from "./actions";
+
 const schema = z.object({
   email: z.string().email({
     message: "Email is required",
   }),
 });
-
-function timeout(delay: number) {
-  return new Promise((res) => setTimeout(res, delay));
-}
 
 export const MagicLinkForm = () => {
   const [isPending, startTransition] = useTransition();
@@ -41,12 +39,19 @@ export const MagicLinkForm = () => {
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
-    startTransition(async () => {
-      await timeout(1000);
-      toast({
-        title: "Magic link in construction",
-        variant: "success",
-      });
+    startTransition(() => {
+      magicLinkLoginAction(values.email)
+        .then((data) => {
+          if (data?.error)
+            toast({ variant: "destructive", description: data.error });
+        })
+        .catch(() =>
+          toast({
+            variant: "destructive",
+            title: "Uh oh! Something went wrong.",
+            description: "There was a problem with your request.",
+          })
+        );
     });
   };
 

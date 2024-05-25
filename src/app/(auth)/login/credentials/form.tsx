@@ -18,7 +18,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/loader-button";
 import { MailIcon } from "lucide-react";
-import { loginAction } from "./actions";
+import { credentialsLoginAction } from "./actions";
 
 const schema = z.object({
   email: z.string().email({
@@ -43,7 +43,7 @@ export const CredentialsForm = () => {
 
   const onSubmit = (values: z.infer<typeof schema>) => {
     startTransition(() => {
-      loginAction(values.email, values.password)
+      credentialsLoginAction(values.email, values.password)
         .then((data) => {
           if (data?.error)
             toast({ variant: "destructive", description: data.error });

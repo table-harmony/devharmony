@@ -32,7 +32,7 @@ export async function verifyPassword(
   const salt = user.getSalt();
 
   if (!hashedPassword || !salt)
-    throw new Error("The account does not have password!");
+    throw new Error("This account does not have a password!");
 
   const hash = await hashPassword(plainTextPassword, salt);
 

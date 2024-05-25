@@ -2,11 +2,25 @@ import { UserRole } from "@/db/schema";
 
 export type { UserRole };
 
-export type CreateUserDto = {
+type Credentials = {
   email: string;
   password: string;
   salt: string;
 };
+
+type OAuth = {
+  email: string;
+  emailVerified: Date;
+  username: string;
+  image: string;
+};
+
+type MagicLink = {
+  email: string;
+  emailVerified: Date;
+};
+
+export type CreateUserDto = Credentials | OAuth | MagicLink;
 
 export type UserDto = {
   id: string;

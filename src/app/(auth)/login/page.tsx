@@ -1,10 +1,10 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
+import { Button } from "@/components/ui/button";
 import { Legend } from "@/components/legend";
-import { buttonVariants } from "@/components/ui/button";
+import { Icons } from "@/components/icons";
 import { MagicLinkForm } from "./magic-link-form";
-import { Socials } from "./socials";
+
 import { MailIcon } from "lucide-react";
 
 export default function LoginPage() {
@@ -16,18 +16,30 @@ export default function LoginPage() {
           Sign in to your account using the options below
         </p>
       </header>
-      <Socials />
+      <div className="flex flex-col md:flex-row gap-2">
+        <Button variant="secondary" className="w-full" asChild>
+          <Link href="/api/login/google">
+            <Icons.google className="mr-2 h-4 w-4" />
+            <span className="hidden md:block">Sign in with&nbsp;</span> Google
+          </Link>
+        </Button>
+        <Button variant="secondary" className="w-full" asChild>
+          <Link href="/api/login/github">
+            <Icons.gitHub className="mr-2 h-4 w-4" />
+            <span className="hidden md:block">Sign in with&nbsp;</span> Github
+          </Link>
+        </Button>
+      </div>
       <Legend text="sign in with Email" />
       <MagicLinkForm />
       <Legend text="more options" />
-      <Link
-        className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
-        href="/login/credentials"
-      >
-        <MailIcon className="mr-2 h-4 w-4" />
-        <span className="hidden md:block">Sign in with&nbsp;</span>
-        Credentials
-      </Link>
+      <Button variant="secondary" className="w-full" asChild>
+        <Link href="/login/credentials">
+          <MailIcon className="mr-2 h-4 w-4" />
+          <span className="hidden md:block">Sign in with&nbsp;</span>
+          Credentials
+        </Link>
+      </Button>
     </div>
   );
 }

@@ -18,6 +18,7 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/loader-button";
 import { registerAction } from "./actions";
+import { CircleUserIcon } from "lucide-react";
 
 const schema = z
   .object({
@@ -132,7 +133,12 @@ export const RegisterForm = () => {
             </FormItem>
           )}
         />
-        <LoaderButton isLoading={isPending} type="submit" className="w-full">
+        <LoaderButton
+          isLoading={isPending}
+          icon={CircleUserIcon}
+          type="submit"
+          className="w-full"
+        >
           Create an account
         </LoaderButton>
       </form>

@@ -1,11 +1,9 @@
 import Link from "next/link";
 
 import { Legend } from "@/components/legend";
-import { buttonVariants } from "@/components/ui/button";
-
-import { cn } from "@/lib/utils";
-
+import { Button } from "@/components/ui/button";
 import { RegisterForm } from "./form";
+import { LogInIcon } from "lucide-react";
 
 export default function RegisterPage() {
   return (
@@ -18,12 +16,12 @@ export default function RegisterPage() {
       </header>
       <RegisterForm />
       <Legend text="Or" />
-      <Link
-        className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
-        href="/login"
-      >
-        Sign in
-      </Link>
+      <Button variant="secondary" className="w-full" asChild>
+        <Link href="/login">
+          <LogInIcon className="mr-2 h-4 w-4" />
+          Sign in
+        </Link>
+      </Button>
     </div>
   );
 }

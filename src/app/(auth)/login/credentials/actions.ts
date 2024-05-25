@@ -19,18 +19,18 @@ const ratelimit = new Ratelimit({
   limiter: Ratelimit.fixedWindow(5, "10s"),
 });
 
-export async function loginAction(email: string, password: string) {
+export async function credentialsLoginAction(email: string, password: string) {
   try {
     const ip = getIp();
     const { success } = await ratelimit.limit(ip ?? "anonymous011");
 
-    if (!success)
-      throw new Error(`Rate limit exceeded! Try again in a couple of seconds!`);
+    if (!success) throw new Error("Rate limit exceeded!");
 
     const user = await getUserByCredentialsUseCase(
       { getUserByEmail: getUserByEmail },
       { email, password }
     );
+
     const session = await lucia.createSession(user.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
 

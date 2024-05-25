@@ -8,9 +8,7 @@ import { cookies } from "next/headers";
 export async function logoutAction(): Promise<ActionResult> {
   const { session } = await validateRequest();
   if (!session) {
-    return {
-      error: "Unauthorized",
-    };
+    return { error: "Unauthorized!" };
   }
 
   await lucia.invalidateSession(session.id);

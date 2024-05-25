@@ -1,11 +1,11 @@
 import Link from "next/link";
-import { cn } from "@/lib/utils";
 
 import { Legend } from "@/components/legend";
-import { buttonVariants } from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { CredentialsForm } from "./form";
+import { LogInIcon } from "lucide-react";
 
-export default function CredentialsSignInPage() {
+export default function CredentialsLoginPage() {
   return (
     <div className="container relative md:max-w-lg space-y-6">
       <header className="text-center">
@@ -16,12 +16,12 @@ export default function CredentialsSignInPage() {
       </header>
       <CredentialsForm />
       <Legend text="or" />
-      <Link
-        className={cn(buttonVariants({ variant: "secondary" }), "w-full")}
-        href="/register"
-      >
-        Sign up
-      </Link>
+      <Button variant="secondary" className="w-full" asChild>
+        <Link href="/register">
+          <LogInIcon className="mr-2 h-4 w-4" />
+          Sign up
+        </Link>
+      </Button>
     </div>
   );
 }
