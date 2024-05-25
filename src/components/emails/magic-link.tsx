@@ -7,7 +7,7 @@ export function MagicLinkEmail({ token }: { token: string }) {
   return (
     <Html lang="en">
       <Body />
-      <Link href={`${domain}/login/email?token=${token}`}>
+      <Link href={`${domain}/api/login/magic?token=${token}`}>
         Login using magic link
       </Link>
     </Html>

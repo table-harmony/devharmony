@@ -18,7 +18,9 @@ export const users = pgTable("user", {
 });
 
 export const accounts = pgTable("account", {
-  id: text("id").primaryKey(),
+  id: text("id")
+    .primaryKey()
+    .$defaultFn(() => randomUUID()),
   type: accountTypeEnum("type").notNull(),
   userId: text("userId")
     .notNull()
