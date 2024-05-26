@@ -62,9 +62,7 @@ export async function credentialsLoginAction(email: string, password: string) {
     );
   } catch (err) {
     const error = err as Error;
-    return {
-      error: error.message,
-    };
+    return { error: error.message };
   }
 
   return redirect("/");

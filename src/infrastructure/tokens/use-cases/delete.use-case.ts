@@ -1,4 +1,4 @@
-import { DeleteToken, DeleteTokenByEmail } from "../types";
+import { DeleteExpiredTokens, DeleteToken, DeleteTokenByEmail } from "../types";
 
 export async function deleteTokenUseCase(
   context: { deleteToken: DeleteToken },
@@ -12,4 +12,10 @@ export async function deleteTokenByEmailUseCase(
   data: { email: string }
 ) {
   await context.deleteTokenByEmail(data.email);
+}
+
+export async function deleteExpiredTokensUseCase(context: {
+  deleteExpiredTokens: DeleteExpiredTokens;
+}) {
+  await context.deleteExpiredTokens();
 }

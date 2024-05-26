@@ -47,7 +47,7 @@ export async function GET(request: Request): Promise<Response> {
     if (!user) {
       user = await createUser({
         email: magicLinkToken.email,
-        emailVerified: new Date(Date.now()),
+        emailVerified: new Date(),
       });
     }
 

@@ -91,7 +91,7 @@ export async function GET(request: Request): Promise<Response> {
       email: googleUser.email,
       username: googleUser.name,
       image: googleUser.picture,
-      emailVerified: new Date(Date.now()),
+      emailVerified: new Date(),
     });
 
     await createAccountUseCase(

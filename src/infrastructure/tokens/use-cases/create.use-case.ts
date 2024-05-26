@@ -2,9 +2,7 @@ import { CreateToken } from "../types";
 import { generateToken } from "../utils";
 
 export async function createTokenUseCase(
-  context: {
-    createToken: CreateToken;
-  },
+  context: { createToken: CreateToken },
   data: { email: string }
 ) {
   const token = generateToken();

@@ -17,3 +17,4 @@ export type GetTokenByToken = (token: string) => Promise<TokenDto>;
 export type GetTokenByEmail = (email: string) => Promise<TokenDto | undefined>;
 export type DeleteToken = (id: string) => Promise<void>;
 export type DeleteTokenByEmail = (email: string) => Promise<void>;
+export type DeleteExpiredTokens = () => Promise<void>;

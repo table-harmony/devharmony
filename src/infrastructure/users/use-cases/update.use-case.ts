@@ -5,7 +5,7 @@ export async function verifyEmailUseCase(
   data: { id: string }
 ) {
   const updatedUser = await context.updateUser(data.id, {
-    emailVerified: new Date(Date.now()),
+    emailVerified: new Date(),
   });
 
   return updatedUser;

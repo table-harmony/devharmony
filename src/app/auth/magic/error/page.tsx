@@ -15,7 +15,7 @@ export default function MagicLinkLoginErrorPage({
         <p className="text-sm text-muted-foreground">{searchParams.error}</p>
       </header>
       <Button asChild className="w-full">
-        <Link href="/login">Try Again!</Link>
+        <Link href="/auth/login">Try Again!</Link>
       </Button>
     </div>
   );
