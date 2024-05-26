@@ -47,6 +47,8 @@ export const CredentialsForm = () => {
         .then((data) => {
           if (data?.error)
             toast({ variant: "destructive", description: data.error });
+          if (data?.success)
+            toast({ variant: "success", description: data.success });
         })
         .catch(() =>
           toast({

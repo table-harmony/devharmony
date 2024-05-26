@@ -17,7 +17,7 @@ export default function CredentialsLoginPage() {
       <CredentialsForm />
       <Legend text="or" />
       <Button variant="secondary" className="w-full" asChild>
-        <Link href="/register">
+        <Link href="/auth/register">
           <LogInIcon className="mr-2 h-4 w-4" />
           Sign up
         </Link>

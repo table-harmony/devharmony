@@ -17,7 +17,7 @@ export default function RegisterPage() {
       <RegisterForm />
       <Legend text="Or" />
       <Button variant="secondary" className="w-full" asChild>
-        <Link href="/login">
+        <Link href="/auth/login">
           <LogInIcon className="mr-2 h-4 w-4" />
           Sign in
         </Link>

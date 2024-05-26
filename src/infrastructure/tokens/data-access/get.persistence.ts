@@ -1,7 +1,11 @@
 import "server-only";
 
 import { db } from "@/db";
-import { MagicLinkToken, magicLinkTokens } from "@/db/schema";
+import {
+  MagicLinkToken,
+  magicLinkTokens,
+  verificationTokens,
+} from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 import type { TokenDto } from "../types";
@@ -45,6 +49,18 @@ export async function getMagicLinkTokenByToken(
 ): Promise<TokenDto> {
   const foundToken = await db.query.magicLinkTokens.findFirst({
     where: eq(magicLinkTokens.token, token),
+  });
+
+  if (!foundToken) throw new Error("Token not found!");
+
+  return toDtoMapper(foundToken);
+}
+
+export async function getVerificationTokenByToken(
+  token: string
+): Promise<TokenDto> {
+  const foundToken = await db.query.verificationTokens.findFirst({
+    where: eq(verificationTokens.token, token),
   });
 
   if (!foundToken) throw new Error("Token not found!");

@@ -33,8 +33,21 @@ export type UserDto = {
   role: UserRole;
 };
 
+export type UpdateUserDto = {
+  username?: string;
+  emailVerified?: Date;
+  password?: string;
+  salt?: string;
+  image?: string;
+  role?: UserRole;
+};
+
 export type CreateUser = (data: CreateUserDto) => Promise<UserDto>;
 export type GetUser = (userId: string) => Promise<UserDto>;
 export type GetUserByEmail = (email: string) => Promise<UserDto | undefined>;
 export type GetUsers = () => Promise<UserDto[]>;
 export type DeleteUser = (userId: string) => Promise<void>;
+export type UpdateUser = (
+  userId: string,
+  data: UpdateUserDto
+) => Promise<UserDto>;

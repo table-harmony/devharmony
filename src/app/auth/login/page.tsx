@@ -26,7 +26,7 @@ export default function LoginPage() {
       <MagicLinkForm />
       <Legend text="more options" />
       <Button variant="secondary" className="w-full" asChild>
-        <Link href="/login/credentials">
+        <Link href="/auth/login/credentials">
           <MailIcon className="mr-2 h-4 w-4" />
           <span className="hidden md:block">Sign in with&nbsp;</span>
           Credentials

@@ -1,4 +1,10 @@
-import { createUser, getUser, getUserUseCase } from "@/infrastructure/users";
+import {
+  createUser,
+  getUser,
+  getUserByEmail,
+  getUserByEmailUseCase,
+  getUserUseCase,
+} from "@/infrastructure/users";
 import {
   createAccount,
   createAccountUseCase,
@@ -31,15 +37,38 @@ export async function GET(request: Request): Promise<Response> {
       }
     );
     const googleUser: GoogleUser = await response.json();
+
     const existingAccount = await getAccountUseCase(
       { getAccount: getAccount },
       { id: googleUser.sub }
     );
 
     if (existingAccount) {
-      const existingUser = await getUserUseCase(
-        { getUser: getUser },
-        { id: existingAccount.userId }
+      const session = await lucia.createSession(existingAccount.userId, {});
+      const sessionCookie = lucia.createSessionCookie(session.id);
+      cookies().set(
+        sessionCookie.name,
+        sessionCookie.value,
+        sessionCookie.attributes
+      );
+
+      return new Response(null, {
+        status: 302,
+        headers: {
+          Location: "/",
+        },
+      });
+    }
+
+    const existingUser = await getUserByEmailUseCase(
+      { getUserByEmail: getUserByEmail },
+      { email: googleUser.email }
+    );
+
+    if (existingUser) {
+      await createAccountUseCase(
+        { createAccount: createAccount },
+        { id: googleUser.sub, type: "google", userId: existingUser.id }
       );
 
       const session = await lucia.createSession(existingUser.id, {});

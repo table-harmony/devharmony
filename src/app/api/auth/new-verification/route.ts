@@ -1,14 +1,12 @@
 import {
-  deleteMagicLinkToken,
   deleteTokenUseCase,
-  getMagicLinkTokenByToken,
+  deleteVerificationToken,
   getTokenByTokenUseCase,
+  getVerificationTokenByToken,
 } from "@/infrastructure/tokens";
-import {
-  createUser,
-  getUserByEmail,
-  getUserByEmailUseCase,
-} from "@/infrastructure/users";
+import { getUserByEmail, getUserByEmailUseCase } from "@/infrastructure/users";
+import { updateUser } from "@/infrastructure/users/data-access/update.persistence";
+import { verifyEmailUseCase } from "@/infrastructure/users/use-cases/update.use-case";
 
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
@@ -21,35 +19,32 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/auth/magic/error?error=Missing Token",
+        Location: "/auth/new-verification/error?error=Missing Token",
       },
     });
 
   try {
-    const magicLinkToken = await getTokenByTokenUseCase(
-      { getTokenByToken: getMagicLinkTokenByToken },
+    const verificationToken = await getTokenByTokenUseCase(
+      { getTokenByToken: getVerificationTokenByToken },
       { token }
     );
 
     await deleteTokenUseCase(
-      { deleteToken: deleteMagicLinkToken },
-      { id: magicLinkToken.id }
+      { deleteToken: deleteVerificationToken },
+      { id: verificationToken.id }
     );
 
-    if (new Date(magicLinkToken.expiresAt) < new Date())
+    if (new Date(verificationToken.expiresAt) < new Date())
       throw new Error("Token has expired!");
 
-    let user = await getUserByEmailUseCase(
+    const user = await getUserByEmailUseCase(
       { getUserByEmail: getUserByEmail },
-      { email: magicLinkToken.email }
+      { email: verificationToken.email }
     );
 
-    if (!user) {
-      user = await createUser({
-        email: magicLinkToken.email,
-        emailVerified: new Date(Date.now()),
-      });
-    }
+    if (!user) throw new Error("User was not created!");
+
+    await verifyEmailUseCase({ updateUser: updateUser }, { id: user.id });
 
     const session = await lucia.createSession(user.id, {});
     const sessionCookie = lucia.createSessionCookie(session.id);
@@ -71,7 +66,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: `/auth/magic/error?error=${error.message}`,
+        Location: `/auth/new-verification/error?error=${error.message}`,
       },
     });
   }
