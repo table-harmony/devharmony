@@ -6,7 +6,7 @@ import { sessions, users } from "@/db/schema";
 import { UserRole } from "@/infrastructure/users";
 
 import { Lucia } from "lucia";
-import { GitHub, Google } from "arctic";
+import { Google } from "arctic";
 import { DrizzlePostgreSQLAdapter } from "@lucia-auth/adapter-drizzle";
 
 const adapter = new DrizzlePostgreSQLAdapter(db, sessions, users);
@@ -15,7 +15,7 @@ export const lucia = new Lucia(adapter, {
   sessionCookie: {
     expires: false,
     attributes: {
-      secure: env.NODE_ENV === "production",
+      secure: true,
     },
   },
   getUserAttributes: (attributes) => {
@@ -49,13 +49,8 @@ interface DatabaseUserAttributes {
   role: UserRole;
 }
 
-export const github = new GitHub(
-  env.GITHUB_CLIENT_ID,
-  env.GITHUB_CLIENT_SECRET
-);
-
-export const googleAuth = new Google(
+export const google = new Google(
   env.GOOGLE_CLIENT_ID,
   env.GOOGLE_CLIENT_SECRET,
-  `${env.NEXT_PUBLIC_APP_URL}/api/login/google/callback`
+  `${env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`
 );

@@ -16,20 +16,12 @@ export default function LoginPage() {
           Sign in to your account using the options below
         </p>
       </header>
-      <div className="flex flex-col md:flex-row gap-2">
-        <Button variant="secondary" className="w-full" asChild>
-          <Link href="/api/login/google">
-            <Icons.google className="mr-2 h-4 w-4" />
-            <span className="hidden md:block">Sign in with&nbsp;</span> Google
-          </Link>
-        </Button>
-        <Button variant="secondary" className="w-full" asChild>
-          <Link href="/api/login/github">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
-            <span className="hidden md:block">Sign in with&nbsp;</span> Github
-          </Link>
-        </Button>
-      </div>
+      <Button variant="secondary" className="w-full" asChild>
+        <Link href="/api/auth/google">
+          <Icons.google className="mr-2 h-4 w-4" />
+          <span className="hidden md:block">Sign in with&nbsp;</span> Google
+        </Link>
+      </Button>
       <Legend text="sign in with Email" />
       <MagicLinkForm />
       <Legend text="more options" />

@@ -13,15 +13,19 @@ import {
 import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 
-import { NextRequest, NextResponse } from "next/server";
-
-export async function GET(request: NextRequest): Promise<NextResponse> {
+export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
   const token = url.searchParams.get("token");
 
-  try {
-    if (!token) throw new Error("Missing Token!");
+  if (!token)
+    return new Response(null, {
+      status: 302,
+      headers: {
+        Location: "/login/magic/error?error=Missing Token",
+      },
+    });
 
+  try {
     const magicLinkToken = await getTokenByTokenUseCase(
       { getTokenByToken: getMagicLinkTokenByToken },
       { token }
@@ -56,7 +60,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
       sessionCookie.attributes
     );
 
-    return new NextResponse(null, {
+    return new Response(null, {
       status: 302,
       headers: {
         Location: "/",
@@ -64,7 +68,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
     });
   } catch (e) {
     const error = e as Error;
-    return new NextResponse(null, {
+    return new Response(null, {
       status: 302,
       headers: {
         Location: `/login/magic/error?error=${error.message}`,

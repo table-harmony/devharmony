@@ -6,7 +6,7 @@ import {
   getAccountUseCase,
 } from "@/infrastructure/accounts";
 
-import { googleAuth, lucia } from "@/lib/auth";
+import { google, lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 
@@ -16,14 +16,12 @@ export async function GET(request: Request): Promise<Response> {
   const state = url.searchParams.get("state");
   const storedState = cookies().get("google_oauth_state")?.value ?? null;
   const codeVerifier = cookies().get("google_code_verifier")?.value ?? null;
+
   if (!code || !state || !storedState || state !== storedState || !codeVerifier)
     return new Response(null, { status: 400 });
 
   try {
-    const tokens = await googleAuth.validateAuthorizationCode(
-      code,
-      codeVerifier
-    );
+    const tokens = await google.validateAuthorizationCode(code, codeVerifier);
     const response = await fetch(
       "https://openidconnect.googleapis.com/v1/userinfo",
       {
@@ -33,7 +31,6 @@ export async function GET(request: Request): Promise<Response> {
       }
     );
     const googleUser: GoogleUser = await response.json();
-    console.log(googleUser);
     const existingAccount = await getAccountUseCase(
       { getAccount: getAccount },
       { id: googleUser.sub }

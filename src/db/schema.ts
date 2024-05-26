@@ -2,7 +2,7 @@ import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
 import { randomUUID } from "crypto";
 
 export const userRoleEnum = pgEnum("role", ["member", "manager", "admin"]);
-export const accountTypeEnum = pgEnum("type", ["google", "github"]);
+export const accountTypeEnum = pgEnum("type", ["google"]);
 
 export const users = pgTable("user", {
   id: text("id")
@@ -66,7 +66,7 @@ export const verificationTokens = pgTable("verification_token", {
 });
 
 export type UserRole = "member" | "manager" | "admin";
-export type AccountType = "google" | "github";
+export type AccountType = "google";
 
 export type User = typeof users.$inferSelect;
 export type Account = typeof accounts.$inferSelect;
