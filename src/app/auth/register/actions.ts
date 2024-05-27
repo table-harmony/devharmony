@@ -1,5 +1,9 @@
 "use server";
 
+import { redirect } from "next/navigation";
+import { kv } from "@vercel/kv";
+import { Ratelimit } from "@upstash/ratelimit";
+
 import {
   createVerificationToken,
   createTokenUseCase,
@@ -12,11 +16,8 @@ import {
 
 import { sendEmail } from "@/lib/mail";
 import { getIp } from "@/lib/get-ip";
-import { redirect } from "next/navigation";
-import { NewVerificationEmail } from "@/components/emails/new-verification";
 
-import { kv } from "@vercel/kv";
-import { Ratelimit } from "@upstash/ratelimit";
+import { NewVerificationEmail } from "@/components/emails/new-verification";
 
 const ratelimit = new Ratelimit({
   redis: kv,

@@ -5,6 +5,7 @@ import {
   deleteExpiredTokensUseCase,
   deleteExpiredVerificationTokens,
 } from "@/infrastructure/tokens";
+
 import { lucia } from "@/lib/auth";
 
 export async function GET(request: Request) {

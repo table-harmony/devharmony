@@ -1,11 +1,13 @@
+import Link from "next/link";
+
+import { validateRequest } from "@/lib/auth";
+
 import { CommandMenu } from "@/components/command-menu";
 import { MainNav } from "@/components/main-nav";
 import { ModeToggle } from "@/components/mode-toggle";
 import { MobileNav } from "@/components/mobile-nav";
-import { Button } from "./ui/button";
-import Link from "next/link";
-import { validateRequest } from "@/lib/auth/validate-request";
-import { UserDropdown } from "./user-dropdown";
+import { Button } from "@/components/ui/button";
+import { UserDropdown } from "@/components/user-dropdown";
 
 export async function SiteHeader() {
   const { user } = await validateRequest();

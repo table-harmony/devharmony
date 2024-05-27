@@ -1,23 +1,24 @@
 "use server";
 
-import {
-  getUserByCredentialsUseCase,
-  getUserByEmail,
-} from "@/infrastructure/users";
-
-import { lucia } from "@/lib/auth";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 
-import { getIp } from "@/lib/get-ip";
+import {
+  getUserByCredentialsUseCase,
+  getUserByEmail,
+} from "@/infrastructure/users";
 import {
   createTokenUseCase,
   createVerificationToken,
 } from "@/infrastructure/tokens";
+
+import { lucia } from "@/lib/auth";
+import { getIp } from "@/lib/get-ip";
 import { sendEmail } from "@/lib/mail";
+
 import { NewVerificationEmail } from "@/components/emails/new-verification";
 
 const ratelimit = new Ratelimit({

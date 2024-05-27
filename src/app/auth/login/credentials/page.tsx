@@ -1,8 +1,9 @@
 import Link from "next/link";
 
-import { Legend } from "@/components/legend";
-import { Button } from "@/components/ui/button";
 import { CredentialsForm } from "./form";
+
+import { Legend } from "@/components/ui/legend";
+import { Button } from "@/components/ui/button";
 import { LogInIcon } from "lucide-react";
 
 export default function CredentialsLoginPage() {

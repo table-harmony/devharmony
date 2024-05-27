@@ -1,3 +1,5 @@
+import { cookies } from "next/headers";
+
 import {
   deleteMagicLinkToken,
   deleteTokenUseCase,
@@ -11,7 +13,6 @@ import {
 } from "@/infrastructure/users";
 
 import { lucia } from "@/lib/auth";
-import { cookies } from "next/headers";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);

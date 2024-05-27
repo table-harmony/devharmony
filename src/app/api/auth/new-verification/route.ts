@@ -1,15 +1,19 @@
+import { cookies } from "next/headers";
+
 import {
   deleteTokenUseCase,
   deleteVerificationToken,
   getTokenByTokenUseCase,
   getVerificationTokenByToken,
 } from "@/infrastructure/tokens";
-import { getUserByEmail, getUserByEmailUseCase } from "@/infrastructure/users";
-import { updateUser } from "@/infrastructure/users/data-access/update.persistence";
-import { verifyEmailUseCase } from "@/infrastructure/users/use-cases/update.use-case";
+import {
+  updateUser,
+  verifyEmailUseCase,
+  getUserByEmail,
+  getUserByEmailUseCase,
+} from "@/infrastructure/users";
 
 import { lucia } from "@/lib/auth";
-import { cookies } from "next/headers";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);

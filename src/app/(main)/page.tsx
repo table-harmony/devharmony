@@ -9,9 +9,9 @@ import {
 } from "@/components/page-header";
 import { buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
-import { Icons } from "@/components/icons";
+import { GithubIcon } from "lucide-react";
 
-export default function Home() {
+export default function HomePage() {
   return (
     <div className="container relative">
       <PageHeader>
@@ -36,7 +36,7 @@ export default function Home() {
               "w-full sm:w-fit"
             )}
           >
-            <Icons.gitHub className="w-4 h-4 mr-2" />
+            <GithubIcon className="w-4 h-4 mr-2" />
             Github
           </Link>
         </PageActions>

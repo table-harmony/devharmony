@@ -1,14 +1,11 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import {
-  LaptopIcon,
-  LinkIcon,
-  MoonIcon,
-  SearchIcon,
-  SunIcon,
-} from "lucide-react";
 import { useTheme } from "next-themes";
+
+import { useCallback, useState } from "react";
+
+import { docsConfig } from "@/config/docs";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
@@ -21,8 +18,13 @@ import {
   CommandList,
   CommandSeparator,
 } from "@/components/ui/command";
-import { useCallback, useState } from "react";
-import { docsConfig } from "@/config/docs";
+import {
+  LaptopIcon,
+  LinkIcon,
+  MoonIcon,
+  SearchIcon,
+  SunIcon,
+} from "lucide-react";
 
 export function CommandMenu() {
   const router = useRouter();

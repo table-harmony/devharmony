@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 
+import { credentialsLoginAction } from "./actions";
+
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -16,9 +18,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
-import { LoaderButton } from "@/components/loader-button";
+import { LoaderButton } from "@/components/ui/loader-button";
 import { MailIcon } from "lucide-react";
-import { credentialsLoginAction } from "./actions";
 
 const schema = z.object({
   email: z.string().email({

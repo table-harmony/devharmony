@@ -1,15 +1,16 @@
 "use server";
 
+import { redirect } from "next/navigation";
+
+import { Ratelimit } from "@upstash/ratelimit";
+import { kv } from "@vercel/kv";
+
 import {
   createMagicLinkToken,
   createTokenUseCase,
   deleteMagicLinkTokenByEmail,
   deleteTokenByEmailUseCase,
 } from "@/infrastructure/tokens";
-
-import { redirect } from "next/navigation";
-import { Ratelimit } from "@upstash/ratelimit";
-import { kv } from "@vercel/kv";
 
 import { getIp } from "@/lib/get-ip";
 import { sendEmail } from "@/lib/mail";

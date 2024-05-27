@@ -1,8 +1,10 @@
-import { siteConfig } from "@/config/site";
-import { cn } from "@/lib/utils";
 import Link from "next/link";
-import { Icons } from "@/components/icons";
+
+import { siteConfig } from "@/config/site";
+
+import { cn } from "@/lib/utils";
 import { buttonVariants } from "@/components/ui/button";
+import { GithubIcon, LinkedinIcon } from "lucide-react";
 
 export function SiteFooter() {
   return (
@@ -22,7 +24,7 @@ export function SiteFooter() {
                 "w-9 px-0"
               )}
             >
-              <Icons.gitHub className="h-4 w-4" />
+              <GithubIcon className="h-4 w-4" />
               <span className="sr-only">GitHub</span>
             </div>
           </Link>
@@ -39,7 +41,7 @@ export function SiteFooter() {
                 "w-9 px-0"
               )}
             >
-              <Icons.linkedin className="h-4 w-4" />
+              <LinkedinIcon className="h-4 w-4" />
               <span className="sr-only">LinkedIn</span>
             </div>
           </Link>

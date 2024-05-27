@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { validateRequest } from "@/lib/auth";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { validateRequest } from "@/lib/auth/validate-request";
+import { LogOutIcon, SettingsIcon } from "lucide-react";
 
 export const UserDropdown = async () => {
   const { user } = await validateRequest();

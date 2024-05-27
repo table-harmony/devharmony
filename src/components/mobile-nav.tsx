@@ -2,15 +2,17 @@
 
 import Link, { LinkProps } from "next/link";
 import { useRouter } from "next/navigation";
+
 import { useState } from "react";
 
 import { siteConfig } from "@/config/site";
+
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { AlignLeftIcon } from "lucide-react";
-import { Icons } from "./icons";
+import { AlignLeftIcon, CatIcon } from "lucide-react";
+
 import { docsConfig } from "@/config/docs";
 
 export function MobileNav() {
@@ -33,7 +35,7 @@ export function MobileNav() {
           className="flex items-center"
           onOpenChange={setOpen}
         >
-          <Icons.logo className="mr-2 h-4 w-4" />
+          <CatIcon className="mr-2 h-4 w-4" />
           <span className="font-bold">{siteConfig.name}</span>
         </MobileLink>
         <ScrollArea className="my-4 h-[calc(100vh-8rem)] pb-10 pl-6">

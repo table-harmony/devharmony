@@ -1,9 +1,9 @@
+import { cookies } from "next/headers";
+
 import {
   createUser,
-  getUser,
   getUserByEmail,
   getUserByEmailUseCase,
-  getUserUseCase,
 } from "@/infrastructure/users";
 import {
   createAccount,
@@ -13,7 +13,6 @@ import {
 } from "@/infrastructure/accounts";
 
 import { google, lucia } from "@/lib/auth";
-import { cookies } from "next/headers";
 import { OAuth2RequestError } from "arctic";
 
 export async function GET(request: Request): Promise<Response> {

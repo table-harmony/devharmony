@@ -6,6 +6,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
 
+import { updateUserAction } from "./actions";
+
 import { Input } from "@/components/ui/input";
 import {
   Form,
@@ -17,33 +19,51 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/ui/loader-button";
-import { LinkIcon } from "lucide-react";
+import { KeyRoundIcon } from "lucide-react";
 
-import { magicLinkLoginAction } from "./actions";
+const schema = z
+  .object({
+    password: z.string().min(1, {
+      message: "Password is required",
+    }),
+    confirmPassword: z.string().min(1, {
+      message: "Confirm password",
+    }),
+  })
+  .refine(
+    (data) => {
+      if (data.password !== data.confirmPassword) {
+        return false;
+      }
 
-const schema = z.object({
-  email: z.string().email({
-    message: "Email is required",
-  }),
-});
+      return true;
+    },
+    {
+      message: "Passwords don't match!",
+      path: ["confirmPassword"],
+    }
+  );
 
-export const MagicLinkForm = () => {
+export const UpdateForm = () => {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      password: "",
+      confirmPassword: "",
     },
   });
 
   const onSubmit = (values: z.infer<typeof schema>) => {
     startTransition(() => {
-      magicLinkLoginAction(values.email)
+      updateUserAction(values.password)
         .then((data) => {
           if (data?.error)
             toast({ variant: "destructive", description: data.error });
+          if (data?.success)
+            toast({ variant: "success", description: data.success });
         })
         .catch(() =>
           toast({
@@ -60,16 +80,34 @@ export const MagicLinkForm = () => {
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
         <FormField
           control={form.control}
-          name="email"
+          name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="john.doe@example.com"
-                  type="email"
+                  placeholder="******"
+                  type="password"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="confirmPassword"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Confirm password</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  disabled={isPending}
+                  placeholder="******"
+                  type="password"
                 />
               </FormControl>
               <FormMessage />
@@ -78,11 +116,11 @@ export const MagicLinkForm = () => {
         />
         <LoaderButton
           isLoading={isPending}
-          icon={LinkIcon}
+          icon={KeyRoundIcon}
           type="submit"
           className="w-full"
         >
-          <span className="hidden md:block">Sign in with&nbsp;</span> Magic link
+          Update password
         </LoaderButton>
       </form>
     </Form>

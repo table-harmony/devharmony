@@ -2,20 +2,20 @@
 
 import { useTransition } from "react";
 
-import { logoutAction } from "./actions";
+import { deleteUserAction } from "./actions";
 
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/ui/loader-button";
 
-import { LogOutIcon } from "lucide-react";
+import { Trash2Icon } from "lucide-react";
 
-export const LogoutForm = () => {
+export const DeleteForm = () => {
   const [isPending, startTransition] = useTransition();
   const { toast } = useToast();
 
   const onSubmit = () => {
     startTransition(() => {
-      logoutAction()
+      deleteUserAction()
         .then((data) => {
           if (data?.error)
             toast({ variant: "destructive", description: data.error });
@@ -31,17 +31,16 @@ export const LogoutForm = () => {
   };
 
   return (
-    <div className="container relative md:max-w-lg 2xl:max-w-xl space-y-6">
-      <form action={onSubmit} className="space-y-2">
-        <LoaderButton
-          isLoading={isPending}
-          icon={LogOutIcon}
-          type="submit"
-          className="w-full"
-        >
-          Logout
-        </LoaderButton>
-      </form>
-    </div>
+    <form action={onSubmit} className="space-y-2">
+      <LoaderButton
+        isLoading={isPending}
+        icon={Trash2Icon}
+        type="submit"
+        className="w-full"
+        variant="destructive"
+      >
+        Delete
+      </LoaderButton>
+    </form>
   );
 };
