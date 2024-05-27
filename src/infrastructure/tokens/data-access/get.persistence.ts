@@ -56,6 +56,12 @@ export async function getMagicLinkTokenByToken(
   return toDtoMapper(foundToken);
 }
 
+export async function getMagicLinkTokens(): Promise<TokenDto[]> {
+  const tokens = await db.query.magicLinkTokens.findMany();
+
+  return tokens.map(toDtoMapper);
+}
+
 export async function getVerificationTokenByToken(
   token: string
 ): Promise<TokenDto> {
@@ -66,4 +72,10 @@ export async function getVerificationTokenByToken(
   if (!foundToken) throw new Error("Token not found!");
 
   return toDtoMapper(foundToken);
+}
+
+export async function getVerificationTokens(): Promise<TokenDto[]> {
+  const tokens = await db.query.verificationTokens.findMany();
+
+  return tokens.map(toDtoMapper);
 }

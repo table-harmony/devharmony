@@ -1,4 +1,4 @@
-import { UpdateUser } from "../types";
+import { UpdateUser, UserRole } from "../types";
 import { generateSalt, hashPassword } from "../utils";
 
 export async function verifyEmailUseCase(
@@ -22,6 +22,17 @@ export async function updatePasswordUseCase(
   const updatedUser = await context.updateUser(data.id, {
     password: hashedPassword,
     salt: salt,
+  });
+
+  return updatedUser;
+}
+
+export async function updateUserRoleUseCase(
+  context: { updateUser: UpdateUser },
+  data: { id: string; role: UserRole }
+) {
+  const updatedUser = await context.updateUser(data.id, {
+    role: data.role,
   });
 
   return updatedUser;

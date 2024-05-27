@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { LayoutDashboard, LogOutIcon, SettingsIcon } from "lucide-react";
 
 export const UserDropdown = async () => {
   const { user } = await validateRequest();
@@ -38,6 +38,13 @@ export const UserDropdown = async () => {
             <SettingsIcon className="h-4 w-4 mr-2" /> Settings
           </Link>
         </DropdownMenuItem>
+        {user?.role !== "member" && (
+          <DropdownMenuItem asChild>
+            <Link href="/dashboard">
+              <LayoutDashboard className="h-4 w-4 mr-2" /> Dashboard
+            </Link>
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/auth/logout">

@@ -1,4 +1,4 @@
-import { GetTokenByEmail, GetTokenByToken } from "../types";
+import { GetTokenByEmail, GetTokenByToken, GetTokens } from "../types";
 
 export async function getTokenByTokenUseCase(
   context: {
@@ -16,4 +16,9 @@ export async function getTokenByEmailUseCase(
 ) {
   const foundToken = await context.getTokenByEmail(data.email);
   return foundToken;
+}
+
+export async function getTokensUseCase(context: { getTokens: GetTokens }) {
+  const tokens = await context.getTokens();
+  return tokens;
 }

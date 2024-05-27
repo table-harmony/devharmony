@@ -23,3 +23,9 @@ export async function getAccount(id: string): Promise<AccountDto | undefined> {
 
   return toDtoMapper(foundAccount);
 }
+
+export async function getAccounts(): Promise<AccountDto[]> {
+  const accounts = await db.query.accounts.findMany();
+
+  return accounts.map(toDtoMapper);
+}

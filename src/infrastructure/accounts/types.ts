@@ -16,3 +16,4 @@ export type AccountDto = {
 
 export type CreateAccount = (data: CreateAccountDto) => Promise<AccountDto>;
 export type GetAccount = (id: string) => Promise<AccountDto | undefined>;
+export type GetAccounts = () => Promise<AccountDto[]>;

@@ -1,5 +1,5 @@
 import { UserEntity } from "../entity";
-import { GetUser, GetUserByEmail } from "../types";
+import { GetUser, GetUserByEmail, GetUsers } from "../types";
 import { verifyPassword } from "../utils";
 
 export async function getUserByCredentialsUseCase(
@@ -34,4 +34,9 @@ export async function getUserUseCase(
 ) {
   const foundUser = await context.getUser(data.id);
   return foundUser;
+}
+
+export async function getUsersUseCase(context: { getUsers: GetUsers }) {
+  const foundUsers = await context.getUsers();
+  return foundUsers;
 }
