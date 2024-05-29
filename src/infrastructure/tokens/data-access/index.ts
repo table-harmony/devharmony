@@ -1,3 +1,2 @@
-export * from "./create.persistence";
-export * from "./get.persistence";
-export * from "./delete.persistence";
+export * from "./magic-link.persistence";
+export * from "./verification.persistence";

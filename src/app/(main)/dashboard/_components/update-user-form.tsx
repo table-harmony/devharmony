@@ -75,7 +75,7 @@ export function UpdateUserForm({ row }: { row: Row<UserDto> }) {
     <Dialog>
       <DialogTrigger asChild>
         <Button variant="ghost" className="h-8 w-full justify-start">
-          Edit
+          Update
         </Button>
       </DialogTrigger>
       <DialogContent>

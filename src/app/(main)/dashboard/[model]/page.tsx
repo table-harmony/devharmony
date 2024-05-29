@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { notFound } from "next/navigation";
 
 import {
@@ -7,9 +8,10 @@ import {
   PageHeaderHeading,
 } from "@/components/page-header";
 import { ModelMenu } from "../_components/model-menu";
+import { Model } from "../_components/model";
+import { ModelSkeleton } from "../_components/model-skeleton";
 
 import { models } from "../models";
-import { Model } from "../_components/model";
 
 interface ModelPageProps {
   params: {
@@ -41,7 +43,9 @@ export default async function ModelPagePage({ params }: ModelPageProps) {
           <ModelMenu />
         </PageActions>
       </PageHeader>
-      <Model modelKey={modelKey} />
+      <Suspense fallback={<ModelSkeleton />}>
+        <Model modelKey={modelKey} />
+      </Suspense>
     </div>
   );
 }

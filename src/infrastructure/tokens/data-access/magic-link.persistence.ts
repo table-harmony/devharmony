@@ -1,16 +1,12 @@
 import "server-only";
 
 import { db } from "@/db";
-import {
-  MagicLinkToken,
-  magicLinkTokens,
-  verificationTokens,
-} from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { MagicLinkToken, magicLinkTokens } from "@/db/schema";
+import { eq, lt } from "drizzle-orm";
 
-import type { TokenDto } from "../types";
+import type { CreateTokenDto, TokenDto } from "../types";
 
-export function toDtoMapper(token: MagicLinkToken): TokenDto {
+function toDtoMapper(token: MagicLinkToken): TokenDto {
   return {
     id: token.id,
     email: token.email,
@@ -19,9 +15,21 @@ export function toDtoMapper(token: MagicLinkToken): TokenDto {
   };
 }
 
-/**
- * @throws throws an error if user was not found
- */
+export async function createMagicLinkToken(
+  data: CreateTokenDto
+): Promise<TokenDto> {
+  const [token] = await db
+    .insert(magicLinkTokens)
+    .values({
+      email: data.email,
+      token: data.token,
+      expiresAt: data.expiresAt,
+    })
+    .returning();
+
+  return toDtoMapper(token);
+}
+
 export async function getMagicLinkToken(id: string): Promise<TokenDto> {
   const foundToken = await db.query.magicLinkTokens.findFirst({
     where: eq(magicLinkTokens.id, id),
@@ -62,20 +70,18 @@ export async function getMagicLinkTokens(): Promise<TokenDto[]> {
   return tokens.map(toDtoMapper);
 }
 
-export async function getVerificationTokenByToken(
-  token: string
-): Promise<TokenDto> {
-  const foundToken = await db.query.verificationTokens.findFirst({
-    where: eq(verificationTokens.token, token),
-  });
-
-  if (!foundToken) throw new Error("Token not found!");
-
-  return toDtoMapper(foundToken);
+export async function deleteMagicLinkToken(id: string): Promise<void> {
+  await db.delete(magicLinkTokens).where(eq(magicLinkTokens.id, id));
 }
 
-export async function getVerificationTokens(): Promise<TokenDto[]> {
-  const tokens = await db.query.verificationTokens.findMany();
+export async function deleteMagicLinkTokenByEmail(
+  email: string
+): Promise<void> {
+  await db.delete(magicLinkTokens).where(eq(magicLinkTokens.email, email));
+}
 
-  return tokens.map(toDtoMapper);
+export async function deleteExpiredMagicLinkTokens(): Promise<void> {
+  await db
+    .delete(magicLinkTokens)
+    .where(lt(magicLinkTokens.expiresAt, new Date()));
 }
