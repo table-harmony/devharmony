@@ -5,7 +5,6 @@ import { User, users } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 import type { UserDto } from "../types";
-import { DataAccessError } from "@/infrastructure/utils";
 
 export function toDtoMapper(user: User): UserDto {
   return {
@@ -28,7 +27,7 @@ export async function getUser(userId: string): Promise<UserDto> {
     where: eq(users.id, userId),
   });
 
-  if (!foundUser) throw new DataAccessError("User not found!");
+  if (!foundUser) throw new Error("User not found!");
 
   return toDtoMapper(foundUser);
 }

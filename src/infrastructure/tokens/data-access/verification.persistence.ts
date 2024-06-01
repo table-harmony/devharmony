@@ -5,7 +5,6 @@ import { VerificationToken, verificationTokens } from "@/db/schema";
 import { eq, lt } from "drizzle-orm";
 
 import type { CreateTokenDto, TokenDto } from "../types";
-import { DataAccessError } from "@/infrastructure/utils";
 
 function toDtoMapper(token: VerificationToken): TokenDto {
   return {
@@ -38,7 +37,7 @@ export async function getVerificationTokenByToken(
     where: eq(verificationTokens.token, token),
   });
 
-  if (!foundToken) throw new DataAccessError("Token not found!");
+  if (!foundToken) throw new Error("Token not found!");
 
   return toDtoMapper(foundToken);
 }
