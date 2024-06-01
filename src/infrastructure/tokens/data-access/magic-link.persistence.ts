@@ -5,6 +5,7 @@ import { MagicLinkToken, magicLinkTokens } from "@/db/schema";
 import { eq, lt } from "drizzle-orm";
 
 import type { CreateTokenDto, TokenDto } from "../types";
+import { DataAccessError } from "@/infrastructure/utils";
 
 function toDtoMapper(token: MagicLinkToken): TokenDto {
   return {
@@ -35,7 +36,7 @@ export async function getMagicLinkToken(id: string): Promise<TokenDto> {
     where: eq(magicLinkTokens.id, id),
   });
 
-  if (!foundToken) throw new Error("Token not found!");
+  if (!foundToken) throw new DataAccessError("Token not found!");
 
   return toDtoMapper(foundToken);
 }
@@ -59,7 +60,7 @@ export async function getMagicLinkTokenByToken(
     where: eq(magicLinkTokens.token, token),
   });
 
-  if (!foundToken) throw new Error("Token not found!");
+  if (!foundToken) throw new DataAccessError("Token not found!");
 
   return toDtoMapper(foundToken);
 }

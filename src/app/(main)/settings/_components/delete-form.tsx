@@ -2,7 +2,7 @@
 
 import { useTransition } from "react";
 
-import { deleteUserAction } from "./actions";
+import { deleteUserAction } from "../actions";
 
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/ui/loader-button";

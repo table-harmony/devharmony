@@ -1,7 +1,5 @@
 "use server";
 
-import { redirect } from "next/navigation";
-
 import {
   deleteUser,
   deleteUserUseCase,
@@ -9,32 +7,29 @@ import {
   updateUser,
 } from "@/infrastructure/users";
 
+import { redirect } from "next/navigation";
+
 import { validateRequest } from "@/lib/auth";
+import { authenticatedAction } from "@/lib/safe-action";
+
+import { updateSchema } from "./_components/validation";
 
 export async function deleteUserAction() {
   const { user } = await validateRequest();
 
-  if (!user) return { error: "Unauthorized!" };
+  if (!user) return { error: "Session is invalid!" };
 
   await deleteUserUseCase({ deleteUser: deleteUser }, { id: user.id });
 
   return redirect("/");
 }
 
-export async function updateUserAction(password: string) {
-  const { user } = await validateRequest();
-
-  if (!user) return { error: "Unauthorized!" };
-
-  try {
+export const updateUserAction = authenticatedAction(
+  updateSchema,
+  async ({ password }, { user }) => {
     await updatePasswordUseCase(
       { updateUser: updateUser },
       { id: user.id, password: password }
     );
-  } catch (e) {
-    const error = e as Error;
-    return { error: error.message };
   }
-
-  return { success: "User successfully updated!" };
-}
+);

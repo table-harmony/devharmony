@@ -11,8 +11,8 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 import { UserInfo } from "@/components/user-info";
-import { DeleteForm } from "./delete-form";
-import { UpdateForm } from "./update-form";
+import { DeleteForm } from "./_components/delete-form";
+import { UpdateForm } from "./_components/update-form";
 
 export default async function SettingsPage() {
   return (

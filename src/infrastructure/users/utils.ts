@@ -1,5 +1,6 @@
 import crypto from "crypto";
 import { UserEntity } from "./entity";
+import { UsecaseError } from "../utils";
 
 const ITERATIONS = 10000;
 
@@ -32,7 +33,7 @@ export async function verifyPassword(
   const salt = user.getSalt();
 
   if (!hashedPassword || !salt)
-    throw new Error("This account does not have a password!");
+    throw new UsecaseError("This account does not have a password!");
 
   const hash = await hashPassword(plainTextPassword, salt);
 
