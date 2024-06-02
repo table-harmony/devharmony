@@ -35,20 +35,20 @@ export const UserDropdown = async () => {
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/settings">
-            <SettingsIcon className="h-4 w-4 mr-2" /> Settings
+            <SettingsIcon className="mr-2 h-4 w-4" /> Settings
           </Link>
         </DropdownMenuItem>
         {user?.role !== "member" && (
           <DropdownMenuItem asChild>
             <Link href="/dashboard">
-              <LayoutDashboard className="h-4 w-4 mr-2" /> Dashboard
+              <LayoutDashboard className="mr-2 h-4 w-4" /> Dashboard
             </Link>
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <Link href="/auth/logout">
-            <LogOutIcon className="h-4 w-4 mr-2" /> Logout
+            <LogOutIcon className="mr-2 h-4 w-4" /> Logout
           </Link>
         </DropdownMenuItem>
       </DropdownMenuContent>

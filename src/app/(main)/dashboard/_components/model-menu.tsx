@@ -29,11 +29,11 @@ export function ModelMenu() {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 rounded-[0.5rem] bg-background md:w-72 lg:w-96"
+          "relative h-8 rounded-[0.5rem] bg-background md:w-72 lg:w-96",
         )}
         onClick={() => setOpen(true)}
       >
-        <LayoutGridIcon className="w-4 h-4 mr-2" />
+        <LayoutGridIcon className="mr-2 h-4 w-4" />
         Menu
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>

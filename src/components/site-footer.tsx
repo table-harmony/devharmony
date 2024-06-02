@@ -8,7 +8,7 @@ import { GithubIcon, LinkedinIcon } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="py-4 mt-4 md:px-4 md:py-0 bg-muted">
+    <footer className="mt-4 bg-muted py-4 md:px-4 md:py-0">
       <div className="container flex flex-col-reverse items-center justify-between gap-4 md:h-20 md:flex-row">
         <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
           Bagrut project in computer science, built by{" "}
@@ -21,7 +21,7 @@ export function SiteFooter() {
                 buttonVariants({
                   variant: "ghost",
                 }),
-                "w-9 px-0"
+                "w-9 px-0",
               )}
             >
               <GithubIcon className="h-4 w-4" />
@@ -38,7 +38,7 @@ export function SiteFooter() {
                 buttonVariants({
                   variant: "ghost",
                 }),
-                "w-9 px-0"
+                "w-9 px-0",
               )}
             >
               <LinkedinIcon className="h-4 w-4" />

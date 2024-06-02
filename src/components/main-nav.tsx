@@ -28,7 +28,7 @@ export function MainNav() {
             "transition-colors hover:text-foreground/80",
             pathname === "/information"
               ? "text-foreground"
-              : "text-foreground/60"
+              : "text-foreground/60",
           )}
         >
           Information

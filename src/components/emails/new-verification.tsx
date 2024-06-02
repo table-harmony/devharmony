@@ -15,7 +15,7 @@ export function NewVerificationEmail({ token }: { token: string }) {
     <Html lang="en">
       <Body>
         <Tailwind>
-          <Container className="p-5 bg-gray-100 rounded-lg font-sans">
+          <Container className="rounded-lg bg-gray-100 p-5 font-sans">
             <Text className="text-3xl font-bold text-gray-800">
               Welcome to DevHarmony
             </Text>
@@ -24,7 +24,7 @@ export function NewVerificationEmail({ token }: { token: string }) {
             </Text>
             <Link
               href={`${domain}/api/auth/new-verification?token=${token}`}
-              className="inline-block my-5 p-3 bg-blue-600 text-white rounded-md"
+              className="my-5 inline-block rounded-md bg-blue-600 p-3 text-white"
             >
               Verify your email
             </Link>

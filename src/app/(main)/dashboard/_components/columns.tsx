@@ -73,7 +73,7 @@ export const user: ColumnDef<UserDto>[] = [
     cell: ({ row }) => {
       if (!row.getValue("emailVerified")) return <>null</>;
       return new Date(row.getValue("emailVerified")).toLocaleDateString(
-        "en-GB"
+        "en-GB",
       );
     },
     filterFn: "includesString",

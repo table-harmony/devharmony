@@ -20,7 +20,7 @@ export default function InformationPage() {
           Explore these frequently asked questions
         </PageHeaderDescription>
       </PageHeader>
-      <Card className="max-w-3xl mx-auto">
+      <Card className="mx-auto max-w-3xl">
         <CardContent>
           <Accordion type="multiple">
             <AccordionItem value="item-1">

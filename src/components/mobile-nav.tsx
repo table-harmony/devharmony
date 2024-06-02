@@ -50,7 +50,7 @@ export function MobileNav() {
                   >
                     {item.title}
                   </MobileLink>
-                )
+                ),
             )}
           </div>
         </ScrollArea>

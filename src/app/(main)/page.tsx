@@ -33,10 +33,10 @@ export default function HomePage() {
             rel="noreferrer"
             className={cn(
               buttonVariants({ variant: "outline", size: "lg" }),
-              "w-full sm:w-fit"
+              "w-full sm:w-fit",
             )}
           >
-            <GithubIcon className="w-4 h-4 mr-2" />
+            <GithubIcon className="mr-2 h-4 w-4" />
             Github
           </Link>
         </PageActions>

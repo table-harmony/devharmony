@@ -41,7 +41,7 @@ function TableViewOptions() {
             }
           >
             <SlidersHorizontalIcon className="h-4 w-4 md:mr-2" />
-            <span className="sr-only md:not-sr-only whitespace-nowrap">
+            <span className="sr-only whitespace-nowrap md:not-sr-only">
               View
             </span>
           </Button>
@@ -97,12 +97,12 @@ function TableFilter() {
                 .getAllColumns()
                 .filter(
                   (column) =>
-                    !["actions", "image", "select"].includes(column.id)
+                    !["actions", "image", "select"].includes(column.id),
                 ).length === 0
             }
           >
             <SearchIcon className="h-4 w-4 md:mr-2" />
-            <span className="sr-only md:not-sr-only whitespace-nowrap">
+            <span className="sr-only whitespace-nowrap md:not-sr-only">
               Search
             </span>
           </Button>
@@ -114,7 +114,7 @@ function TableFilter() {
             {table
               .getAllColumns()
               .filter(
-                (column) => !["actions", "image", "select"].includes(column.id)
+                (column) => !["actions", "image", "select"].includes(column.id),
               )
               .map((column) => {
                 return (

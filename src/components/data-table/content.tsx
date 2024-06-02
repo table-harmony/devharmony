@@ -27,7 +27,7 @@ export function TableContent() {
                     ? null
                     : flexRender(
                         header.column.columnDef.header,
-                        header.getContext()
+                        header.getContext(),
                       )}
                 </TableHead>
               );
@@ -44,7 +44,7 @@ export function TableContent() {
             >
               {row.getVisibleCells().map((cell) => (
                 <TableCell
-                  className="overflow-hidden truncate max-w-48"
+                  className="max-w-48 overflow-hidden truncate"
                   key={cell.id}
                 >
                   {flexRender(cell.column.columnDef.cell, cell.getContext())}

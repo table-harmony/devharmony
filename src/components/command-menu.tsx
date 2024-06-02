@@ -41,11 +41,11 @@ export function CommandMenu() {
       <Button
         variant="outline"
         className={cn(
-          "relative h-8 w-full rounded-[0.5rem] bg-background md:w-64 lg:w-96"
+          "relative h-8 w-full rounded-[0.5rem] bg-background md:w-64 lg:w-96",
         )}
         onClick={() => setOpen(true)}
       >
-        <SearchIcon className="w-4 h-4 mr-2" />
+        <SearchIcon className="mr-2 h-4 w-4" />
         Search
       </Button>
       <CommandDialog open={open} onOpenChange={setOpen}>
