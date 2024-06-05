@@ -1,5 +1,5 @@
 import "./globals.css";
-import { Fredoka as FontSans } from "next/font/google";
+import { Rubik as FontSans } from "next/font/google";
 
 import { Metadata, Viewport } from "next";
 import { siteConfig } from "@/config/site";
@@ -75,7 +75,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
         <body
           className={cn(
             "min-h-screen bg-background font-sans antialiased",
-            fontSans.variable
+            fontSans.variable,
           )}
         >
           <ContextProvider>

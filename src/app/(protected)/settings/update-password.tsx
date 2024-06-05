@@ -15,7 +15,6 @@ import {
   FormControl,
   FormField,
   FormItem,
-  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
@@ -32,9 +31,14 @@ export const UpdatePasswordForm = () => {
   });
 
   const { execute, status } = useAction(updatePasswordAction, {
-    onSuccess() {
+    onSettled() {
       form.reset();
-      toast({ variant: "success", description: "User updated!" });
+    },
+    onSuccess() {
+      toast({
+        variant: "success",
+        description: "Password successfully updated!",
+      });
     },
     onError(error) {
       toast({ variant: "destructive", description: error.serverError });
@@ -43,13 +47,15 @@ export const UpdatePasswordForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(execute)}>
+      <form
+        onSubmit={form.handleSubmit(execute)}
+        className="max-w-lg space-y-2"
+      >
         <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
                   {...field}
@@ -66,6 +72,7 @@ export const UpdatePasswordForm = () => {
           isLoading={status === "executing"}
           icon={SaveIcon}
           type="submit"
+          className="w-full"
         >
           Save
         </LoaderButton>

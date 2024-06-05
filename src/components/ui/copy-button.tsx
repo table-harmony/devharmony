@@ -5,12 +5,16 @@ import React, { useState } from "react";
 import { Button, ButtonProps } from "@/components/ui/button";
 import { CheckIcon, CopyIcon } from "lucide-react";
 
-const CopyButton = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+type CopyButtonProps = ButtonProps & {
+  value: any;
+};
+
+const CopyButton = React.forwardRef<HTMLButtonElement, CopyButtonProps>(
+  ({ value, ...props }, ref) => {
     const [copied, setCopied] = useState(false);
 
     const onCopy = () => {
-      navigator.clipboard.writeText("value");
+      navigator.clipboard.writeText(value.toString());
       setCopied(true);
 
       setTimeout(() => setCopied(false), 1000);
