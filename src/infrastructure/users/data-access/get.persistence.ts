@@ -6,6 +6,8 @@ import { eq } from "drizzle-orm";
 
 import type { UserDto } from "../types";
 
+import { ActionError } from "@/lib/safe-action";
+
 export function toDtoMapper(user: User): UserDto {
   return {
     id: user.id,
@@ -27,13 +29,13 @@ export async function getUser(userId: string): Promise<UserDto> {
     where: eq(users.id, userId),
   });
 
-  if (!foundUser) throw new Error("User not found!");
+  if (!foundUser) throw new ActionError("User not found!");
 
   return toDtoMapper(foundUser);
 }
 
 export async function getUserByEmail(
-  email: string
+  email: string,
 ): Promise<UserDto | undefined> {
   const foundUser = await db.query.users.findFirst({
     where: eq(users.email, email),

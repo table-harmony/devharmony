@@ -16,35 +16,41 @@ import {
 
 import { sendEmail } from "@/lib/mail";
 import { getIp } from "@/lib/get-ip";
+import { ActionError, unauthenticatedAction } from "@/lib/safe-action";
 
 import { NewVerificationEmail } from "@/components/emails/new-verification";
+
+import { schema } from "./validation";
 
 const ratelimit = new Ratelimit({
   redis: kv,
   limiter: Ratelimit.fixedWindow(2, "10s"),
 });
 
-export async function registerAction(email: string, password: string) {
-  const ip = getIp();
-  const { success } = await ratelimit.limit(ip ?? "anonymous011");
+export const registerAction = unauthenticatedAction(
+  schema,
+  async ({ password, email }) => {
+    const ip = getIp();
+    const { success } = await ratelimit.limit(ip ?? "anonymous011");
 
-  if (!success) return { error: "Rate limit exceeded!" };
+    if (!success) throw new ActionError("Rate limit exceeded!");
 
-  await createUserUseCase(
-    { getUserByEmail: getUserByEmail, createUser: createUser },
-    { email, password }
-  );
+    await createUserUseCase(
+      { getUserByEmail: getUserByEmail, createUser: createUser },
+      { email, password },
+    );
 
-  const createdToken = await createTokenUseCase(
-    { createToken: createVerificationToken },
-    { email }
-  );
+    const createdToken = await createTokenUseCase(
+      { createToken: createVerificationToken },
+      { email },
+    );
 
-  await sendEmail(
-    createdToken.email,
-    `Your verification link`,
-    NewVerificationEmail({ token: createdToken.token })
-  );
+    await sendEmail(
+      createdToken.email,
+      `Your verification link`,
+      NewVerificationEmail({ token: createdToken.token }),
+    );
 
-  return redirect("/auth/new-verification");
-}
+    return redirect("/auth/new-verification");
+  },
+);

@@ -6,6 +6,8 @@ import { eq, lt } from "drizzle-orm";
 
 import type { CreateTokenDto, TokenDto } from "../types";
 
+import { ActionError } from "@/lib/safe-action";
+
 function toDtoMapper(token: VerificationToken): TokenDto {
   return {
     id: token.id,
@@ -16,7 +18,7 @@ function toDtoMapper(token: VerificationToken): TokenDto {
 }
 
 export async function createVerificationToken(
-  data: CreateTokenDto
+  data: CreateTokenDto,
 ): Promise<TokenDto> {
   const [token] = await db
     .insert(verificationTokens)
@@ -31,13 +33,13 @@ export async function createVerificationToken(
 }
 
 export async function getVerificationTokenByToken(
-  token: string
+  token: string,
 ): Promise<TokenDto> {
   const foundToken = await db.query.verificationTokens.findFirst({
     where: eq(verificationTokens.token, token),
   });
 
-  if (!foundToken) throw new Error("Token not found!");
+  if (!foundToken) throw new ActionError("Token not found!");
 
   return toDtoMapper(foundToken);
 }
@@ -53,7 +55,7 @@ export async function deleteVerificationToken(id: string): Promise<void> {
 }
 
 export async function deleteVerificationTokenByEmail(
-  email: string
+  email: string,
 ): Promise<void> {
   await db
     .delete(verificationTokens)

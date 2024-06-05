@@ -10,31 +10,26 @@ import {
 } from "@/infrastructure/users";
 
 import { validateRequest } from "@/lib/auth";
+import { authenticatedAction } from "@/lib/safe-action";
+
+import { updatePasswordSchema } from "./validation";
 
 export async function deleteUserAction() {
   const { user } = await validateRequest();
 
-  if (!user) return { error: "Unauthorized!" };
+  if (!user) return { error: "Session is invailid!" };
 
   await deleteUserUseCase({ deleteUser: deleteUser }, { id: user.id });
 
   return redirect("/");
 }
 
-export async function updateUserAction(password: string) {
-  const { user } = await validateRequest();
-
-  if (!user) return { error: "Unauthorized!" };
-
-  try {
+export const updatePasswordAction = authenticatedAction(
+  updatePasswordSchema,
+  async ({ password }, { user }) => {
     await updatePasswordUseCase(
       { updateUser: updateUser },
-      { id: user.id, password: password }
+      { id: user.id, password: password },
     );
-  } catch (e) {
-    const error = e as Error;
-    return { error: error.message };
-  }
-
-  return { success: "User successfully updated!" };
-}
+  },
+);

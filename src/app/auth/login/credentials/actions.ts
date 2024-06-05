@@ -18,39 +18,43 @@ import {
 import { lucia } from "@/lib/auth";
 import { getIp } from "@/lib/get-ip";
 import { sendEmail } from "@/lib/mail";
+import { ActionError, unauthenticatedAction } from "@/lib/safe-action";
 
 import { NewVerificationEmail } from "@/components/emails/new-verification";
+
+import { schema } from "./validation";
 
 const ratelimit = new Ratelimit({
   redis: kv,
   limiter: Ratelimit.fixedWindow(5, "10s"),
 });
 
-export async function credentialsLoginAction(email: string, password: string) {
-  const ip = getIp();
-  const { success } = await ratelimit.limit(ip ?? "anonymous011");
+export const credentialsLoginAction = unauthenticatedAction(
+  schema,
+  async ({ email, password }) => {
+    const ip = getIp();
+    const { success } = await ratelimit.limit(ip ?? "anonymous011");
 
-  if (!success) return { error: "Rate limit exceeded!" };
+    if (!success) throw new ActionError("Rate limit exceeded!");
 
-  try {
     const user = await getUserByCredentialsUseCase(
       { getUserByEmail: getUserByEmail },
-      { email, password }
+      { email, password },
     );
 
     if (!user.emailVerified) {
       const createdToken = await createTokenUseCase(
         { createToken: createVerificationToken },
-        { email }
+        { email },
       );
 
       await sendEmail(
         createdToken.email,
         `Your verification link`,
-        NewVerificationEmail({ token: createdToken.token })
+        NewVerificationEmail({ token: createdToken.token }),
       );
 
-      return { success: "Verification email sent!" };
+      return redirect("/auth/new-verification");
     }
 
     const session = await lucia.createSession(user.id, {});
@@ -59,12 +63,9 @@ export async function credentialsLoginAction(email: string, password: string) {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
-  } catch (err) {
-    const error = err as Error;
-    return { error: error.message };
-  }
 
-  return redirect("/");
-}
+    return redirect("/");
+  },
+);

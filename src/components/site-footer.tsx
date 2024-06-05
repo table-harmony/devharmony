@@ -1,51 +1,34 @@
 import Link from "next/link";
-
+import { ModeToggle } from "./mode-toggle";
 import { siteConfig } from "@/config/site";
-
-import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/components/ui/button";
-import { GithubIcon, LinkedinIcon } from "lucide-react";
 
 export function SiteFooter() {
   return (
-    <footer className="mt-4 bg-muted py-4 md:px-4 md:py-0">
-      <div className="container flex flex-col-reverse items-center justify-between gap-4 md:h-20 md:flex-row">
-        <p className="text-balance text-center text-sm leading-loose text-muted-foreground md:text-left">
-          Bagrut project in computer science, built by{" "}
-          <span className="font-medium">Liron Kaner</span>.
-        </p>
-        <nav className="flex gap-2">
-          <Link href={siteConfig.links.github} target="_blank" rel="noreferrer">
-            <div
-              className={cn(
-                buttonVariants({
-                  variant: "ghost",
-                }),
-                "w-9 px-0",
-              )}
-            >
-              <GithubIcon className="h-4 w-4" />
-              <span className="sr-only">GitHub</span>
-            </div>
-          </Link>
+    <footer className="container relative z-10 flex flex-col py-8">
+      <div className="mt-16 flex flex-col-reverse items-center border-t border-border pt-4 sm:mt-20 md:flex-row md:justify-between md:pt-8 lg:mt-24">
+        <p className="mt-4 w-full text-balance text-left text-sm leading-loose text-muted-foreground md:mt-0">
+          Built by{" "}
           <Link
-            href={siteConfig.links.linkedin}
+            href="https://tableharmony.io"
             target="_blank"
             rel="noreferrer"
+            className="font-medium underline underline-offset-4"
           >
-            <div
-              className={cn(
-                buttonVariants({
-                  variant: "ghost",
-                }),
-                "w-9 px-0",
-              )}
-            >
-              <LinkedinIcon className="h-4 w-4" />
-              <span className="sr-only">LinkedIn</span>
-            </div>
+            TableHarmony.
+          </Link>{" "}
+          The source code is available on{" "}
+          <Link
+            href={siteConfig.links.github}
+            target="_blank"
+            rel="noreferrer"
+            className="font-medium underline underline-offset-4"
+          >
+            GitHub.
           </Link>
-        </nav>
+        </p>
+        <div className="flex w-full justify-start md:justify-end">
+          <ModeToggle />
+        </div>
       </div>
     </footer>
   );

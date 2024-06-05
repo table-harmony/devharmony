@@ -1,3 +1,4 @@
+import { ActionError } from "@/lib/safe-action";
 import { CreateUser, GetUserByEmail } from "../types";
 import { generateSalt, hashPassword } from "../utils";
 
@@ -6,12 +7,12 @@ export async function createUserUseCase(
     getUserByEmail: GetUserByEmail;
     createUser: CreateUser;
   },
-  data: { email: string; password: string }
+  data: { email: string; password: string },
 ) {
   const existingUser = await context.getUserByEmail(data.email);
 
   if (existingUser)
-    throw new Error("An account with that email already exists!");
+    throw new ActionError("An account with that email already exists!");
 
   const salt = generateSalt();
   const hashedPassword = await hashPassword(data.password, salt);

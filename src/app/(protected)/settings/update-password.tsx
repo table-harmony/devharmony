@@ -3,10 +3,11 @@
 import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
+import { useAction } from "next-safe-action/hooks";
 import { useForm } from "react-hook-form";
 
-import { magicLinkLoginAction } from "./actions";
-import { schema } from "./validation";
+import { updatePasswordAction } from "./actions";
+import { updatePasswordSchema as schema } from "./validation";
 
 import { Input } from "@/components/ui/input";
 import {
@@ -19,20 +20,18 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/ui/button";
-import { LinkIcon } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
+import { SaveIcon } from "lucide-react";
 
-export const MagicLinkForm = () => {
+export const UpdatePasswordForm = () => {
   const { toast } = useToast();
-
   const form = useForm<z.infer<typeof schema>>({
     resolver: zodResolver(schema),
     defaultValues: {
-      email: "",
+      password: "",
     },
   });
 
-  const { execute, status } = useAction(magicLinkLoginAction, {
+  const { execute, status } = useAction(updatePasswordAction, {
     onSuccess() {
       form.reset();
       toast({ variant: "success", description: "User updated!" });
@@ -44,19 +43,19 @@ export const MagicLinkForm = () => {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(execute)} className="space-y-2">
+      <form onSubmit={form.handleSubmit(execute)}>
         <FormField
           control={form.control}
-          name="email"
+          name="password"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Email</FormLabel>
+              <FormLabel>Password</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   disabled={status === "executing"}
-                  placeholder="john.doe@example.com"
-                  type="email"
+                  placeholder="******"
+                  type="password"
                 />
               </FormControl>
               <FormMessage />
@@ -65,11 +64,10 @@ export const MagicLinkForm = () => {
         />
         <LoaderButton
           isLoading={status === "executing"}
-          icon={LinkIcon}
+          icon={SaveIcon}
           type="submit"
-          className="w-full"
         >
-          <span className="hidden md:block">Sign in with&nbsp;</span> Magic link
+          Save
         </LoaderButton>
       </form>
     </Form>

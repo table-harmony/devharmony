@@ -1,3 +1,5 @@
+import { ActionError } from "@/lib/safe-action";
+
 import crypto from "crypto";
 import { UserEntity } from "./entity";
 
@@ -14,7 +16,7 @@ export async function hashPassword(plainTextPassword: string, salt: string) {
       (err, derivedKey) => {
         if (err) reject(err);
         resolve(derivedKey.toString("hex"));
-      }
+      },
     );
   });
 }
@@ -26,13 +28,13 @@ export function generateSalt() {
 
 export async function verifyPassword(
   user: UserEntity,
-  plainTextPassword: string
+  plainTextPassword: string,
 ) {
   const hashedPassword = user.getPassword();
   const salt = user.getSalt();
 
   if (!hashedPassword || !salt)
-    throw new Error("This account does not have a password!");
+    throw new ActionError("This account does not have a password!");
 
   const hash = await hashPassword(plainTextPassword, salt);
 

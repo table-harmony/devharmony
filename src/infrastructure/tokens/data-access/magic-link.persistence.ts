@@ -6,6 +6,8 @@ import { eq, lt } from "drizzle-orm";
 
 import type { CreateTokenDto, TokenDto } from "../types";
 
+import { ActionError } from "@/lib/safe-action";
+
 function toDtoMapper(token: MagicLinkToken): TokenDto {
   return {
     id: token.id,
@@ -16,7 +18,7 @@ function toDtoMapper(token: MagicLinkToken): TokenDto {
 }
 
 export async function createMagicLinkToken(
-  data: CreateTokenDto
+  data: CreateTokenDto,
 ): Promise<TokenDto> {
   const [token] = await db
     .insert(magicLinkTokens)
@@ -35,13 +37,13 @@ export async function getMagicLinkToken(id: string): Promise<TokenDto> {
     where: eq(magicLinkTokens.id, id),
   });
 
-  if (!foundToken) throw new Error("Token not found!");
+  if (!foundToken) throw new ActionError("Token not found!");
 
   return toDtoMapper(foundToken);
 }
 
 export async function getMagicLinkTokenByEmail(
-  email: string
+  email: string,
 ): Promise<TokenDto | undefined> {
   const foundToken = await db.query.magicLinkTokens.findFirst({
     where: eq(magicLinkTokens.email, email),
@@ -53,13 +55,13 @@ export async function getMagicLinkTokenByEmail(
 }
 
 export async function getMagicLinkTokenByToken(
-  token: string
+  token: string,
 ): Promise<TokenDto> {
   const foundToken = await db.query.magicLinkTokens.findFirst({
     where: eq(magicLinkTokens.token, token),
   });
 
-  if (!foundToken) throw new Error("Token not found!");
+  if (!foundToken) throw new ActionError("Token not found!");
 
   return toDtoMapper(foundToken);
 }
@@ -75,7 +77,7 @@ export async function deleteMagicLinkToken(id: string): Promise<void> {
 }
 
 export async function deleteMagicLinkTokenByEmail(
-  email: string
+  email: string,
 ): Promise<void> {
   await db.delete(magicLinkTokens).where(eq(magicLinkTokens.email, email));
 }
