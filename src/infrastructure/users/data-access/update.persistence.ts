@@ -9,7 +9,7 @@ import { toDtoMapper } from "./get.persistence";
 
 export async function updateUser(
   id: string,
-  data: UpdateUserDto
+  data: UpdateUserDto,
 ): Promise<UserDto> {
   const [updatedUser] = await db
     .update(users)

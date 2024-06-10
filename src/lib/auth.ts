@@ -57,7 +57,7 @@ interface DatabaseUserAttributes {
 export const google = new Google(
   env.GOOGLE_CLIENT_ID,
   env.GOOGLE_CLIENT_SECRET,
-  `${env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`
+  `${env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`,
 );
 
 export const validateRequest = cache(
@@ -80,7 +80,7 @@ export const validateRequest = cache(
         cookies().set(
           sessionCookie.name,
           sessionCookie.value,
-          sessionCookie.attributes
+          sessionCookie.attributes,
         );
       }
       if (!result.session) {
@@ -88,10 +88,10 @@ export const validateRequest = cache(
         cookies().set(
           sessionCookie.name,
           sessionCookie.value,
-          sessionCookie.attributes
+          sessionCookie.attributes,
         );
       }
     } catch {}
     return result;
-  }
+  },
 );

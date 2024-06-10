@@ -4,6 +4,7 @@ import * as z from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 import { useForm } from "react-hook-form";
+import { useAction } from "next-safe-action/hooks";
 
 import { magicLinkLoginAction } from "./actions";
 import { schema } from "./validation";
@@ -20,7 +21,6 @@ import {
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/ui/button";
 import { LinkIcon } from "lucide-react";
-import { useAction } from "next-safe-action/hooks";
 
 export const MagicLinkForm = () => {
   const { toast } = useToast();

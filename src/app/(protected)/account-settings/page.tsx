@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/card";
 
 import { UpdatePasswordForm } from "./update-password";
-import { CopyButton } from "@/components/ui/copy-button";
+import { CopyButton } from "@/components/copy-button";
 
 export default async function SettingsPage() {
   return (

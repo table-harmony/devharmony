@@ -7,7 +7,7 @@ import { CatIcon } from "lucide-react";
 
 function Links() {
   return (
-    <div className="mr-4 hidden md:flex">
+    <div className="mr-4 flex">
       <Link href="/" className="mr-6 flex items-center space-x-2">
         <CatIcon className="h-6 w-6" />
         <span className="hidden font-bold sm:inline-block">

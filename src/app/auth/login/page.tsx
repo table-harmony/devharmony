@@ -1,7 +1,7 @@
 import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
-import { Legend } from "@/components/ui/legend";
+import { Legend } from "@/app/auth/legend";
 import { MagicLinkForm } from "./magic-link-form";
 
 import { ChromeIcon, MailIcon } from "lucide-react";

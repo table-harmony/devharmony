@@ -5,14 +5,14 @@ import { validateRequest } from "@/lib/auth";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { FolderIcon, SettingsIcon } from "lucide-react";
+import { SettingsIcon } from "lucide-react";
 
 async function Links() {
   const { user } = await validateRequest();
 
   return (
     <div className="mr-4 hidden items-center gap-8 md:flex">
-      <Link href="/projects" className="mr-6 flex items-center space-x-2">
+      <Link href="/" className="mr-6 flex items-center space-x-2">
         <Avatar className="h-8 w-8">
           <AvatarImage src={user?.image || "/"} alt="profile" />
           <AvatarFallback>SC</AvatarFallback>
@@ -20,10 +20,6 @@ async function Links() {
         <span className="hidden font-bold sm:inline-block">
           {user?.username}
         </span>
-      </Link>
-      <Link href="/projects" className="flex items-center">
-        <FolderIcon className="mr-2 h-4 w-4" />
-        Projects
       </Link>
       <Link href="/account-settings" className="flex items-center">
         <SettingsIcon className="mr-2 h-4 w-4" />

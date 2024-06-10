@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { Legend } from "@/components/ui/legend";
+import { Legend } from "@/app/auth/legend";
 import { Button } from "@/components/ui/button";
 import { RegisterForm } from "./form";
 import { LogInIcon } from "lucide-react";

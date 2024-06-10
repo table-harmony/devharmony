@@ -66,6 +66,6 @@ export const credentialsLoginAction = unauthenticatedAction(
       sessionCookie.attributes,
     );
 
-    return redirect("/projects");
+    return redirect("/");
   },
 );

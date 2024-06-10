@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { CredentialsForm } from "./form";
 
-import { Legend } from "@/components/ui/legend";
+import { Legend } from "@/app/auth/legend";
 import { Button } from "@/components/ui/button";
 import { LogInIcon } from "lucide-react";
 
