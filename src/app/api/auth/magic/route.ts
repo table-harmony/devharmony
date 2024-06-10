@@ -29,12 +29,12 @@ export async function GET(request: Request): Promise<Response> {
   try {
     const magicLinkToken = await getTokenByTokenUseCase(
       { getTokenByToken: getMagicLinkTokenByToken },
-      { token }
+      { token },
     );
 
     await deleteTokenUseCase(
       { deleteToken: deleteMagicLinkToken },
-      { id: magicLinkToken.id }
+      { id: magicLinkToken.id },
     );
 
     if (new Date(magicLinkToken.expiresAt) < new Date())
@@ -42,7 +42,7 @@ export async function GET(request: Request): Promise<Response> {
 
     let user = await getUserByEmailUseCase(
       { getUserByEmail: getUserByEmail },
-      { email: magicLinkToken.email }
+      { email: magicLinkToken.email },
     );
 
     if (!user) {
@@ -58,13 +58,13 @@ export async function GET(request: Request): Promise<Response> {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
 
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/",
+        Location: "/projects",
       },
     });
   } catch (e) {

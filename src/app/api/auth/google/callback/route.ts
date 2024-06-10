@@ -33,13 +33,13 @@ export async function GET(request: Request): Promise<Response> {
         headers: {
           Authorization: `Bearer ${tokens.accessToken}`,
         },
-      }
+      },
     );
     const googleUser: GoogleUser = await response.json();
 
     const existingAccount = await getAccountUseCase(
       { getAccount: getAccount },
-      { id: googleUser.sub }
+      { id: googleUser.sub },
     );
 
     if (existingAccount) {
@@ -48,7 +48,7 @@ export async function GET(request: Request): Promise<Response> {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes
+        sessionCookie.attributes,
       );
 
       return new Response(null, {
@@ -61,13 +61,13 @@ export async function GET(request: Request): Promise<Response> {
 
     const existingUser = await getUserByEmailUseCase(
       { getUserByEmail: getUserByEmail },
-      { email: googleUser.email }
+      { email: googleUser.email },
     );
 
     if (existingUser) {
       await createAccountUseCase(
         { createAccount: createAccount },
-        { id: googleUser.sub, type: "google", userId: existingUser.id }
+        { id: googleUser.sub, type: "google", userId: existingUser.id },
       );
 
       const session = await lucia.createSession(existingUser.id, {});
@@ -75,7 +75,7 @@ export async function GET(request: Request): Promise<Response> {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes
+        sessionCookie.attributes,
       );
 
       return new Response(null, {
@@ -95,7 +95,7 @@ export async function GET(request: Request): Promise<Response> {
 
     await createAccountUseCase(
       { createAccount: createAccount },
-      { id: googleUser.sub, type: "google", userId: user.id }
+      { id: googleUser.sub, type: "google", userId: user.id },
     );
 
     const session = await lucia.createSession(user.id, {});
@@ -103,13 +103,13 @@ export async function GET(request: Request): Promise<Response> {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
 
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/",
+        Location: "/projects",
       },
     });
   } catch (e) {

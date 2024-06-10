@@ -34,7 +34,7 @@ export const UserDropdown = async () => {
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="/settings">
+          <Link href="/account-settings">
             <SettingsIcon className="mr-2 h-4 w-4" /> Settings
           </Link>
         </DropdownMenuItem>

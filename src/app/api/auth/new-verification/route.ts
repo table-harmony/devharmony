@@ -30,12 +30,12 @@ export async function GET(request: Request): Promise<Response> {
   try {
     const verificationToken = await getTokenByTokenUseCase(
       { getTokenByToken: getVerificationTokenByToken },
-      { token }
+      { token },
     );
 
     await deleteTokenUseCase(
       { deleteToken: deleteVerificationToken },
-      { id: verificationToken.id }
+      { id: verificationToken.id },
     );
 
     if (new Date(verificationToken.expiresAt) < new Date())
@@ -43,7 +43,7 @@ export async function GET(request: Request): Promise<Response> {
 
     const user = await getUserByEmailUseCase(
       { getUserByEmail: getUserByEmail },
-      { email: verificationToken.email }
+      { email: verificationToken.email },
     );
 
     if (!user) throw new Error("User was not created!");
@@ -56,13 +56,13 @@ export async function GET(request: Request): Promise<Response> {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes
+      sessionCookie.attributes,
     );
 
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/",
+        Location: "/projects",
       },
     });
   } catch (e) {

@@ -19,7 +19,6 @@ import {
 } from "@/components/ui/form";
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/ui/button";
-import { SaveIcon } from "lucide-react";
 
 export const UpdatePasswordForm = () => {
   const { toast } = useToast();
@@ -31,10 +30,8 @@ export const UpdatePasswordForm = () => {
   });
 
   const { execute, status } = useAction(updatePasswordAction, {
-    onSettled() {
-      form.reset();
-    },
     onSuccess() {
+      form.reset();
       toast({
         variant: "success",
         description: "Password successfully updated!",
@@ -49,7 +46,7 @@ export const UpdatePasswordForm = () => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(execute)}
-        className="max-w-lg space-y-2"
+        className="flex items-center space-x-2"
       >
         <FormField
           control={form.control}
@@ -68,12 +65,7 @@ export const UpdatePasswordForm = () => {
             </FormItem>
           )}
         />
-        <LoaderButton
-          isLoading={status === "executing"}
-          icon={SaveIcon}
-          type="submit"
-          className="w-full"
-        >
+        <LoaderButton isLoading={status === "executing"} type="submit">
           Save
         </LoaderButton>
       </form>
