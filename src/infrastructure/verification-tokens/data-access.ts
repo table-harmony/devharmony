@@ -3,7 +3,7 @@ import "server-only";
 import { db } from "@/db";
 import { verificationTokens } from "@/db/schema";
 
-import { eq } from "drizzle-orm";
+import { eq, lt } from "drizzle-orm";
 
 import { TOKEN_EXPIRATION, TOKEN_LENGTH, generateRandomToken } from "./utils";
 import { Token } from "./types";
@@ -45,4 +45,10 @@ export async function deleteVerification(token: Token) {
   await db
     .delete(verificationTokens)
     .where(eq(verificationTokens.token, token));
+}
+
+export async function deleteExpiredVerifications() {
+  await db
+    .delete(verificationTokens)
+    .where(lt(verificationTokens.expiresAt, new Date()));
 }

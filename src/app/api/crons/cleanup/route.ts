@@ -1,5 +1,7 @@
 import { env } from "@/env";
 
+import { deleteExpiredVerificationsUseCase } from "@/infrastructure/verification-tokens";
+
 import { lucia } from "@/lib/auth";
 
 export async function GET(request: Request) {
@@ -11,7 +13,7 @@ export async function GET(request: Request) {
   try {
     await lucia.deleteExpiredSessions();
 
-    //TODO: delete expired verification tokens
+    await deleteExpiredVerificationsUseCase();
   } catch (e) {
     return new Response("Error", { status: 500 });
   }

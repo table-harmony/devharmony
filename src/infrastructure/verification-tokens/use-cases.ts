@@ -1,5 +1,6 @@
 import {
   createVerification,
+  deleteExpiredVerifications,
   deleteVerification,
   getVerification,
 } from "./data-access";
@@ -18,4 +19,8 @@ export async function getVerificationUseCase(token: Token) {
 
 export async function deleteVerificationUseCase(token: Token) {
   await deleteVerification(token);
+}
+
+export async function deleteExpiredVerificationsUseCase() {
+  await deleteExpiredVerifications();
 }
