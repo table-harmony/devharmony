@@ -11,6 +11,16 @@ export const users = sqliteTable("user", {
   picture: text("picture"),
 });
 
+export const resetTokens = sqliteTable("reset_tokens", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: integer("user_id", { mode: "number" })
+    .references(() => users.id, { onDelete: "cascade" })
+    .unique()
+    .notNull(),
+  token: text("token").notNull().unique(),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+});
+
 export const verificationTokens = sqliteTable("verification_token", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   userId: integer("user_id", { mode: "number" })
