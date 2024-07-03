@@ -11,6 +11,8 @@ import { Google } from "arctic";
 import { Lucia, User, Session } from "lucia";
 import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
 
+import { BASE_URL } from "@/lib/metadata";
+
 const adapter = new DrizzleSQLiteAdapter(db, sessions, users);
 
 export const lucia = new Lucia(adapter, {
@@ -85,5 +87,5 @@ interface DatabaseUserAttributes {
 export const google = new Google(
   env.GOOGLE_CLIENT_ID,
   env.GOOGLE_CLIENT_SECRET,
-  `${env.NEXT_PUBLIC_APP_URL}/api/auth/google/callback`,
+  `${BASE_URL}/api/auth/google/callback`,
 );

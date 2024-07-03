@@ -131,9 +131,6 @@ importers:
       resend:
         specifier: ^3.4.0
         version: 3.4.0
-      safe-action:
-        specifier: ^1.0.0
-        version: 1.0.0(typescript@5.5.3)(zod@3.23.8)
       tailwind-merge:
         specifier: ^2.3.0
         version: 2.3.0
@@ -146,6 +143,9 @@ importers:
       zsa:
         specifier: ^0.5.0
         version: 0.5.0(zod@3.23.8)
+      zsa-react:
+        specifier: ^0.2.1
+        version: 0.2.1(react@18.3.1)(zod@3.23.8)
     devDependencies:
       '@types/bcryptjs':
         specifier: ^2.4.6
@@ -3555,12 +3555,6 @@ packages:
   run-parallel@1.2.0:
     resolution: {integrity: sha512-5l4VyZR86LZ/lDxZTR6jqL8AFE2S0IFLMP26AbjsLVADxHdhB/c0GUsH+y39UfCi3dzz8OlQuPmnaJOMoDHQBA==}
 
-  safe-action@1.0.0:
-    resolution: {integrity: sha512-1zBCLPd9kgr3lq5Y9frjhT125iXw2IAxpEtIT0q81TAUOHIIiDBKpViY5J/rYX/UPFJfKeQa0gbhBuFSqGqiKw==}
-    peerDependencies:
-      typescript: '>=4.8.2'
-      zod: '>=3.20.0'
-
   safe-array-concat@1.1.2:
     resolution: {integrity: sha512-vj6RsCsWBCf19jIeHEfkRMw8DPiBb+DMXklQ/1SGDHOMlHdPUkZXFQ2YdplS23zESTijAcurb1aSgJA3AgMu1Q==}
     engines: {node: '>=0.4'}
@@ -3916,6 +3910,12 @@ packages:
 
   zod@3.23.8:
     resolution: {integrity: sha512-XBx9AXhXktjUqnepgTiE5flcKIYWi/rme0Eaj+5Y0lftuGBq+jyRu/md4WnuxqgP1ubdpNCsYEYPxrzVHD8d6g==}
+
+  zsa-react@0.2.1:
+    resolution: {integrity: sha512-obhdmj1oE7bfPQGL3accltI0txcxB5OtoHbXrXxAyPoOaoD9qXB35MXV2xtEFJ6FxCd/mfJuE0Uk1A/PcLwoKQ==}
+    peerDependencies:
+      react: ^18.0.0 || ^19.0.0
+      zod: ^3.23.5
 
   zsa@0.5.0:
     resolution: {integrity: sha512-SHh5cHjvi9uRnGhsHXUDYvYeSg8N7esgwrZVhIyGc5VR2UlI7S1mXsCGqO7nLIMOcDk4ULfB5SYLcmpai5auQw==}
@@ -7241,11 +7241,6 @@ snapshots:
     dependencies:
       queue-microtask: 1.2.3
 
-  safe-action@1.0.0(typescript@5.5.3)(zod@3.23.8):
-    dependencies:
-      typescript: 5.5.3
-      zod: 3.23.8
-
   safe-array-concat@1.1.2:
     dependencies:
       call-bind: 1.0.7
@@ -7650,6 +7645,12 @@ snapshots:
   yocto-queue@0.1.0: {}
 
   zod@3.23.8: {}
+
+  zsa-react@0.2.1(react@18.3.1)(zod@3.23.8):
+    dependencies:
+      react: 18.3.1
+      zod: 3.23.8
+      zsa: 0.5.0(zod@3.23.8)
 
   zsa@0.5.0(zod@3.23.8):
     dependencies:

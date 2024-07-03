@@ -53,11 +53,11 @@
     "react-spinners": "^0.13.8",
     "react-wrap-balancer": "^1.1.1",
     "resend": "^3.4.0",
-    "safe-action": "^1.0.0",
     "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8",
-    "zsa": "^0.5.0"
+    "zsa": "^0.5.0",
+    "zsa-react": "^0.2.1"
   },
   "devDependencies": {
     "@types/bcryptjs": "^2.4.6",

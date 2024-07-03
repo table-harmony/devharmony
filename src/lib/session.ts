@@ -25,3 +25,13 @@ export const setSession = async (userId: UserId) => {
     sessionCookie.attributes,
   );
 };
+
+export const deleteSession = async (sessionId: string) => {
+  await lucia.invalidateSession(sessionId);
+  const sessionCookie = lucia.createBlankSessionCookie();
+  cookies().set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  );
+};
