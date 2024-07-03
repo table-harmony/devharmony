@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getCurrentUser } from "@/lib/session";
+import { currentUser } from "@/lib/session";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LogOutIcon, SettingsIcon } from "lucide-react";
 
 export const UserDropdown = async () => {
-  const user = await getCurrentUser();
+  const user = await currentUser();
 
   return (
     <DropdownMenu>
@@ -29,7 +29,7 @@ export const UserDropdown = async () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end">
         <DropdownMenuLabel className="flex flex-col font-medium leading-none">
-          <p className="text-sm capitalize">{user?.name}</p>
+          <p className="text-sm">{user?.name}</p>
           <p className="text-xs text-muted-foreground">{user?.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
