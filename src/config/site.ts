@@ -1,6 +1,6 @@
 export const siteConfig = {
-  name: "calendarharmony",
-  url: "https://calendarharmony.vercel.app",
+  name: "devharmony",
+  url: "https://devharmony.vercel.app",
   description: "Easier Time Management and Appointments",
   ogImage: "https://cdn-icons-png.flaticon.com/512/1531/1531344.png",
   links: {

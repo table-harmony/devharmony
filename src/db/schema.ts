@@ -1,75 +1,34 @@
-import { pgEnum, pgTable, text, timestamp } from "drizzle-orm/pg-core";
-import { randomUUID } from "crypto";
+import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core";
 
-export const userRoleEnum = pgEnum("role", ["member", "manager", "admin"]);
-export const accountTypeEnum = pgEnum("type", ["google"]);
-
-export const users = pgTable("user", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => randomUUID()),
-  username: text("username").default("Anonymous"),
+export const users = sqliteTable("user", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  name: text("name").default("Anonymous").notNull(),
   email: text("email").unique().notNull(),
-  emailVerified: timestamp("emailVerified", { mode: "date" }),
+  emailVerified: integer("email_verified", { mode: "timestamp" }),
+  googleId: text("google_id").unique(),
   password: text("password"),
   salt: text("salt"),
-  image: text("image"),
-  role: userRoleEnum("role").default("member").notNull(),
+  picture: text("picture"),
 });
 
-export const accounts = pgTable("account", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => randomUUID()),
-  type: accountTypeEnum("type").notNull(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-});
-
-export const sessions = pgTable("session", {
-  id: text("id").primaryKey(),
-  userId: text("userId")
-    .notNull()
-    .references(() => users.id, { onDelete: "cascade" }),
-  expiresAt: timestamp("expires_at", {
-    withTimezone: true,
-    mode: "date",
-  }).notNull(),
-});
-
-export const magicLinkTokens = pgTable("magic_link_token", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => randomUUID()),
-  email: text("email").unique().notNull(),
-  token: text("token").unique().notNull(),
-  expiresAt: timestamp("expires_at", {
-    withTimezone: true,
-    mode: "date",
-  }).notNull(),
-});
-
-export const verificationTokens = pgTable("verification_token", {
-  id: text("id")
-    .primaryKey()
-    .$defaultFn(() => randomUUID()),
-  email: text("email")
+export const verificationTokens = sqliteTable("verification_token", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: integer("user_id", { mode: "number" })
+    .references(() => users.id, { onDelete: "cascade" })
     .unique()
-    .notNull()
-    .references(() => users.email, { onDelete: "cascade" }),
-  token: text("token").unique().notNull(),
-  expiresAt: timestamp("expires_at", {
-    withTimezone: true,
-    mode: "date",
-  }).notNull(),
+    .notNull(),
+  token: text("token").notNull().unique(),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
 });
 
-export type UserRole = "member" | "manager" | "admin";
-export type AccountType = "google";
+export const sessions = sqliteTable("session", {
+  id: text("id").primaryKey(),
+  userId: integer("user_id", { mode: "number" })
+    .references(() => users.id, {
+      onDelete: "cascade",
+    })
+    .notNull(),
+  expiresAt: integer("expires_at").notNull(),
+});
 
 export type User = typeof users.$inferSelect;
-export type Account = typeof accounts.$inferSelect;
-export type Session = typeof sessions.$inferSelect;
-export type MagicLinkToken = typeof magicLinkTokens.$inferSelect;
-export type VerificationToken = typeof verificationTokens.$inferSelect;

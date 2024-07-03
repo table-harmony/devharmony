@@ -1,24 +1,31 @@
 import Link from "next/link";
 
-import { validateRequest } from "@/lib/auth";
+import { siteConfig } from "@/config/site";
 
 import { Button } from "@/components/ui/button";
 import { UserDropdown } from "@/components/user-dropdown";
 
-export async function SiteHeader({ links }: { links?: React.ReactNode }) {
-  const { user } = await validateRequest();
+import { SignedOut } from "@/components/auth/signed-out";
+import { SignedIn } from "@/components/auth/signed-in";
 
+import { LogoIcon } from "@/components/icons";
+
+export function SiteHeader() {
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-muted/60">
+    <header className="sticky top-0 z-50 w-full border-b border-border/40 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-14 items-center justify-between gap-2">
-        {links}
-        {!user ? (
-          <Button asChild>
-            <Link href="/auth/login">Login</Link>
-          </Button>
-        ) : (
+        <Link href="/" className="flex items-center gap-2">
+          <LogoIcon className="size-5" />
+          <span className="font-bold uppercase">{siteConfig.name}</span>
+        </Link>
+        <SignedIn>
           <UserDropdown />
-        )}
+        </SignedIn>
+        <SignedOut>
+          <Button asChild>
+            <Link href="/login">Login</Link>
+          </Button>
+        </SignedOut>
       </div>
     </header>
   );

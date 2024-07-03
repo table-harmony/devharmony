@@ -3,13 +3,8 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z
-      .string()
-      .url()
-      .refine(
-        (str) => !str.includes("YOUR_DATABASE_URL_HERE"),
-        "You forgot to change the default URL"
-      ),
+    DATABASE_URL: z.string().url(),
+    DB_AUTH_TOKEN: z.string(),
     KV_REST_API_URL: z.string(),
     KV_REST_API_TOKEN: z.string(),
     CRON_SECERT: z.string(),
@@ -26,6 +21,7 @@ export const env = createEnv({
   runtimeEnv: {
     // Server-side env vars
     DATABASE_URL: process.env.DATABASE_URL,
+    DB_AUTH_TOKEN: process.env.DB_AUTH_TOKEN,
     KV_REST_API_URL: process.env.KV_REST_API_URL,
     KV_REST_API_TOKEN: process.env.KV_REST_API_TOKEN,
     CRON_SECERT: process.env.CRON_SECRET,
