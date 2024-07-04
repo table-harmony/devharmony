@@ -6,33 +6,12 @@ import { ColumnDef } from "@tanstack/react-table";
 import { DataTableColumnHeader } from "@/components/data-table/column-header";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { EditUserSheet } from "./sheets/edit-user-sheet";
+import { DeleteUserAlert } from "./delete-user-alert";
+import { EditIcon, TrashIcon } from "lucide-react";
 
 export const user: ColumnDef<User>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
-        }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-        className="translate-y-[2px]"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-        className="translate-y-[2px]"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
   {
     accessorKey: "picture",
     cell: ({ row }) => {
@@ -98,6 +77,20 @@ export const user: ColumnDef<User>[] = [
   },
   {
     accessorKey: "actions",
+    cell: ({ row }) => (
+      <div className="flex gap-2">
+        <EditUserSheet userId={row.getValue("id")}>
+          <Button variant="ghost" size="icon">
+            <EditIcon className="size-4" />
+          </Button>
+        </EditUserSheet>
+        <DeleteUserAlert userId={row.getValue("id")}>
+          <Button variant="ghost" size="icon">
+            <TrashIcon className="size-4" />
+          </Button>
+        </DeleteUserAlert>
+      </div>
+    ),
     enableSorting: false,
   },
 ];

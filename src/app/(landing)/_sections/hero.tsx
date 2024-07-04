@@ -12,7 +12,7 @@ import { ArrowRightIcon } from "lucide-react";
 export function HeroSection() {
   return (
     <section className="container py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-      <div className="flex flex-col items-center space-y-5">
+      <div className="flex flex-col items-center space-y-5 text-center">
         <h1 className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
           Welcome to {siteConfig.name.toUpperCase()}
         </h1>
