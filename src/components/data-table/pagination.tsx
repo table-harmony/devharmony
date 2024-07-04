@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { TableContext } from "@/components/data-table";
+import { DataTableContext } from "./context";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,7 +11,6 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-
 import {
   ChevronFirstIcon,
   ChevronLastIcon,
@@ -19,14 +18,14 @@ import {
   ChevronRightIcon,
 } from "lucide-react";
 
-interface DataTablePaginationProps {
+interface DataTablePaginationProps<TData> {
   pageSizeOptions?: number[];
 }
 
-export function DataTablePagination({
+export function DataTablePagination<TData>({
   pageSizeOptions = [10, 20, 30, 40, 50],
-}: DataTablePaginationProps) {
-  const { table } = useContext(TableContext);
+}: DataTablePaginationProps<TData>) {
+  const { table } = useContext(DataTableContext);
 
   return (
     <div className="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">

@@ -3,10 +3,10 @@
 import { createContext } from "react";
 import { Table } from "@tanstack/react-table";
 
-interface TableContextValue {
+interface DataTableContext {
   table: Table<any>;
 }
 
-export const TableContext = createContext<TableContextValue>({
+export const DataTableContext = createContext<DataTableContext>({
   table: {} as Table<any>,
 });

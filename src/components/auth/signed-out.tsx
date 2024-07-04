@@ -1,9 +1,9 @@
-import { currentUser } from "@/lib/session";
+import { getSession } from "@/lib/session";
 
 import { AwaitedReactNode } from "react";
 
 export async function SignedOut({ children }: { children: AwaitedReactNode }) {
-  const user = await currentUser();
+  const { user } = await getSession();
 
   return !user && children;
 }

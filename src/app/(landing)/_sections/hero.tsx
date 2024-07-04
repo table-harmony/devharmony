@@ -12,9 +12,9 @@ import { ArrowRightIcon } from "lucide-react";
 export function HeroSection() {
   return (
     <section className="container py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-      <div className="flex flex-col items-center space-y-10 text-center">
-        <h1 className="max-w-2xl text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
-          {siteConfig.name}
+      <div className="flex flex-col items-center space-y-5">
+        <h1 className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
+          Welcome to {siteConfig.name.toUpperCase()}
         </h1>
         <p className="max-w-3xl font-light text-muted-foreground md:text-lg lg:text-xl">
           {siteConfig.description}
@@ -26,6 +26,11 @@ export function HeroSection() {
             </Link>
           </Button>
         </SignedOut>
+        <SignedIn>
+          <Button className="w-72" asChild>
+            <Link href="/account-settings">Settings</Link>
+          </Button>
+        </SignedIn>
       </div>
     </section>
   );

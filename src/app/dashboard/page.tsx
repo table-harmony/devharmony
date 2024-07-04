@@ -1,13 +1,13 @@
 import { getUsersUseCase } from "@/infrastructure/users";
 
-import { Suspense } from "react";
+import { DataTable } from "@/components/data-table";
+import { DataTableProvider } from "@/components/data-table/provider";
+import { DataTableViewOptions } from "@/components/data-table/view-options";
 
-import {
-  DataTable,
-  DataTableProvider,
-  DataTableViewOptions,
-} from "@/components/data-table";
+import { CreateUserDialog } from "./_components/create-user-dialog";
+
 import * as columns from "./_components/columns";
+import { Suspense } from "react";
 
 export default async function DashboardPage() {
   return (
@@ -15,7 +15,7 @@ export default async function DashboardPage() {
       <h1 className="text-2xl font-extrabold md:text-3xl xl:text-4xl">
         Dashboard
       </h1>
-      <Suspense fallback={<p>Loading...</p>}>
+      <Suspense fallback={<p>Loading ...</p>}>
         <UsersTable />
       </Suspense>
     </div>
@@ -28,11 +28,10 @@ async function UsersTable() {
   return (
     <DataTableProvider data={data} columns={columns.user}>
       <DataTable>
-        <div className="justify-between">
-          <div>{/*SEARCH*/}</div>
-          <div>
-            {/*CREATE USER */}
-            {/*EXPORT */}
+        <div className="flex justify-between">
+          <div>{/**SEARCH */}</div>
+          <div className="flex gap-2">
+            <CreateUserDialog />
             <DataTableViewOptions />
           </div>
         </div>

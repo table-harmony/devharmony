@@ -3,7 +3,7 @@
 import { User } from "@/infrastructure/users";
 
 import { ColumnDef } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "@/components/data-table";
+import { DataTableColumnHeader } from "@/components/data-table/column-header";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -34,11 +34,11 @@ export const user: ColumnDef<User>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "image",
+    accessorKey: "picture",
     cell: ({ row }) => {
       return (
         <Avatar>
-          <AvatarImage src={row.getValue("image")} alt="profile" />
+          <AvatarImage src={row.getValue("picture")} alt="profile" />
           <AvatarFallback>CN</AvatarFallback>
         </Avatar>
       );

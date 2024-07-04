@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { currentUser } from "@/lib/session";
+import { getSession } from "@/lib/session";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,7 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { LayoutDashboardIcon, LogOutIcon, SettingsIcon } from "lucide-react";
 
 export const UserDropdown = async () => {
-  const user = await currentUser();
+  const { user } = await getSession();
 
   return (
     <DropdownMenu>

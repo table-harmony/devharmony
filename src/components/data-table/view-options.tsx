@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { TableContext } from "@/components/data-table/context";
+import { DataTableContext } from "./context";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -15,17 +15,12 @@ import {
 import { SlidersHorizontalIcon } from "lucide-react";
 
 export function DataTableViewOptions() {
-  const { table } = useContext(TableContext);
+  const { table } = useContext(DataTableContext);
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          aria-label="Toggle columns"
-          variant="outline"
-          size="sm"
-          className="ml-auto hidden h-8 lg:flex"
-        >
+        <Button aria-label="Toggle columns" variant="outline">
           <SlidersHorizontalIcon className="mr-2 size-4" />
           View
         </Button>

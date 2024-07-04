@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+
+import { DataTableContext } from "./context";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,9 +16,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { TableContext } from "./context";
 
-interface TableProviderProps<TData, TValue> {
+interface DataTableProviderProps<TData, TValue> {
   children?: React.ReactNode;
   columns: ColumnDef<TData, TValue>[];
   data: TData[];
@@ -26,7 +27,7 @@ export function DataTableProvider<TData, TValue>({
   children,
   columns,
   data,
-}: TableProviderProps<TData, TValue>) {
+}: DataTableProviderProps<TData, TValue>) {
   const [rowSelection, setRowSelection] = useState({});
   const [columnVisibility, setColumnVisibility] = useState<VisibilityState>({});
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -55,6 +56,8 @@ export function DataTableProvider<TData, TValue>({
   });
 
   return (
-    <TableContext.Provider value={{ table }}>{children}</TableContext.Provider>
+    <DataTableContext.Provider value={{ table }}>
+      {children}
+    </DataTableContext.Provider>
   );
 }

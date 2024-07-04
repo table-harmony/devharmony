@@ -8,14 +8,6 @@ import { cookies } from "next/headers";
 import { lucia } from "@/lib/auth";
 import { validateRequest } from "@/lib/auth";
 
-export const currentUser = cache(async () => {
-  const session = await validateRequest();
-  if (!session.user) {
-    return undefined;
-  }
-  return session.user;
-});
-
 export const getSession = cache(async () => {
   const session = await validateRequest();
   return session;
