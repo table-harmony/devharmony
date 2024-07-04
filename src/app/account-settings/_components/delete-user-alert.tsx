@@ -1,9 +1,7 @@
 "use client";
 
-import { UserId } from "@/infrastructure/users";
-
 import { useServerAction } from "zsa-react";
-import { deleteUserAction } from "../actions";
+import { deleteAction } from "../actions";
 
 import {
   AlertDialog,
@@ -18,27 +16,14 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useToast } from "@/components/ui/use-toast";
 
-export function DeleteUserAlert({
-  userId,
-  children,
-}: {
-  userId: UserId;
-  children: React.ReactNode;
-}) {
+export function DeleteUserAlert({ children }: { children: React.ReactNode }) {
   const { toast } = useToast();
 
-  const { execute } = useServerAction(deleteUserAction, {
+  const { execute } = useServerAction(deleteAction, {
     onError({ err }) {
       toast({ description: err.message, variant: "destructive" });
     },
-    onSuccess() {
-      toast({ description: "User successfully deleted!", variant: "success" });
-    },
   });
-
-  function onSubmit() {
-    execute({ userId });
-  }
 
   return (
     <AlertDialog>
@@ -53,7 +38,7 @@ export function DeleteUserAlert({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={onSubmit}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={execute}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

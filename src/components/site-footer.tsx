@@ -31,6 +31,21 @@ function Links() {
   return (
     <>
       <div className="flex flex-col space-y-4">
+        <p className="font-semibold">Product</p>
+        <Link
+          href="/changelog"
+          className="text-xs text-muted-foreground duration-200 hover:text-foreground"
+        >
+          Changelog
+        </Link>
+        <Link
+          href="/contact"
+          className="text-xs text-muted-foreground duration-200 hover:text-foreground"
+        >
+          Contact us
+        </Link>
+      </div>
+      <div className="flex flex-col space-y-4">
         <p className="font-semibold">Legal</p>
         <Link
           href="/privacy-policy"

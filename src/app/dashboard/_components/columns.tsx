@@ -78,7 +78,7 @@ export const user: ColumnDef<User>[] = [
   {
     accessorKey: "actions",
     cell: ({ row }) => (
-      <div className="flex gap-2">
+      <div className="flex items-center gap-2">
         <EditUserSheet userId={row.getValue("id")}>
           <Button variant="ghost" size="icon">
             <EditIcon className="size-4" />

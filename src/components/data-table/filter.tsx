@@ -1,12 +1,12 @@
 "use client";
 
 import { useContext, useState } from "react";
-import { DataTableContext } from "./context";
-import { Input } from "@/components/ui/input";
+
 import { cn } from "@/lib/utils";
+
+import { DataTableContext } from "@/components/data-table/context";
 import {
   DropdownMenu,
-  DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuRadioGroup,
   DropdownMenuTrigger,
@@ -14,42 +14,46 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
 } from "@/components/ui/dropdown-menu";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { SearchIcon } from "lucide-react";
+
+const NON_FILTER = ["actions", "picture", "select"];
 
 export function DataTableFilter({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
   const { table } = useContext(DataTableContext);
-  const [search, setSearch] = useState("");
+  const [searchColumn, setSearchColumn] = useState(
+    table.getAllColumns().filter((column) => !NON_FILTER.includes(column.id))[0]
+      ?.id,
+  );
+
+  if (
+    table.getAllColumns().filter((column) => !NON_FILTER.includes(column.id))
+      .length === 0
+  )
+    return;
 
   return (
-    <div className={cn("hidden gap-2 sm:flex", className)} {...props}>
+    <div className={cn("flex gap-2", className)} {...props}>
       <Input
         placeholder="Filter..."
-        value={(table.getColumn(search)?.getFilterValue() as string) ?? ""}
-        onChange={(event) =>
-          table.getColumn(search)?.setFilterValue(event.target.value)
+        value={
+          (table.getColumn(searchColumn)?.getFilterValue() as string) ?? ""
         }
-        className="sm:w-[300px] lg:w-[350px]"
-        disabled={!search}
+        onChange={(event) =>
+          table.getColumn(searchColumn)?.setFilterValue(event.target.value)
+        }
+        className="md:w-[300px] lg:w-[350px]"
+        disabled={!searchColumn}
       />
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button
-            variant="outline"
-            disabled={
-              table
-                .getAllColumns()
-                .filter(
-                  (column) =>
-                    !["actions", "image", "select"].includes(column.id),
-                ).length === 0
-            }
-          >
-            <SearchIcon className="h-4 w-4 md:mr-2" />
-            <span className="sr-only whitespace-nowrap md:not-sr-only">
+          <Button variant="outline">
+            <SearchIcon className="h-4 w-4 sm:mr-2" />
+            <span className="sr-only whitespace-nowrap sm:not-sr-only">
               Search
             </span>
           </Button>
@@ -57,20 +61,16 @@ export function DataTableFilter({
         <DropdownMenuContent align="end">
           <DropdownMenuLabel>Search by</DropdownMenuLabel>
           <DropdownMenuSeparator />
-          <DropdownMenuRadioGroup value={search} onValueChange={setSearch}>
+          <DropdownMenuRadioGroup
+            value={searchColumn}
+            onValueChange={setSearchColumn}
+          >
             {table
               .getAllColumns()
-              .filter(
-                (column) =>
-                  !["actions", "picture", "select"].includes(column.id),
-              )
+              .filter((column) => !NON_FILTER.includes(column.id))
               .map((column) => {
                 return (
-                  <DropdownMenuRadioItem
-                    key={column.id}
-                    value={column.id}
-                    className="capitalize"
-                  >
+                  <DropdownMenuRadioItem key={column.id} value={column.id}>
                     {column.id}
                   </DropdownMenuRadioItem>
                 );

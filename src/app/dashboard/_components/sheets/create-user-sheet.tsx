@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useServerAction } from "zsa-react";
-import { createUserAction } from "../actions";
+import { createUserAction } from "../../actions";
 
 import {
   Sheet,

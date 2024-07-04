@@ -1,7 +1,10 @@
 import { ConfigurationPanel } from "./_components/configuration-panel";
 import { UpdatePasswordForm } from "./_components/update-password-form";
 import { UpdateNameForm } from "./_components/update-name-form";
-import { DeleteForm } from "./_components/delete-form";
+import { DeleteUserAlert } from "./_components/delete-user-alert";
+
+import { Button } from "@/components/ui/button";
+import { TrashIcon } from "lucide-react";
 
 export default function SettingsPage() {
   return (
@@ -27,7 +30,11 @@ export default function SettingsPage() {
         title="Delete"
         subtitle="Permanently remove your Personal Account and all of its contents from the platform."
       >
-        <DeleteForm />
+        <DeleteUserAlert>
+          <Button variant="destructive" className="w-full sm:w-auto">
+            <TrashIcon className="mr-2 size-4" /> Delete
+          </Button>
+        </DeleteUserAlert>
       </ConfigurationPanel>
     </div>
   );

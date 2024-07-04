@@ -10,7 +10,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useServerAction } from "zsa-react";
-import { editUserAction } from "../actions";
+import { editUserAction } from "../../actions";
 
 import {
   Sheet,
