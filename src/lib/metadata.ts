@@ -20,5 +20,5 @@ export function createMetadata(override: Metadata): Metadata {
 
 export const BASE_URL =
   env.NODE_ENV === "development"
-    ? new URL("http://localhost:3000")
-    : new URL(env.NEXT_PUBLIC_APP_URL);
+    ? "http://localhost:3000"
+    : env.NEXT_PUBLIC_APP_URL;

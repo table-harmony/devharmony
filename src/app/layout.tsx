@@ -20,7 +20,7 @@ export const metadata = createMetadata({
     default: siteConfig.name,
   },
   description: siteConfig.description,
-  metadataBase: BASE_URL,
+  metadataBase: new URL(BASE_URL),
 });
 
 export const viewport: Viewport = {

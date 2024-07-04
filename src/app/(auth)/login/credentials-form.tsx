@@ -5,15 +5,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import Link from "next/link";
-
 import { useServerAction } from "zsa-react";
 import { loginAction } from "./actions";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -84,14 +81,6 @@ export function CredentialsForm() {
                   type="password"
                 />
               </FormControl>
-              <FormDescription>
-                <Link
-                  href="/reset-password"
-                  className="text-muted-foreground underline underline-offset-1 hover:text-foreground"
-                >
-                  Forgot your password
-                </Link>
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
