@@ -41,10 +41,20 @@ export async function getVerification(token: Token) {
   return existingToken;
 }
 
+export async function getVerifications() {
+  return await db.query.verificationTokens.findMany();
+}
+
 export async function deleteVerification(token: Token) {
   await db
     .delete(verificationTokens)
     .where(eq(verificationTokens.token, token));
+}
+
+export async function deleteVerificationById(verificationId: number) {
+  await db
+    .delete(verificationTokens)
+    .where(eq(verificationTokens.id, verificationId));
 }
 
 export async function deleteExpiredVerifications() {

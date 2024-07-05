@@ -8,6 +8,8 @@ import {
 
 import { z } from "zod";
 
+import { lucia } from "@/lib/auth";
+
 import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
 

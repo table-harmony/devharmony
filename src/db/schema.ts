@@ -35,4 +35,5 @@ export const sessions = sqliteTable("session", {
 });
 
 export type User = typeof users.$inferSelect;
+export type Session = typeof sessions.$inferSelect;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
