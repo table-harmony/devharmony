@@ -25,6 +25,10 @@ export function DeleteUserAlert({ children }: { children: React.ReactNode }) {
     },
   });
 
+  const onSubmit = () => {
+    execute();
+  };
+
   return (
     <AlertDialog>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -38,7 +42,7 @@ export function DeleteUserAlert({ children }: { children: React.ReactNode }) {
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={execute}>Continue</AlertDialogAction>
+          <AlertDialogAction onClick={onSubmit}>Continue</AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>

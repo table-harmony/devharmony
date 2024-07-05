@@ -1,7 +1,7 @@
 import { unstable_noStore } from "next/cache";
 import { format } from "date-fns";
 
-import { MDXRemote } from "next-mdx-remote/rsc";
+import Markdown from "react-markdown";
 
 import { siteConfig } from "@/config/site";
 
@@ -49,10 +49,12 @@ export default async function ChangelogPage() {
             <div className="w-full pb-16">
               <div className="space-y-4">
                 <div className="flex flex-col gap-4">
-                  <h2 className="text-lg font-medium md:text-xl xl:text-2xl">
+                  <h2 className="text-xl font-medium md:text-2xl xl:text-3xl">
                     {changelog.title}
                   </h2>
-                  <MDXRemote source={changelog.post} />
+                  <Markdown className="prose dark:prose-invert">
+                    {changelog.post}
+                  </Markdown>
                 </div>
               </div>
             </div>

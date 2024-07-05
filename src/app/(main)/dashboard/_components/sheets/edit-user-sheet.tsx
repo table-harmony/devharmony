@@ -1,6 +1,6 @@
 "use client";
 
-import type { UserId } from "@/infrastructure/users";
+import type { UserId, UserRole } from "@/infrastructure/users";
 
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
@@ -44,9 +44,11 @@ const formSchema = z.object({
 
 function EditUserForm({
   userId,
+  data,
   setShowSheet,
 }: {
   userId: UserId;
+  data: { role: UserRole };
   setShowSheet: Dispatch<SetStateAction<boolean>>;
 }) {
   const { toast } = useToast();
@@ -65,7 +67,7 @@ function EditUserForm({
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
-    defaultValues: {},
+    defaultValues: data,
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
@@ -84,7 +86,7 @@ function EditUserForm({
               <FormControl>
                 <Select value={field.value} onValueChange={field.onChange}>
                   <SelectTrigger className="h-8 w-[100px]">
-                    <SelectValue placeholder="member" />
+                    <SelectValue placeholder={data.role} />
                   </SelectTrigger>
                   <SelectContent side="top">
                     {["member", "manager", "admin"].map((role) => (
@@ -110,9 +112,11 @@ function EditUserForm({
 
 export function EditUserSheet({
   userId,
+  data,
   children,
 }: {
   userId: UserId;
+  data: { role: UserRole };
   children: ReactNode;
 }) {
   const [showSheet, setShowSheet] = useState(false);
@@ -128,7 +132,7 @@ export function EditUserSheet({
             Fill in the details below to edit user.
           </SheetDescription>
         </SheetHeader>
-        <EditUserForm userId={userId} setShowSheet={setShowSheet} />
+        <EditUserForm userId={userId} data={data} setShowSheet={setShowSheet} />
       </SheetContent>
     </Sheet>
   );

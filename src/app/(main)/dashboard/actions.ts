@@ -7,7 +7,7 @@ import {
 } from "@/infrastructure/users";
 
 import { z } from "zod";
-import { revalidatePath } from "next/cache";
+import { revalidateTag } from "next/cache";
 
 import { administratorAction } from "@/lib/safe-action";
 
@@ -21,6 +21,7 @@ export const createUserAction = administratorAction
   )
   .handler(async ({ input }) => {
     await createUserByCredentialsUseCase(input);
+    revalidateTag("data");
   });
 
 export const editUserAction = administratorAction
@@ -33,7 +34,7 @@ export const editUserAction = administratorAction
   )
   .handler(async ({ input }) => {
     await updateUserUseCase(input.userId, { role: input.role });
-    revalidatePath("users");
+    revalidateTag("data");
   });
 
 export const deleteUserAction = administratorAction
@@ -45,5 +46,5 @@ export const deleteUserAction = administratorAction
   )
   .handler(async ({ input }) => {
     await deleteUserUseCase(input.userId);
-    revalidatePath("users");
+    revalidateTag("data");
   });

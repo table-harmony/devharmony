@@ -79,7 +79,10 @@ export const user: ColumnDef<User>[] = [
     accessorKey: "actions",
     cell: ({ row }) => (
       <div className="flex items-center gap-2">
-        <EditUserSheet userId={row.getValue("id")}>
+        <EditUserSheet
+          userId={row.getValue("id")}
+          data={{ role: row.getValue("role") }}
+        >
           <Button variant="ghost" size="icon">
             <EditIcon className="size-4" />
           </Button>
