@@ -1,7 +1,7 @@
 "use client";
 
 import { useContext } from "react";
-import { DataTableContext } from "./context";
+import { DataTableContext } from "./data-table-context";
 
 import { Button } from "@/components/ui/button";
 import {
@@ -11,6 +11,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   ChevronFirstIcon,
   ChevronLastIcon,
@@ -18,13 +19,13 @@ import {
   ChevronRightIcon,
 } from "lucide-react";
 
-interface DataTablePaginationProps<TData> {
+interface DataTablePaginationProps {
   pageSizeOptions?: number[];
 }
 
-export function DataTablePagination<TData>({
+export function DataTablePagination({
   pageSizeOptions = [10, 20, 30, 40, 50],
-}: DataTablePaginationProps<TData>) {
+}: DataTablePaginationProps) {
   const { table } = useContext(DataTableContext);
 
   return (
@@ -98,6 +99,27 @@ export function DataTablePagination<TData>({
           >
             <ChevronLastIcon className="size-4" aria-hidden="true" />
           </Button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+export function DataTablePaginationSkeleton() {
+  return (
+    <div className="flex w-full flex-col-reverse items-center justify-between gap-4 overflow-auto p-1 sm:flex-row sm:gap-8">
+      <Skeleton className="h-8 w-[150px]" />
+      <div className="flex flex-col-reverse items-center gap-4 sm:flex-row sm:gap-6 lg:gap-8">
+        <div className="flex items-center space-x-2">
+          <Skeleton className="h-8 w-[100px]" />
+          <Skeleton className="h-8 w-[4.5rem]" />
+        </div>
+        <Skeleton className="h-8 w-[72px]" />
+        <div className="flex items-center space-x-2">
+          <Skeleton className="h-8 w-[32px]" />
+          <Skeleton className="h-8 w-[32px]" />
+          <Skeleton className="hidden h-8 w-[32px] lg:block" />
+          <Skeleton className="hidden h-8 w-[32px] lg:block" />
         </div>
       </div>
     </div>

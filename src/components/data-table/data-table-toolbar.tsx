@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 
 import { cn } from "@/lib/utils";
 
-import { DataTableContext } from "@/components/data-table/context";
+import { DataTableContext } from "@/components/data-table/data-table-context";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,10 +13,12 @@ import {
   DropdownMenuRadioItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
+  DropdownMenuCheckboxItem,
 } from "@/components/ui/dropdown-menu";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { SearchIcon } from "lucide-react";
+import { Skeleton } from "@/components/ui/skeleton";
+import { SearchIcon, SlidersHorizontalIcon } from "lucide-react";
 
 const NON_FILTER = ["actions", "picture", "select"];
 
@@ -80,4 +82,53 @@ export function DataTableFilter({
       </DropdownMenu>
     </div>
   );
+}
+
+export function DataTableFilterSkeleton() {
+  return (
+    <div className="flex gap-2">
+      <Skeleton className="h-10 w-full md:w-[300px] lg:w-[350px]" />
+      <Skeleton className="h-10 w-[60px] sm:w-[120px] lg:w-[105px]" />
+    </div>
+  );
+}
+
+export function DataTableViewOptions() {
+  const { table } = useContext(DataTableContext);
+
+  return (
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button aria-label="Toggle columns" variant="outline">
+          <SlidersHorizontalIcon className="mr-2 size-4" />
+          View
+        </Button>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="w-40">
+        <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
+        <DropdownMenuSeparator />
+        {table
+          .getAllColumns()
+          .filter(
+            (column) =>
+              typeof column.accessorFn !== "undefined" && column.getCanHide(),
+          )
+          .map((column) => {
+            return (
+              <DropdownMenuCheckboxItem
+                key={column.id}
+                checked={column.getIsVisible()}
+                onCheckedChange={(value) => column.toggleVisibility(!!value)}
+              >
+                <span className="truncate">{column.id}</span>
+              </DropdownMenuCheckboxItem>
+            );
+          })}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
+}
+
+export function DataTableViewOptionsSkeleton() {
+  return <Skeleton className="h-10 w-[90px]" />;
 }

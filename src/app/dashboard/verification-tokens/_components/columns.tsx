@@ -2,13 +2,13 @@
 
 import { VerificationToken } from "@/infrastructure/verification-tokens";
 
-import { DataTableColumnHeader } from "@/components/data-table/column-header";
+import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { DeleteVerificationAlert } from "./delete-verification-alert";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 
-export const verifications: ColumnDef<VerificationToken>[] = [
+export const verificationsColumns: ColumnDef<VerificationToken>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (

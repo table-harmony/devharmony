@@ -3,8 +3,9 @@
 import { useContext } from "react";
 
 import { flexRender } from "@tanstack/react-table";
-import { DataTableContext } from "@/components/data-table/context";
+import { DataTableContext } from "@/components/data-table/data-table-context";
 
+import { Skeleton } from "@/components/ui/skeleton";
 import {
   Table,
   TableBody,
@@ -70,4 +71,8 @@ export function DataTableBody({
       </Table>
     </div>
   );
+}
+
+export function DataTableBodySkeleton() {
+  return <Skeleton className="h-64 w-full" />;
 }

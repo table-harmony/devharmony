@@ -2,13 +2,13 @@
 
 import { Session } from "@/infrastructure/sessions";
 
-import { DataTableColumnHeader } from "@/components/data-table/column-header";
+import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 import { ColumnDef, Row } from "@tanstack/react-table";
 import { DeleteSessionAlert } from "./delete-session-alert";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 
-export const session: ColumnDef<Session>[] = [
+export const sessionsColumns: ColumnDef<Session>[] = [
   {
     accessorKey: "id",
     header: ({ column }) => (

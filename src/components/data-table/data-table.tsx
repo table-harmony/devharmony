@@ -2,6 +2,8 @@
 
 import { useState } from "react";
 
+import { cn } from "@/lib/utils";
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -16,9 +18,7 @@ import {
   VisibilityState,
 } from "@tanstack/react-table";
 
-import { cn } from "@/lib/utils";
-
-import { DataTableContext } from "@/components/data-table/context";
+import { DataTableContext } from "@/components/data-table/data-table-context";
 
 interface DataTableProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {

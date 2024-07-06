@@ -3,7 +3,7 @@
 import { User } from "@/infrastructure/users";
 
 import { ColumnDef, Row } from "@tanstack/react-table";
-import { DataTableColumnHeader } from "@/components/data-table/column-header";
+import { DataTableColumnHeader } from "@/components/data-table/data-table-column-header";
 
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -13,7 +13,7 @@ import { DeleteUserAlert } from "./delete-user-alert";
 
 import { EditIcon, TrashIcon } from "lucide-react";
 
-export const user: ColumnDef<User>[] = [
+export const usersColumns: ColumnDef<User>[] = [
   {
     accessorKey: "picture",
     cell: ({ row }) => {
