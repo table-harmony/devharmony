@@ -14,6 +14,7 @@ import { redirect } from "next/navigation";
 import { revalidateTag } from "next/cache";
 
 import { authenticatedAction } from "@/lib/safe-action";
+import { AuthenticationError } from "@/utils/errors";
 
 export const updatePasswordAction = authenticatedAction
   .createServerAction()
@@ -42,6 +43,5 @@ export const deleteAction = authenticatedAction
   .createServerAction()
   .handler(async ({ ctx }) => {
     await deleteUserUseCase(ctx.user.id);
-
     redirect("/");
   });

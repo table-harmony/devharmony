@@ -12,7 +12,7 @@ export default async function SettingsPage() {
       <h1 className="text-2xl font-extrabold md:text-3xl xl:text-4xl">
         Account settings
       </h1>
-      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <ConfigurationPanel title="Display name">
           <div className="flex flex-col gap-4">
             <span>To update your display name, please fill the form below</span>

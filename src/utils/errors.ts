@@ -1,21 +1,37 @@
+export class PublicError extends Error {
+  constructor(message: string) {
+    super(message);
+  }
+}
+
 export const AUTHENTICATION_ERROR_MESSAGE =
   "You must be logged in to view this content";
 
-export class AuthenticationError extends Error {
+export class AuthenticationError extends PublicError {
   constructor() {
     super(AUTHENTICATION_ERROR_MESSAGE);
     this.name = "AuthenticationError";
   }
 }
 
-export class NotFoundError extends Error {
+export const AUTHORIZATION_ERROR_MESSAGE =
+  "You are not authorized to view this content";
+
+export class AuthorizationError extends PublicError {
+  constructor() {
+    super(AUTHENTICATION_ERROR_MESSAGE);
+    this.name = "AuthorizationError";
+  }
+}
+
+export class NotFoundError extends PublicError {
   constructor(message: string) {
     super(message);
     this.name = "NotFoundError";
   }
 }
 
-export class RateLimitError extends Error {
+export class RateLimitError extends PublicError {
   constructor() {
     super("Rate limit exceeded");
     this.name = "RateLimitError";

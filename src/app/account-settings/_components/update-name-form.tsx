@@ -15,6 +15,7 @@ import {
   FormControl,
   FormField,
   FormItem,
+  FormLabel,
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
@@ -61,6 +62,7 @@ export function UpdateNameForm() {
           name="name"
           render={({ field }) => (
             <FormItem>
+              <FormLabel className="sr-only">Name</FormLabel>
               <FormControl>
                 <Input {...field} required />
               </FormControl>

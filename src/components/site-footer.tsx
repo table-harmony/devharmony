@@ -18,7 +18,7 @@ export function SiteFooter() {
             <Links />
           </div>
         </section>
-        <section className="flex items-center justify-between border-t border-border pt-8">
+        <section className="flex items-center justify-between gap-4 border-t border-border pt-8">
           <Credits />
           <ModeToggle />
         </section>

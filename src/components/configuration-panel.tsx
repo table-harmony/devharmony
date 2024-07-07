@@ -16,7 +16,8 @@ export function ConfigurationPanel({
         className={cn(
           "rounded-t-md border-b bg-muted px-4 py-2 sm:px-6 md:py-3",
           {
-            "bg-red-500 dark:bg-red-800": variant === "destructive",
+            "bg-red-500 text-destructive-foreground dark:bg-red-800":
+              variant === "destructive",
           },
         )}
       >

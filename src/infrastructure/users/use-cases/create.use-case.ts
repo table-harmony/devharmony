@@ -3,9 +3,12 @@ import { createUser, getUserByEmail } from "../data-access";
 import { CreateUserDto } from "../types";
 import { generateSalt, hashPassword } from "../utils";
 
+import { PublicError } from "@/utils/errors";
+
 export async function createUserUseCase(data: CreateUserDto) {
   const existingUser = await getUserByEmail(data.email);
-  if (existingUser) throw new Error("A user with that email already exists!");
+  if (existingUser)
+    throw new PublicError("A user with that email already exists!");
 
   const user = await createUser(data);
 
@@ -17,7 +20,8 @@ export async function createUserByCredentialsUseCase(data: {
   password: string;
 }) {
   const existingUser = await getUserByEmail(data.email);
-  if (existingUser) throw new Error("A user with that email already exists!");
+  if (existingUser)
+    throw new PublicError("A user with that email already exists!");
 
   const salt = generateSalt();
   const hash = await hashPassword(data.password, salt);

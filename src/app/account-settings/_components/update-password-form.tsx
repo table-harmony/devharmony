@@ -63,6 +63,7 @@ export function UpdatePasswordForm() {
           name="password"
           render={({ field }) => (
             <FormItem>
+              <FormLabel className="sr-only">Password</FormLabel>
               <FormControl>
                 <Input {...field} placeholder="******" type="password" />
               </FormControl>

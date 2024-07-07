@@ -1,9 +1,7 @@
 import {
   createResetToken,
   deleteExpiredResetTokens,
-  deleteResetToken,
   deleteResetTokenById,
-  getResetToken,
   getResetTokens,
 } from "./data-access";
 

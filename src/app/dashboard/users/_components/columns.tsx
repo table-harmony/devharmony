@@ -60,6 +60,12 @@ export const usersColumns: ColumnDef<User>[] = [
     filterFn: "includesString",
   },
   {
+    accessorKey: "googleId",
+    header: ({ column }) => (
+      <DataTableColumnHeader column={column} title="googleId" />
+    ),
+  },
+  {
     accessorKey: "password",
     header: ({ column }) => (
       <DataTableColumnHeader column={column} title="password" />

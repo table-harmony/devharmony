@@ -8,6 +8,8 @@ import {
 import { UserId } from "../types";
 import { hashPassword } from "../utils";
 
+import { PublicError } from "@/utils/errors";
+
 export async function getUserUseCase(userId: UserId) {
   return await getUser(userId);
 }
@@ -28,14 +30,14 @@ export async function getUserByCredentialsUseCase(data: {
   password: string;
 }) {
   const user = await getUserByEmail(data.email);
-  if (!user) throw new Error("A user with that email doesn't exist!");
+  if (!user) throw new PublicError("A user with that email doesn't exist!");
 
   if (!user.password || !user.salt)
-    throw new Error("User doesn't have a password!");
+    throw new PublicError("User doesn't have a password!");
 
   const hash = await hashPassword(data.password, user.salt);
 
-  if (hash !== user.password) throw new Error("Incorrect credentials!");
+  if (hash !== user.password) throw new PublicError("Incorrect credentials!");
 
   return user;
 }

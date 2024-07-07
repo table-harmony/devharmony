@@ -9,6 +9,8 @@ import { updatePassword, updateUser } from "../data-access";
 
 import { UpdateUserDto, UserId } from "../types";
 
+import { PublicError } from "@/utils/errors";
+
 export async function updateUserUseCase(userId: UserId, data: UpdateUserDto) {
   await updateUser(userId, data);
 }
@@ -20,10 +22,10 @@ export async function updatePasswordUseCase(userId: UserId, password: string) {
 export async function resetPasswordUseCase(token: string, password: string) {
   const resetToken = await getResetToken(token);
 
-  if (!resetToken) throw new Error("Invalid token!");
+  if (!resetToken) throw new PublicError("Invalid token!");
 
   if (resetToken.expiresAt.getTime() < Date.now())
-    throw new Error("Expired token!");
+    throw new PublicError("Expired token!");
 
   await createTransaction(async (trx) => {
     await deleteResetToken(token, trx);
@@ -34,10 +36,10 @@ export async function resetPasswordUseCase(token: string, password: string) {
 export async function verifyEmailUseCase(token: string) {
   const verification = await getVerification(token);
 
-  if (!verification) throw new Error("Invalid token!");
+  if (!verification) throw new PublicError("Invalid token!");
 
   if (verification.expiresAt.getTime() < Date.now())
-    throw new Error("Expired token!");
+    throw new PublicError("Expired token!");
 
   await createTransaction(async (trx) => {
     await deleteVerification(token, trx);
