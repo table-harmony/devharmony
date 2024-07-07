@@ -39,6 +39,18 @@ export const updateNameAction = authenticatedAction
     revalidateTag("user");
   });
 
+export const updateBioAction = authenticatedAction
+  .createServerAction()
+  .input(
+    z.object({
+      bio: z.string(),
+    }),
+  )
+  .handler(async ({ input, ctx }) => {
+    await updateUserUseCase(ctx.user.id, { bio: input.bio });
+    revalidateTag("user");
+  });
+
 export const deleteAction = authenticatedAction
   .createServerAction()
   .handler(async ({ ctx }) => {

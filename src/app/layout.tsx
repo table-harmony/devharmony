@@ -47,7 +47,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       >
         <ContextProvider>
           <div className="relative flex min-h-screen flex-col bg-background">
-            <NextTopLoader />
+            <NextTopLoader showSpinner={false} />
             {children}
           </div>
         </ContextProvider>

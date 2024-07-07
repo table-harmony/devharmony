@@ -12,6 +12,7 @@ export const users = sqliteTable("users", {
   role: text("role", { enum: ["member", "manager", "admin"] }).default(
     "member",
   ),
+  bio: text("bio").notNull().default(""),
 });
 
 export const resetTokens = sqliteTable("reset_tokens", {

@@ -30,6 +30,7 @@ export const lucia = new Lucia(adapter, {
       emailVerified: attributes.emailVerified,
       picture: attributes.picture,
       role: attributes.role,
+      bio: attributes.bio,
     };
   },
 });
@@ -84,6 +85,7 @@ interface DatabaseUserAttributes {
   emailVerified: Date | null;
   picture: string | null;
   role: UserRole;
+  bio: string;
 }
 
 export const google = new Google(

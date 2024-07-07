@@ -2,6 +2,7 @@ import { ConfigurationPanel } from "@/components/configuration-panel";
 import { UpdatePasswordForm } from "./_components/update-password-form";
 import { UpdateNameForm } from "./_components/update-name-form";
 import { DeleteUserAlert } from "./_components/delete-user-alert";
+import { EditBioForm } from "./_components/edit-bio-form";
 
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
@@ -12,6 +13,9 @@ export default async function SettingsPage() {
       <h1 className="text-2xl font-extrabold md:text-3xl xl:text-4xl">
         Account settings
       </h1>
+      <ConfigurationPanel title="Bio">
+        <EditBioForm />
+      </ConfigurationPanel>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <ConfigurationPanel title="Display name">
           <div className="flex flex-col gap-4">
