@@ -6,7 +6,7 @@ import { DeleteUserAlert } from "./_components/delete-user-alert";
 import { Button } from "@/components/ui/button";
 import { TrashIcon } from "lucide-react";
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
   return (
     <div className="container space-y-8 p-4 md:px-20 md:py-16">
       <h1 className="text-2xl font-extrabold md:text-3xl xl:text-4xl">

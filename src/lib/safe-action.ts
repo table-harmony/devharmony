@@ -1,9 +1,12 @@
 import { createServerActionProcedure } from "zsa";
 
 import { getSession } from "@/lib/session";
+import { assertRateLimit } from "@/lib/limiter";
 
 export const administratorAction = createServerActionProcedure().handler(
   async () => {
+    await assertRateLimit();
+
     const { user, session } = await getSession();
 
     if (!user || !session) throw new Error("Unauthorized!");
@@ -16,6 +19,8 @@ export const administratorAction = createServerActionProcedure().handler(
 
 export const authenticatedAction = createServerActionProcedure().handler(
   async () => {
+    await assertRateLimit();
+
     const { user, session } = await getSession();
 
     if (!user || !session) throw new Error("Unauthorized!");
@@ -26,6 +31,8 @@ export const authenticatedAction = createServerActionProcedure().handler(
 
 export const unauthenticatedAction = createServerActionProcedure().handler(
   async () => {
+    await assertRateLimit();
+
     return { user: undefined };
   },
 );

@@ -41,6 +41,7 @@ function Menu() {
       <DropdownMenuTrigger asChild>
         <Button variant="outline">
           <LayoutGridIcon className="h-4 w-4" />
+          <span className="sr-only">menu</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">

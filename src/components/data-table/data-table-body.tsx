@@ -15,6 +15,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 export function DataTableBody({
   className,
@@ -59,11 +60,16 @@ export function DataTableBody({
             ))
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={table.getAllColumns().length}
-                className="h-24 text-center"
-              >
-                No results.
+              <TableCell colSpan={table.getAllColumns().length}>
+                <div className="flex flex-col items-center justify-center space-y-8 py-8">
+                  <span className="font-semibold">No results.</span>
+                  <Image
+                    src="/empty-state/no-data.svg"
+                    width="200"
+                    height="200"
+                    alt="no data"
+                  />
+                </div>
               </TableCell>
             </TableRow>
           )}

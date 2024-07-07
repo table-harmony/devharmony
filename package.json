@@ -39,6 +39,8 @@
     "@tailwindcss/typography": "^0.5.13",
     "@tanstack/react-table": "^8.19.2",
     "@types/mdx": "^2.0.13",
+    "@upstash/ratelimit": "^1.2.1",
+    "@vercel/kv": "^2.0.0",
     "arctic": "^1.9.1",
     "bcryptjs": "^2.4.3",
     "class-variance-authority": "^0.7.0",
