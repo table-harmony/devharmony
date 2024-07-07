@@ -1,7 +1,6 @@
 import Link from "next/link";
 
 import { RegisterForm } from "./form";
-import { Legend } from "../_components/legend";
 import { Button } from "@/components/ui/button";
 
 export default function RegisterPage() {
@@ -14,8 +13,7 @@ export default function RegisterPage() {
         </p>
       </header>
       <RegisterForm />
-      <Legend text="or" />
-      <Button variant="outline" className="w-full" asChild>
+      <Button variant="link" className="w-full" asChild>
         <Link href="/login">Sign in</Link>
       </Button>
     </div>

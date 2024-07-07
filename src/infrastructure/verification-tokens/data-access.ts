@@ -6,7 +6,6 @@ import { verificationTokens } from "@/db/schema";
 import { eq, lt } from "drizzle-orm";
 
 import { TOKEN_EXPIRATION, TOKEN_LENGTH, generateRandomToken } from "./utils";
-import { Token } from "./types";
 
 import type { UserId } from "@/infrastructure/users";
 
@@ -33,7 +32,7 @@ export async function createVerification(userId: UserId) {
   return verification;
 }
 
-export async function getVerification(token: Token) {
+export async function getVerification(token: string) {
   const existingToken = await db.query.verificationTokens.findFirst({
     where: eq(verificationTokens.token, token),
   });
@@ -45,8 +44,8 @@ export async function getVerifications() {
   return await db.query.verificationTokens.findMany();
 }
 
-export async function deleteVerification(token: Token) {
-  await db
+export async function deleteVerification(token: string, trx = db) {
+  await trx
     .delete(verificationTokens)
     .where(eq(verificationTokens.token, token));
 }

@@ -6,12 +6,11 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useServerAction } from "zsa-react";
-import { loginAction } from "./actions";
+import { resetPasswordAction } from "./actions";
 
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -20,55 +19,43 @@ import {
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
 import { LoaderButton } from "@/components/loader-button";
-import Link from "next/link";
 
-const credentialsSchema = z.object({
-  email: z.string().email(),
+const resetPasswordSchema = z.object({
   password: z.string().min(5),
 });
 
-export function CredentialsForm() {
+export function ResetPasswordForm({ token }: { token: string }) {
   const { toast } = useToast();
 
-  const { execute, isPending } = useServerAction(loginAction, {
+  const { execute, isPending } = useServerAction(resetPasswordAction, {
     onError({ err }) {
       toast({ description: err.message, variant: "destructive" });
     },
+    onSuccess() {
+      toast({
+        description: "Password successfully updated!",
+        variant: "success",
+      });
+    },
+    onFinish() {
+      form.reset();
+    },
   });
 
-  const form = useForm<z.infer<typeof credentialsSchema>>({
-    resolver: zodResolver(credentialsSchema),
+  const form = useForm<z.infer<typeof resetPasswordSchema>>({
+    resolver: zodResolver(resetPasswordSchema),
     defaultValues: {
-      email: "",
       password: "",
     },
   });
 
-  function onSubmit(values: z.infer<typeof credentialsSchema>) {
-    execute(values);
+  function onSubmit(values: z.infer<typeof resetPasswordSchema>) {
+    execute({ token, ...values });
   }
 
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Enter your email"
-                  type="email"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
         <FormField
           control={form.control}
           name="password"
@@ -83,20 +70,12 @@ export function CredentialsForm() {
                   type="password"
                 />
               </FormControl>
-              <FormDescription>
-                <Link
-                  href="/login/forgot-password"
-                  className="text-muted-foreground underline underline-offset-1 hover:text-foreground"
-                >
-                  Forgot your password
-                </Link>
-              </FormDescription>
               <FormMessage />
             </FormItem>
           )}
         />
         <LoaderButton className="w-full" isLoading={isPending}>
-          Sign in with credentials
+          Reset password
         </LoaderButton>
       </form>
     </Form>

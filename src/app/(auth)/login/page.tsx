@@ -22,8 +22,7 @@ export default function LoginPage() {
       </Button>
       <Legend text="sign in with credentials" />
       <CredentialsForm />
-      <Legend text="or" />
-      <Button variant="outline" className="w-full" asChild>
+      <Button variant="link" className="w-full" asChild>
         <Link href="/register">Sign up</Link>
       </Button>
     </div>

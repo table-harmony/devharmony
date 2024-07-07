@@ -44,7 +44,7 @@ export function ResetPasswordEmail({ token }: { token: string }) {
 
                 <Text className="text-[14px] font-medium leading-[24px] text-black">
                   <Link
-                    href={`${BASE_URL}/new-password?token=${token}`}
+                    href={`${BASE_URL}/reset-password?token=${token}`}
                     target="_blank"
                     className="text-[#2754C5] underline"
                   >

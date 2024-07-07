@@ -7,11 +7,20 @@ import { cookies } from "next/headers";
 
 import { lucia } from "@/lib/auth";
 import { validateRequest } from "@/lib/auth";
+import { AuthenticationError } from "@/lib/errors";
 
 export const getSession = cache(async () => {
   const session = await validateRequest();
   return session;
 });
+
+export const assertAuthenticated = async () => {
+  const { user } = await getSession();
+  if (!user) {
+    throw new AuthenticationError();
+  }
+  return user;
+};
 
 export const setSession = async (userId: UserId) => {
   const session = await lucia.createSession(userId, {});

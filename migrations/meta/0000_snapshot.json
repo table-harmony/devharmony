@@ -1,11 +1,70 @@
 {
   "version": "6",
   "dialect": "sqlite",
-  "id": "b54fa439-cedc-4b54-8d0e-9d3413df3e98",
+  "id": "fbae8ece-f29f-4d59-81d9-d8fdea26692d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "session": {
-      "name": "session",
+    "reset_tokens": {
+      "name": "reset_tokens",
+      "columns": {
+        "id": {
+          "name": "id",
+          "type": "integer",
+          "primaryKey": true,
+          "notNull": true,
+          "autoincrement": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "token": {
+          "name": "token",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        },
+        "expires_at": {
+          "name": "expires_at",
+          "type": "integer",
+          "primaryKey": false,
+          "notNull": true,
+          "autoincrement": false
+        }
+      },
+      "indexes": {
+        "reset_tokens_user_id_unique": {
+          "name": "reset_tokens_user_id_unique",
+          "columns": [
+            "user_id"
+          ],
+          "isUnique": true
+        }
+      },
+      "foreignKeys": {
+        "reset_tokens_user_id_users_id_fk": {
+          "name": "reset_tokens_user_id_users_id_fk",
+          "tableFrom": "reset_tokens",
+          "tableTo": "users",
+          "columnsFrom": [
+            "user_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "sessions": {
+      "name": "sessions",
       "columns": {
         "id": {
           "name": "id",
@@ -31,10 +90,10 @@
       },
       "indexes": {},
       "foreignKeys": {
-        "session_user_id_user_id_fk": {
-          "name": "session_user_id_user_id_fk",
-          "tableFrom": "session",
-          "tableTo": "user",
+        "sessions_user_id_users_id_fk": {
+          "name": "sessions_user_id_users_id_fk",
+          "tableFrom": "sessions",
+          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],
@@ -48,8 +107,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "user": {
-      "name": "user",
+    "users": {
+      "name": "users",
       "columns": {
         "id": {
           "name": "id",
@@ -107,18 +166,26 @@
           "primaryKey": false,
           "notNull": false,
           "autoincrement": false
+        },
+        "role": {
+          "name": "role",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": false,
+          "autoincrement": false,
+          "default": "'member'"
         }
       },
       "indexes": {
-        "user_email_unique": {
-          "name": "user_email_unique",
+        "users_email_unique": {
+          "name": "users_email_unique",
           "columns": [
             "email"
           ],
           "isUnique": true
         },
-        "user_google_id_unique": {
-          "name": "user_google_id_unique",
+        "users_google_id_unique": {
+          "name": "users_google_id_unique",
           "columns": [
             "google_id"
           ],
@@ -129,8 +196,8 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "verification_token": {
-      "name": "verification_token",
+    "verification_tokens": {
+      "name": "verification_tokens",
       "columns": {
         "id": {
           "name": "id",
@@ -162,26 +229,19 @@
         }
       },
       "indexes": {
-        "verification_token_user_id_unique": {
-          "name": "verification_token_user_id_unique",
+        "verification_tokens_user_id_unique": {
+          "name": "verification_tokens_user_id_unique",
           "columns": [
             "user_id"
-          ],
-          "isUnique": true
-        },
-        "verification_token_token_unique": {
-          "name": "verification_token_token_unique",
-          "columns": [
-            "token"
           ],
           "isUnique": true
         }
       },
       "foreignKeys": {
-        "verification_token_user_id_user_id_fk": {
-          "name": "verification_token_user_id_user_id_fk",
-          "tableFrom": "verification_token",
-          "tableTo": "user",
+        "verification_tokens_user_id_users_id_fk": {
+          "name": "verification_tokens_user_id_users_id_fk",
+          "tableFrom": "verification_tokens",
+          "tableTo": "users",
           "columnsFrom": [
             "user_id"
           ],

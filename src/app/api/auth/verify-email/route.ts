@@ -1,8 +1,4 @@
-import { getUserUseCase, updateUserUseCase } from "@/infrastructure/users";
-import {
-  deleteVerificationUseCase,
-  getVerificationUseCase,
-} from "@/infrastructure/verification-tokens";
+import { verifyEmailUseCase } from "@/infrastructure/users";
 
 import { setSession } from "@/lib/session";
 
@@ -19,21 +15,9 @@ export async function GET(request: Request): Promise<Response> {
     });
 
   try {
-    const verification = await getVerificationUseCase(token);
-    if (!verification) throw new Error("Invalid token!");
+    const userId = await verifyEmailUseCase(token);
 
-    await deleteVerificationUseCase(verification.token);
-
-    if (verification.expiresAt.getTime() < Date.now())
-      throw new Error("Expired token!");
-
-    const existingUser = await getUserUseCase(verification.userId);
-
-    if (!existingUser) throw new Error("User doesn't exist!");
-
-    await updateUserUseCase(existingUser.id, { emailVerified: new Date() });
-
-    await setSession(existingUser.id);
+    await setSession(userId);
     return new Response(null, {
       status: 302,
       headers: {

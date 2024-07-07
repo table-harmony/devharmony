@@ -1,6 +1,6 @@
 import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core";
 
-export const users = sqliteTable("user", {
+export const users = sqliteTable("users", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   name: text("name").default("Anonymous").notNull(),
   email: text("email").unique().notNull(),
@@ -14,17 +14,27 @@ export const users = sqliteTable("user", {
   ),
 });
 
-export const verificationTokens = sqliteTable("verification_token", {
+export const resetTokens = sqliteTable("reset_tokens", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   userId: integer("user_id", { mode: "number" })
     .references(() => users.id, { onDelete: "cascade" })
     .unique()
     .notNull(),
-  token: text("token").notNull().unique(),
+  token: text("token").notNull(),
   expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
 });
 
-export const sessions = sqliteTable("session", {
+export const verificationTokens = sqliteTable("verification_tokens", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: integer("user_id", { mode: "number" })
+    .references(() => users.id, { onDelete: "cascade" })
+    .unique()
+    .notNull(),
+  token: text("token").notNull(),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+});
+
+export const sessions = sqliteTable("sessions", {
   id: text("id").primaryKey(),
   userId: integer("user_id", { mode: "number" })
     .references(() => users.id, {
@@ -35,5 +45,6 @@ export const sessions = sqliteTable("session", {
 });
 
 export type User = typeof users.$inferSelect;
-export type Session = typeof sessions.$inferSelect;
+export type ResetToken = typeof resetTokens.$inferSelect;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
+export type Session = typeof sessions.$inferSelect;

@@ -4,8 +4,7 @@ import { siteConfig } from "@/config/site";
 
 import { Button } from "@/components/ui/button";
 
-import { SignedIn } from "@/components/auth/signed-in";
-import { SignedOut } from "@/components/auth/signed-out";
+import { SignedIn, SignedOut } from "@/components/auth";
 
 import { ArrowRightIcon } from "lucide-react";
 

@@ -1,12 +1,9 @@
 import Link from "next/link";
 
-import { siteConfig } from "@/config/site";
-
 import { Button } from "@/components/ui/button";
 import { UserDropdown } from "@/components/user-dropdown";
 
-import { SignedOut } from "@/components/auth/signed-out";
-import { SignedIn } from "@/components/auth/signed-in";
+import { SignedOut, SignedIn } from "@/components/auth";
 
 import { LogoIcon } from "@/components/icons";
 

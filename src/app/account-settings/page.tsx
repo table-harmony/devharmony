@@ -1,4 +1,4 @@
-import { ConfigurationPanel } from "./_components/configuration-panel";
+import { ConfigurationPanel } from "@/components/configuration-panel";
 import { UpdatePasswordForm } from "./_components/update-password-form";
 import { UpdateNameForm } from "./_components/update-name-form";
 import { DeleteUserAlert } from "./_components/delete-user-alert";
@@ -12,29 +12,29 @@ export default function SettingsPage() {
       <h1 className="text-2xl font-extrabold md:text-3xl xl:text-4xl">
         Account settings
       </h1>
-      <div className="grid grid-cols-1 gap-8 sm:grid-cols-2">
-        <ConfigurationPanel
-          title="Display name"
-          subtitle="To update your display name, please fill the form below"
-        >
-          <UpdateNameForm />
+      <div className="grid grid-cols-1 gap-8 md:grid-cols-2">
+        <ConfigurationPanel title="Display name">
+          <div className="flex flex-col gap-4">
+            <span>To update your display name, please fill the form below</span>
+            <UpdateNameForm />
+          </div>
         </ConfigurationPanel>
-        <ConfigurationPanel
-          title="Password"
-          subtitle="To update your password, please fill the form below"
-        >
-          <UpdatePasswordForm />
+        <ConfigurationPanel title="Password">
+          <div className="flex flex-col gap-4">
+            <span>To update your password, please fill the form below</span>
+            <UpdatePasswordForm />
+          </div>
         </ConfigurationPanel>
       </div>
-      <ConfigurationPanel
-        title="Delete"
-        subtitle="Permanently remove your Personal Account and all of its contents from the platform."
-      >
-        <DeleteUserAlert>
-          <Button variant="destructive" className="w-full sm:w-auto">
-            <TrashIcon className="mr-2 size-4" /> Delete
-          </Button>
-        </DeleteUserAlert>
+      <ConfigurationPanel title="Delete Account" variant="destructive">
+        <div className="flex flex-col gap-4">
+          <span>You can delete your account below</span>
+          <DeleteUserAlert>
+            <Button variant="destructive" className="w-full sm:w-auto">
+              <TrashIcon className="mr-2 size-4" /> Delete
+            </Button>
+          </DeleteUserAlert>
+        </div>
       </ConfigurationPanel>
     </div>
   );
