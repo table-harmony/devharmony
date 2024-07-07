@@ -9,7 +9,7 @@ import { cookies } from "next/headers";
 
 import { OAuth2RequestError } from "arctic";
 
-import { setSession } from "@/lib/session";
+import { setSession } from "@/utils/session";
 import { google } from "@/lib/auth";
 
 export async function GET(request: Request): Promise<Response> {

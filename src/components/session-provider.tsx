@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useContext } from "react";
-import { getSession } from "@/lib/session";
+import { getSession } from "@/utils/session";
 
 type ContextType = Awaited<ReturnType<typeof getSession>>;
 

@@ -3,7 +3,7 @@
 import { redirect } from "next/navigation";
 
 import { authenticatedAction } from "@/lib/safe-action";
-import { deleteSession } from "@/lib/session";
+import { deleteSession } from "@/utils/session";
 
 export const logoutAction = authenticatedAction
   .createServerAction()

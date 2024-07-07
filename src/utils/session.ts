@@ -7,7 +7,7 @@ import { cookies } from "next/headers";
 
 import { lucia } from "@/lib/auth";
 import { validateRequest } from "@/lib/auth";
-import { AuthenticationError } from "@/lib/errors";
+import { AuthenticationError } from "@/utils/errors";
 
 export const getSession = cache(async () => {
   const session = await validateRequest();

@@ -9,7 +9,7 @@ import { z } from "zod";
 import { siteConfig } from "@/config/site";
 
 import { unauthenticatedAction } from "@/lib/safe-action";
-import { setSession } from "@/lib/session";
+import { setSession } from "@/utils/session";
 import { sendEmail } from "@/lib/mail";
 
 import { VerifyEmail } from "@/components/emails/verify-email";

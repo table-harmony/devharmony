@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 import { z } from "zod";
 
 import { administratorAction } from "@/lib/safe-action";
-import { deleteSession } from "@/lib/session";
+import { deleteSession } from "@/utils/session";
 
 export const deleteSessionAction = administratorAction
   .createServerAction()

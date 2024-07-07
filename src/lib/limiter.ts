@@ -1,8 +1,8 @@
 import { Ratelimit } from "@upstash/ratelimit";
 import { kv } from "@vercel/kv";
 
-import { getIp } from "@/lib/get-ip";
-import { RateLimitError } from "@/lib/errors";
+import { getIp } from "@/utils/get-ip";
+import { RateLimitError } from "@/utils/errors";
 
 const rateLimit = new Ratelimit({
   redis: kv,

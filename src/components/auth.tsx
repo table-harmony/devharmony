@@ -1,4 +1,4 @@
-import { getSession } from "@/lib/session";
+import { getSession } from "@/utils/session";
 import { ReactNode } from "react";
 
 export async function SignedIn({ children }: { children: ReactNode }) {

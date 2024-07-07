@@ -1,6 +1,6 @@
 import { verifyEmailUseCase } from "@/infrastructure/users";
 
-import { setSession } from "@/lib/session";
+import { setSession } from "@/utils/session";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);

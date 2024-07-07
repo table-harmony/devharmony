@@ -11,7 +11,7 @@ import { Google } from "arctic";
 import { Lucia, User, Session } from "lucia";
 import { DrizzleSQLiteAdapter } from "@lucia-auth/adapter-drizzle";
 
-import { BASE_URL } from "@/lib/metadata";
+import { BASE_URL } from "@/utils/metadata";
 
 const adapter = new DrizzleSQLiteAdapter(db, sessions, users);
 

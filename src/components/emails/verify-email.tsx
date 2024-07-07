@@ -14,7 +14,7 @@ import {
 
 import { siteConfig } from "@/config/site";
 
-import { BASE_URL } from "@/lib/metadata";
+import { BASE_URL } from "@/utils/metadata";
 
 export function VerifyEmail({ token }: { token: string }) {
   return (

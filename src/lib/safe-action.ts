@@ -1,6 +1,6 @@
 import { createServerActionProcedure } from "zsa";
 
-import { getSession } from "@/lib/session";
+import { getSession } from "@/utils/session";
 import { assertRateLimit } from "@/lib/limiter";
 
 export const administratorAction = createServerActionProcedure().handler(

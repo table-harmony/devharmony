@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { getSession } from "@/lib/session";
+import { getSession } from "@/utils/session";
 
 import { Button } from "@/components/ui/button";
 import {

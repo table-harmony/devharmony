@@ -5,7 +5,7 @@ import { Viewport } from "next";
 import { siteConfig } from "@/config/site";
 
 import { cn } from "@/lib/utils";
-import { BASE_URL, createMetadata } from "@/lib/metadata";
+import { BASE_URL, createMetadata } from "@/utils/metadata";
 
 import { ContextProvider } from "@/components/context-provider";
 
