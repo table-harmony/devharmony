@@ -27,7 +27,7 @@ export function HeroSection() {
         </SignedOut>
         <SignedIn>
           <Button className="w-72" asChild>
-            <Link href="/account-settings/profile">Settings</Link>
+            <Link href="/account-settings">Settings</Link>
           </Button>
         </SignedIn>
       </div>

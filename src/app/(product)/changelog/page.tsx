@@ -14,7 +14,7 @@ export const metadata = createMetadata({
 
 export default function ChangelogPage() {
   return (
-    <div className="container">
+    <div className="container max-w-4xl">
       <PageHeader>
         <PageHeaderHeading>Changelog</PageHeaderHeading>
         <PageHeaderDescription>

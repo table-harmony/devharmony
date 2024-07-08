@@ -25,7 +25,7 @@ export const LogoutForm = () => {
       <LoaderButton
         isLoading={isPending}
         icon={<LogOutIcon className="size-4" />}
-        className="w-72"
+        className="px-8"
       >
         Logout
       </LoaderButton>

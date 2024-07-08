@@ -2,20 +2,27 @@ import Link from "next/link";
 
 import { RegisterForm } from "./form";
 import { Button } from "@/components/ui/button";
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header";
 
 export default function RegisterPage() {
   return (
-    <div className="container relative space-y-6 md:max-w-lg">
-      <header className="text-center">
-        <h1 className="text-3xl font-medium">Register</h1>
-        <p className="text-sm text-muted-foreground">
+    <div className="container max-w-xl">
+      <PageHeader className="items-center text-center">
+        <PageHeaderHeading>Register</PageHeaderHeading>
+        <PageHeaderDescription>
           Sign up to your account using the options below
-        </p>
-      </header>
-      <RegisterForm />
-      <Button variant="link" className="w-full" asChild>
-        <Link href="/login">Sign in</Link>
-      </Button>
+        </PageHeaderDescription>
+      </PageHeader>
+      <div className="space-y-6">
+        <RegisterForm />
+        <Button variant="link" className="w-full" asChild>
+          <Link href="/login">Sign in</Link>
+        </Button>
+      </div>
     </div>
   );
 }

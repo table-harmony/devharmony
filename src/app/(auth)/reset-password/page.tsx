@@ -2,6 +2,11 @@ import Link from "next/link";
 
 import { Button } from "@/components/ui/button";
 import { ResetPasswordForm } from "./form";
+import {
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header";
 
 export default function ResetPasswordPage({
   searchParams,
@@ -9,17 +14,19 @@ export default function ResetPasswordPage({
   searchParams: { token: string };
 }) {
   return (
-    <div className="container relative space-y-6 md:max-w-lg">
-      <header className="text-center">
-        <h1 className="text-3xl font-medium">Reset password</h1>
-        <p className="text-sm text-muted-foreground">
+    <div className="container max-w-xl">
+      <PageHeader className="items-center text-center">
+        <PageHeaderHeading>Reset password</PageHeaderHeading>
+        <PageHeaderDescription>
           To reset your password, please fill the form below
-        </p>
-      </header>
-      <ResetPasswordForm token={searchParams.token} />
-      <Button variant="link" className="w-full" asChild>
-        <Link href="/login">Sign in</Link>
-      </Button>
+        </PageHeaderDescription>
+      </PageHeader>
+      <div className="space-y-6">
+        <ResetPasswordForm token={searchParams.token} />
+        <Button variant="link" className="w-full" asChild>
+          <Link href="/login">Sign in</Link>
+        </Button>
+      </div>
     </div>
   );
 }

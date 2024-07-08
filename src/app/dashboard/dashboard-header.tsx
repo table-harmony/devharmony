@@ -1,12 +1,8 @@
-"use client";
-
 import {
-  PageActions,
   PageHeader,
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header";
-import { CommandMenu } from "./command-menu";
 
 export function DashboardHeader() {
   return (
@@ -15,9 +11,6 @@ export function DashboardHeader() {
       <PageHeaderDescription>
         Effortlessly manage, edit, and delete data from the servers.
       </PageHeaderDescription>
-      <PageActions>
-        <CommandMenu />
-      </PageActions>
     </PageHeader>
   );
 }

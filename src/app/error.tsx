@@ -4,6 +4,12 @@ import { AUTHENTICATION_ERROR_MESSAGE } from "@/utils/errors";
 
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import {
+  PageActions,
+  PageHeader,
+  PageHeaderDescription,
+  PageHeaderHeading,
+} from "@/components/page-header";
 
 export default function ErrorPage({
   error,
@@ -18,18 +24,26 @@ export default function ErrorPage({
     <div className="container mx-auto min-h-screen space-y-8 py-12">
       {isAuthenticationError ? (
         <>
-          <h1 className="text-4xl font-semibold">
-            Oops! You Need to Be Logged In
-          </h1>
-          <p className="text-lg">To access this page, please log in first.</p>
-          <Button asChild>
-            <Link href="/sign-in">Sign In</Link>
-          </Button>
+          <PageHeader>
+            <PageHeaderHeading>
+              Oops! You Need to Be Logged In
+            </PageHeaderHeading>
+            <PageHeaderDescription>
+              To access this page, please log in first.
+            </PageHeaderDescription>
+            <PageActions>
+              <Button asChild>
+                <Link href="/login">Login</Link>
+              </Button>
+            </PageActions>
+          </PageHeader>
         </>
       ) : (
         <>
-          <h1 className="text-4xl font-semibold">Oops! Something went wrong</h1>
-          <p className="text-lg">{error.message}</p>
+          <PageHeader>
+            <PageHeaderHeading>Oops! Something went wrong </PageHeaderHeading>
+            <PageHeaderDescription>{error.message}</PageHeaderDescription>
+          </PageHeader>
         </>
       )}
     </div>
