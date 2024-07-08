@@ -1,12 +1,14 @@
 "use client";
 
+import "@/styles/tiptap.css";
+
 import { useRef } from "react";
 
 import { useServerAction } from "zsa-react";
 import { updateBioAction } from "../actions";
 
 import { useSession } from "@/components/session-provider";
-import { MenuBar, extensions } from "@/components/text-editor";
+import { MenuBar, extensions } from "@/components/tiptap";
 import { LoaderButton } from "@/components/loader-button";
 import { useToast } from "@/components/ui/use-toast";
 
@@ -40,7 +42,7 @@ export function EditBioForm() {
         extensions={extensions}
         content={user?.bio}
         editable={true}
-      ></EditorProvider>
+      />
 
       <div className="flex justify-end">
         <LoaderButton

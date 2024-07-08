@@ -10,10 +10,10 @@ export default function DashboardLayout({
   return (
     <>
       <SiteHeader />
-      <div className="container space-y-8 p-4 md:py-16 lg:px-16">
+      <main className="container">
         <DashboardHeader />
         {children}
-      </div>
+      </main>
       <SiteFooter />
     </>
   );

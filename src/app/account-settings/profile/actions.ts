@@ -1,20 +1,14 @@
 "use server";
 
 import {
-  deleteUserUseCase,
   updatePasswordUseCase,
   updateUserUseCase,
 } from "@/infrastructure/users";
 
-import { z } from "zod";
-
-import { lucia } from "@/lib/auth";
-
-import { redirect } from "next/navigation";
-import { revalidateTag } from "next/cache";
-
 import { authenticatedAction } from "@/lib/safe-action";
-import { AuthenticationError } from "@/utils/errors";
+
+import { z } from "zod";
+import { revalidateTag } from "next/cache";
 
 export const updatePasswordAction = authenticatedAction
   .createServerAction()
@@ -43,17 +37,10 @@ export const updateBioAction = authenticatedAction
   .createServerAction()
   .input(
     z.object({
-      bio: z.string(),
+      bio: z.string().max(999),
     }),
   )
   .handler(async ({ input, ctx }) => {
     await updateUserUseCase(ctx.user.id, { bio: input.bio });
     revalidateTag("user");
-  });
-
-export const deleteAction = authenticatedAction
-  .createServerAction()
-  .handler(async ({ ctx }) => {
-    await deleteUserUseCase(ctx.user.id);
-    redirect("/");
   });

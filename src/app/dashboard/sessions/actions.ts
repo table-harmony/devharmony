@@ -6,7 +6,7 @@ import { revalidateTag } from "next/cache";
 import { z } from "zod";
 
 import { administratorAction } from "@/lib/safe-action";
-import { deleteSession } from "@/utils/session";
+import { invalidateSession } from "@/utils/session";
 
 export const deleteSessionAction = administratorAction
   .createServerAction()
@@ -17,7 +17,7 @@ export const deleteSessionAction = administratorAction
   )
   .handler(async ({ ctx, input }) => {
     if (ctx.session.id === input.sessionId)
-      await deleteSession(input.sessionId);
+      await invalidateSession(input.sessionId);
     else await deleteSessionUseCase(input.sessionId);
 
     revalidateTag("data");

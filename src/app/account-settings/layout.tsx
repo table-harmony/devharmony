@@ -1,5 +1,6 @@
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { SettingsHeader } from "./settings-header";
 
 export default function SettingsLayout({
   children,
@@ -9,7 +10,10 @@ export default function SettingsLayout({
   return (
     <>
       <SiteHeader />
-      <main className="flex-1">{children}</main>
+      <main className="container flex-1">
+        <SettingsHeader />
+        {children}
+      </main>
       <SiteFooter />
     </>
   );

@@ -3,12 +3,12 @@
 import { redirect } from "next/navigation";
 
 import { authenticatedAction } from "@/lib/safe-action";
-import { deleteSession } from "@/utils/session";
+import { invalidateSession } from "@/utils/session";
 
 export const logoutAction = authenticatedAction
   .createServerAction()
   .handler(async ({ ctx }) => {
-    deleteSession(ctx.session.id);
+    invalidateSession(ctx.session.id);
 
     redirect("/");
   });
