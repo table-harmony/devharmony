@@ -2,6 +2,7 @@ import { unstable_noStore } from "next/cache";
 import { format } from "date-fns";
 
 import Markdown from "react-markdown";
+import Image from "next/image";
 
 type ChangeLog = {
   id: string;
@@ -20,8 +21,19 @@ export async function ChangelogList() {
   return (
     <>
       {changelogs.length === 0 && (
-        <div className="text-lg">No changelogs found</div>
+        <div className="flex w-full flex-col items-center justify-center space-y-10 rounded-lg border border-muted-foreground/20 bg-primary-foreground/50 py-16">
+          <p className="text-balance text-lg font-semibold md:text-xl">
+            No changelogs found.
+          </p>
+          <Image
+            src="/empty-state/posts.svg"
+            width="200"
+            height="200"
+            alt="no data"
+          />
+        </div>
       )}
+
       <ul className="flex flex-col">
         {changelogs.map((changelog) => (
           <li

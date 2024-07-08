@@ -1,5 +1,5 @@
 export const siteConfig = {
-  name: "devharmony",
+  name: "DevHarmony",
   url: "https://devharmony.vercel.app",
   description:
     "Easier Time Management, Appointments and scheduling calendar service",

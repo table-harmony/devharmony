@@ -6,9 +6,6 @@ import { EditBioForm } from "./_components/edit-bio-form";
 export default async function ProfilePage() {
   return (
     <div className="space-y-8">
-      <ConfigurationPanel title="Bio">
-        <EditBioForm />
-      </ConfigurationPanel>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
         <ConfigurationPanel title="Display name">
           <div className="flex flex-col gap-4">
@@ -23,6 +20,9 @@ export default async function ProfilePage() {
           </div>
         </ConfigurationPanel>
       </div>
+      <ConfigurationPanel title="Bio">
+        <EditBioForm />
+      </ConfigurationPanel>
     </div>
   );
 }

@@ -1,6 +1,13 @@
 import { SiteHeader } from "@/components/site-header";
-import { DashboardHeader } from "./dashboard-header";
 import { SiteFooter } from "@/components/site-footer";
+import { DashboardHeader } from "./dashboard-header";
+
+import { createMetadata } from "@/utils/metadata";
+
+export const metadata = createMetadata({
+  title: "Dashboard",
+  description: "Effortlessly manage, edit, and delete data from the servers.",
+});
 
 export default function DashboardLayout({
   children,

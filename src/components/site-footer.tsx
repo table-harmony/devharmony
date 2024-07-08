@@ -113,9 +113,7 @@ function Header() {
     <div className="space-y-4">
       <Link href="/" className="flex items-center gap-2">
         <LogoIcon className="size-5 text-primary" />
-        <span className="font-bold uppercase">
-          <span className="text-primary">dev</span>harmony
-        </span>
+        <span className="font-bold uppercase">{siteConfig.name}</span>
       </Link>
       <p className="max-w-xs text-sm text-muted-foreground">
         {siteConfig.description}

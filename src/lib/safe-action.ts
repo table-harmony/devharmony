@@ -2,13 +2,9 @@ import { env } from "@/env";
 
 import { createServerActionProcedure } from "zsa";
 
-import { getSession } from "@/utils/session";
+import { assertAuthenticated } from "@/utils/session";
 import { assertRateLimit } from "@/lib/limiter";
-import {
-  AuthenticationError,
-  AuthorizationError,
-  PublicError,
-} from "@/utils/errors";
+import { AuthorizationError, PublicError } from "@/utils/errors";
 
 function shapeErrors({ err }: any) {
   const isAllowedError = err instanceof PublicError;
@@ -35,9 +31,7 @@ export const administratorAction = createServerActionProcedure()
   .handler(async () => {
     await assertRateLimit();
 
-    const { user, session } = await getSession();
-
-    if (!user || !session) throw new AuthenticationError();
+    const { user, session } = await assertAuthenticated();
 
     if (user.role !== "admin") throw new AuthorizationError();
 
@@ -49,9 +43,7 @@ export const authenticatedAction = createServerActionProcedure()
   .handler(async () => {
     await assertRateLimit();
 
-    const { user, session } = await getSession();
-
-    if (!user || !session) throw new AuthenticationError();
+    const { user, session } = await assertAuthenticated();
 
     return { user, session };
   });
@@ -60,6 +52,4 @@ export const unauthenticatedAction = createServerActionProcedure()
   .experimental_shapeError(shapeErrors)
   .handler(async () => {
     await assertRateLimit();
-
-    return { user: undefined };
   });

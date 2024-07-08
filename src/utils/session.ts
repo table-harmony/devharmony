@@ -15,11 +15,11 @@ export const getSession = cache(async () => {
 });
 
 export const assertAuthenticated = async () => {
-  const { user } = await getSession();
-  if (!user) {
+  const { user, session } = await getSession();
+  if (!user || !session) {
     throw new AuthenticationError();
   }
-  return user;
+  return { user, session };
 };
 
 export const setSession = async (userId: UserId) => {

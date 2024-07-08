@@ -11,7 +11,7 @@ export function SettingsTabs() {
 
   return (
     <Tabs value={currentTab} defaultValue={currentTab}>
-      <TabsList>
+      <TabsList className="space-x-2">
         <TabsTrigger value="profile" asChild>
           <Link href="/account-settings/profile">Profile</Link>
         </TabsTrigger>
