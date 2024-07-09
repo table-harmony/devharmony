@@ -10,6 +10,7 @@ import {
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header";
+import Image from "next/image";
 
 export default function ErrorPage({
   error,
@@ -21,10 +22,10 @@ export default function ErrorPage({
   );
 
   return (
-    <div className="container mx-auto min-h-screen space-y-8 py-12">
+    <div className="container flex flex-col items-center">
       {isAuthenticationError ? (
         <>
-          <PageHeader>
+          <PageHeader variant="center">
             <PageHeaderHeading>
               Oops! You Need to Be Logged In
             </PageHeaderHeading>
@@ -33,17 +34,19 @@ export default function ErrorPage({
             </PageHeaderDescription>
             <PageActions>
               <Button asChild>
-                <Link href="/login">Login</Link>
+                <Link href="/auth/login">Login</Link>
               </Button>
             </PageActions>
           </PageHeader>
+          <Image src="/assets/error.svg" alt="error" width="300" height="300" />
         </>
       ) : (
         <>
-          <PageHeader>
-            <PageHeaderHeading>Oops! Something went wrong </PageHeaderHeading>
+          <PageHeader variant="center">
+            <PageHeaderHeading>Oops! Something went wrong</PageHeaderHeading>
             <PageHeaderDescription>{error.message}</PageHeaderDescription>
           </PageHeader>
+          <Image src="/assets/error.svg" alt="error" width="300" height="300" />
         </>
       )}
     </div>

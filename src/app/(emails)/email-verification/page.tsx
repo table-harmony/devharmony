@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function EmailVerificationPage() {
   return (
     <div className="container max-w-xl">
-      <PageHeader className="items-center text-center">
+      <PageHeader variant="center">
         <PageHeaderHeading>Verification email sent!</PageHeaderHeading>
         <PageHeaderDescription>
           A verification email has been sent to your registered email address.

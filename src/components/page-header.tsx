@@ -1,15 +1,21 @@
 import { cn } from "@/lib/utils";
 
+interface PageHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+  variant?: "center" | "default";
+}
+
 function PageHeader({
   className,
   children,
+  variant = "default",
   ...props
-}: React.HTMLAttributes<HTMLDivElement>) {
+}: PageHeaderProps) {
   return (
     <section
       className={cn(
         "mx-auto flex flex-col items-start gap-2 px-4 py-8 md:py-12 md:pb-8 lg:py-12 lg:pb-10",
         className,
+        { "items-center text-center": variant === "center" },
       )}
       {...props}
     >
@@ -52,15 +58,7 @@ function PageActions({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return (
-    <div
-      className={cn(
-        "flex w-full items-center justify-start gap-2 py-2",
-        className,
-      )}
-      {...props}
-    />
-  );
+  return <div className={cn("flex gap-2 py-2", className)} {...props} />;
 }
 
 export { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading };

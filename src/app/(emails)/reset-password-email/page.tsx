@@ -8,7 +8,7 @@ import Image from "next/image";
 export default function ResetPasswordEmail() {
   return (
     <div className="container max-w-xl">
-      <PageHeader className="items-center text-center">
+      <PageHeader variant="center">
         <PageHeaderHeading>Reset link sent!</PageHeaderHeading>
         <PageHeaderDescription>
           A reset email has been sent to your registered email address. Please

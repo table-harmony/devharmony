@@ -13,10 +13,10 @@ export default function NotFound() {
       </PageHeader>
 
       <Image
-        src="/empty-state/mountain.svg"
-        width="200"
-        height="200"
-        alt="no data"
+        src="/assets/not-found.svg"
+        width="300"
+        height="300"
+        alt="not found"
       />
     </div>
   );

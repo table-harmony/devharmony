@@ -1,8 +1,8 @@
 import { getSession } from "@/utils/session";
 
-import { ThemeProvider } from "@/components/theme-provider";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { SessionProvider } from "@/components/session-provider";
+import { SessionProvider } from "@/components/providers/session-provider";
 
 export async function ContextProvider({
   children,

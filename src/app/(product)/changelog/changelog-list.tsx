@@ -1,7 +1,8 @@
 import { unstable_noStore } from "next/cache";
 import { format } from "date-fns";
 
-import Markdown from "react-markdown";
+import { MDXRemote } from "next-mdx-remote/rsc";
+
 import Image from "next/image";
 
 type ChangeLog = {
@@ -26,10 +27,10 @@ export async function ChangelogList() {
             No changelogs found.
           </p>
           <Image
-            src="/empty-state/posts.svg"
-            width="200"
-            height="200"
-            alt="no data"
+            src="/assets/posts.svg"
+            width="300"
+            height="300"
+            alt="no posts"
           />
         </div>
       )}
@@ -59,9 +60,9 @@ export async function ChangelogList() {
                   <h2 className="text-xl font-medium md:text-2xl xl:text-3xl">
                     {changelog.title}
                   </h2>
-                  <Markdown className="prose dark:prose-invert">
-                    {changelog.post}
-                  </Markdown>
+                  <div className="prose dark:prose-invert">
+                    <MDXRemote source={changelog.post} />
+                  </div>
                 </div>
               </div>
             </div>

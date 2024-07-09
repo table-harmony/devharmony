@@ -11,6 +11,7 @@ import { OAuth2RequestError } from "arctic";
 
 import { setSession } from "@/utils/session";
 import { google } from "@/lib/auth";
+import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -41,7 +42,7 @@ export async function GET(request: Request): Promise<Response> {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/",
+          Location: DEFAULT_LOGIN_REDIRECT,
         },
       });
     }
@@ -60,7 +61,7 @@ export async function GET(request: Request): Promise<Response> {
       return new Response(null, {
         status: 302,
         headers: {
-          Location: "/",
+          Location: DEFAULT_LOGIN_REDIRECT,
         },
       });
     }
@@ -77,7 +78,7 @@ export async function GET(request: Request): Promise<Response> {
     return new Response(null, {
       status: 302,
       headers: {
-        Location: "/",
+        Location: DEFAULT_LOGIN_REDIRECT,
       },
     });
   } catch (e) {

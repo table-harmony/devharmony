@@ -5,11 +5,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useSession } from "@/components/session-provider";
-
 import { useServerAction } from "zsa-react";
 import { updateNameAction } from "../actions";
 
+import { useSession } from "@/components/providers/session-provider";
 import {
   Form,
   FormControl,

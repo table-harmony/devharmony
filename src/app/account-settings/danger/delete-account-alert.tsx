@@ -90,7 +90,13 @@ export function DeleteAccountAlert({
             />
 
             <AlertDialogFooter>
-              <AlertDialogCancel>Cancel</AlertDialogCancel>
+              <AlertDialogCancel
+                onClick={() => {
+                  form.reset();
+                }}
+              >
+                Cancel
+              </AlertDialogCancel>
               <LoaderButton isLoading={isPending}>Confirm</LoaderButton>
             </AlertDialogFooter>
           </form>

@@ -7,7 +7,7 @@ import { useRef } from "react";
 import { useServerAction } from "zsa-react";
 import { updateBioAction } from "../actions";
 
-import { useSession } from "@/components/session-provider";
+import { useSession } from "@/components/providers/session-provider";
 import { MenuBar, extensions } from "@/components/tiptap";
 import { LoaderButton } from "@/components/loader-button";
 import { useToast } from "@/components/ui/use-toast";

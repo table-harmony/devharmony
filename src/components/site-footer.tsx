@@ -111,7 +111,7 @@ function Socials() {
 function Header() {
   return (
     <div className="space-y-4">
-      <Link href="/" className="flex items-center gap-2">
+      <Link href="/" className="flex w-fit items-center gap-2">
         <LogoIcon className="size-5" />
         <span className="font-bold uppercase">{siteConfig.name}</span>
       </Link>

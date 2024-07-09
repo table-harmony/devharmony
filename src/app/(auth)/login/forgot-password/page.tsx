@@ -10,8 +10,8 @@ import {
 
 export default function ForgotPasswordPage() {
   return (
-    <div className="container max-w-xl">
-      <PageHeader className="items-center text-center">
+    <div className="container max-w-lg">
+      <PageHeader variant="center">
         <PageHeaderHeading>Reset password</PageHeaderHeading>
         <PageHeaderDescription>
           To reset your password, please fill the form below

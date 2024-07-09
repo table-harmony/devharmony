@@ -32,6 +32,7 @@ export const MenuBar = () => {
     <div className="mb-4 flex w-full flex-wrap gap-2">
       <Button
         variant="outline"
+        aria-label="Bold"
         size="icon"
         onClick={() => editor.chain().focus().toggleBold().run()}
         disabled={!editor.can().chain().focus().toggleBold().run()}
@@ -41,6 +42,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="Italic"
         size="icon"
         onClick={() => editor.chain().focus().toggleItalic().run()}
         disabled={!editor.can().chain().focus().toggleItalic().run()}
@@ -50,6 +52,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="Heading 1"
         size="icon"
         onClick={() => editor.chain().focus().toggleHeading({ level: 1 }).run()}
         className={editor.isActive("heading", { level: 1 }) ? "bg-muted" : ""}
@@ -59,6 +62,7 @@ export const MenuBar = () => {
       <Button
         variant="outline"
         size="icon"
+        aria-label="Heading 2"
         onClick={() => editor.chain().focus().toggleHeading({ level: 2 }).run()}
         className={editor.isActive("heading", { level: 2 }) ? "bg-muted" : ""}
       >
@@ -66,6 +70,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="Heading 3"
         size="icon"
         onClick={() => editor.chain().focus().toggleHeading({ level: 3 }).run()}
         className={editor.isActive("heading", { level: 3 }) ? "bg-muted" : ""}
@@ -74,6 +79,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="Heading 4"
         size="icon"
         onClick={() => editor.chain().focus().toggleHeading({ level: 4 }).run()}
         className={editor.isActive("heading", { level: 4 }) ? "bg-muted" : ""}
@@ -82,6 +88,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="Heading 5"
         size="icon"
         onClick={() => editor.chain().focus().toggleHeading({ level: 5 }).run()}
         className={editor.isActive("heading", { level: 5 }) ? "bg-muted" : ""}
@@ -90,6 +97,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="Heading 6"
         size="icon"
         onClick={() => editor.chain().focus().toggleHeading({ level: 6 }).run()}
         className={editor.isActive("heading", { level: 6 }) ? "bg-muted" : ""}
@@ -98,6 +106,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="List"
         size="icon"
         onClick={() => editor.chain().focus().toggleBulletList().run()}
         className={editor.isActive("bulletList") ? "bg-muted" : ""}
@@ -106,6 +115,7 @@ export const MenuBar = () => {
       </Button>
       <Button
         variant="outline"
+        aria-label="List ordered"
         size="icon"
         onClick={() => editor.chain().focus().toggleOrderedList().run()}
         className={editor.isActive("orderedList") ? "bg-muted" : ""}

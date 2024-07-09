@@ -12,8 +12,8 @@ import {
 
 export default function LoginPage() {
   return (
-    <div className="container max-w-xl">
-      <PageHeader className="items-center text-center">
+    <div className="container max-w-lg">
+      <PageHeader variant="center">
         <PageHeaderHeading>Login</PageHeaderHeading>
         <PageHeaderDescription>
           Sign in to your account using the options below

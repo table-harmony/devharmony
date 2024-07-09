@@ -64,7 +64,7 @@ export function DataTableBody({
                 <div className="flex flex-col items-center justify-center space-y-8 py-8">
                   <span className="font-semibold">No results.</span>
                   <Image
-                    src="/empty-state/no-data.svg"
+                    src="/assets/no-data.svg"
                     width="200"
                     height="200"
                     alt="no data"
