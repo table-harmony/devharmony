@@ -1,7 +1,7 @@
 import { db } from "@/db";
 import { sessions, users } from "@/db/schema";
 
-import type { UserId as CustomUserId, UserRole } from "@/infrastructure/users";
+import type { UserId as CustomUserId } from "@/infrastructure/users";
 
 import { env } from "@/env";
 
@@ -29,7 +29,6 @@ export const lucia = new Lucia(adapter, {
       email: attributes.email,
       emailVerified: attributes.emailVerified,
       picture: attributes.picture,
-      role: attributes.role,
       bio: attributes.bio,
     };
   },
@@ -84,7 +83,6 @@ interface DatabaseUserAttributes {
   email: string;
   emailVerified: Date | null;
   picture: string | null;
-  role: UserRole;
   bio: string;
 }
 

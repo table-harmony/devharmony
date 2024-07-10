@@ -3,7 +3,6 @@ import { User } from "@/db/schema";
 export type { User };
 
 export type UserId = number;
-export type UserRole = "member" | "manager" | "admin";
 
 type Credentials = {
   email: string;

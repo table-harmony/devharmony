@@ -9,9 +9,6 @@ export const users = sqliteTable("users", {
   password: text("password"),
   salt: text("salt"),
   picture: text("picture"),
-  role: text("role", { enum: ["member", "manager", "admin"] }).default(
-    "member",
-  ),
   bio: text("bio").notNull().default(""),
 });
 

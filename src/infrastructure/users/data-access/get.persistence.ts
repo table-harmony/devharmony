@@ -30,7 +30,3 @@ export async function getUserByGoogle(googleId: string) {
 
   return user;
 }
-
-export async function getUsers() {
-  return await db.query.users.findMany();
-}

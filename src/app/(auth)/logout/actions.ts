@@ -9,6 +9,6 @@ import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 export const logoutAction = authenticatedAction
   .createServerAction()
   .handler(async ({ ctx }) => {
-    invalidateSession(ctx.session.id);
+    await invalidateSession(ctx.session.id);
     redirect(DEFAULT_LOGIN_REDIRECT);
   });

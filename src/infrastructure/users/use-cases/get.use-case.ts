@@ -1,9 +1,4 @@
-import {
-  getUser,
-  getUserByEmail,
-  getUserByGoogle,
-  getUsers,
-} from "../data-access";
+import { getUser, getUserByEmail, getUserByGoogle } from "../data-access";
 
 import { UserId } from "../types";
 import { hashPassword } from "../utils";
@@ -17,12 +12,9 @@ export async function getUserUseCase(userId: UserId) {
 export async function getUserByEmailUseCase(email: string) {
   return await getUserByEmail(email);
 }
+
 export async function getUserByGoogleUseCase(googleId: string) {
   return await getUserByGoogle(googleId);
-}
-
-export async function getUsersUseCase() {
-  return await getUsers();
 }
 
 export async function getUserByCredentialsUseCase(data: {

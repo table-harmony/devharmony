@@ -31,9 +31,11 @@ export class NotFoundError extends PublicError {
   }
 }
 
+export const RATE_LIMIT_ERROR = "Rate limit exceeded";
+
 export class RateLimitError extends PublicError {
   constructor() {
-    super("Rate limit exceeded");
+    super(RATE_LIMIT_ERROR);
     this.name = "RateLimitError";
   }
 }

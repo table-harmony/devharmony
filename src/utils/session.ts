@@ -1,5 +1,3 @@
-import "server-only";
-
 import { UserId } from "@/infrastructure/users";
 
 import { cache } from "react";

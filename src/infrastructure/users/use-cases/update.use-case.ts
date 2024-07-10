@@ -5,9 +5,9 @@ import {
 } from "@/infrastructure/verification-tokens";
 import { deleteResetToken, getResetToken } from "@/infrastructure/reset-tokens";
 
-import { updatePassword, updateUser } from "../data-access";
-
+import { updateUser } from "../data-access";
 import { UpdateUserDto, UserId } from "../types";
+import { generateSalt, hashPassword } from "../utils";
 
 import { PublicError } from "@/utils/errors";
 
@@ -16,7 +16,10 @@ export async function updateUserUseCase(userId: UserId, data: UpdateUserDto) {
 }
 
 export async function updatePasswordUseCase(userId: UserId, password: string) {
-  await updatePassword(userId, password);
+  const salt = generateSalt();
+  const hash = await hashPassword(password, salt);
+
+  await updateUser(userId, { password: hash, salt });
 }
 
 export async function resetPasswordUseCase(token: string, password: string) {
@@ -29,7 +32,11 @@ export async function resetPasswordUseCase(token: string, password: string) {
 
   await createTransaction(async (trx) => {
     await deleteResetToken(token, trx);
-    await updatePassword(resetToken.userId, password, trx);
+
+    const salt = generateSalt();
+    const hash = await hashPassword(password, salt);
+
+    await updateUser(resetToken.userId, { password: hash, salt });
   });
 }
 

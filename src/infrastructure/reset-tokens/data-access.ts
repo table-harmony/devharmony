@@ -40,16 +40,8 @@ export async function getResetToken(token: string) {
   return existingToken;
 }
 
-export async function getResetTokens() {
-  return await db.query.resetTokens.findMany();
-}
-
 export async function deleteResetToken(token: string, trx = db) {
   await trx.delete(resetTokens).where(eq(resetTokens.token, token));
-}
-
-export async function deleteResetTokenById(resetTokenId: number) {
-  await db.delete(resetTokens).where(eq(resetTokens.id, resetTokenId));
 }
 
 export async function deleteExpiredResetTokens() {

@@ -23,7 +23,7 @@ export async function sendEmail(
   }
 }
 
-export async function batchSendEmails(
+export async function sendEmailBatch(
   emails: {
     to: string;
     subject: string;
