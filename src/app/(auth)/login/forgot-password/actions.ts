@@ -1,7 +1,6 @@
 "use server";
 
-import { getUserByEmailUseCase } from "@/infrastructure/users";
-import { createResetTokenUseCase } from "@/infrastructure/reset-tokens/use-cases";
+import { forgotPasswordUseCase } from "@/use-cases/users";
 
 import { redirect } from "next/navigation";
 import { z } from "zod";
@@ -21,16 +20,12 @@ export const forgotPasswordAction = unauthenticatedAction
     }),
   )
   .handler(async ({ input }) => {
-    const user = await getUserByEmailUseCase(input.email);
-
-    if (!user) throw new Error("A user with that email doesn't exist!");
-
-    const resetToken = await createResetTokenUseCase(user.id);
+    const token = await forgotPasswordUseCase(input.email);
 
     await sendEmail(
-      user.email,
+      input.email,
       `Your password reset link for ${siteConfig.name}`,
-      ResetPasswordEmail({ token: resetToken.token }),
+      ResetPasswordEmail({ token }),
     );
 
     redirect("/reset-password-email");

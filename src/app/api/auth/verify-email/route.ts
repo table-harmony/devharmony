@@ -1,6 +1,6 @@
-import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
-import { verifyEmailUseCase } from "@/infrastructure/users";
+import { verifyEmailUseCase } from "@/use-cases/users";
 
+import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 import { setSession } from "@/utils/session";
 
 export async function GET(request: Request): Promise<Response> {

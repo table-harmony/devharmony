@@ -1,5 +1,3 @@
-import { UserId } from "@/infrastructure/users";
-
 import { cache } from "react";
 import { cookies } from "next/headers";
 
@@ -20,7 +18,7 @@ export const assertAuthenticated = async () => {
   return { user, session };
 };
 
-export const setSession = async (userId: UserId) => {
+export const setSession = async (userId: number) => {
   const session = await lucia.createSession(userId, {});
   const sessionCookie = lucia.createSessionCookie(session.id);
   cookies().set(
@@ -41,7 +39,7 @@ export const invalidateSession = async (sessionId: string) => {
   );
 };
 
-export const invalidateUserSessions = async (userId: UserId) => {
+export const invalidateUserSessions = async (userId: number) => {
   await lucia.invalidateUserSessions(userId);
 
   const sessionCookie = lucia.createBlankSessionCookie();

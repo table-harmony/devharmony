@@ -19,7 +19,7 @@ export const AUTHORIZATION_ERROR_MESSAGE =
 
 export class AuthorizationError extends PublicError {
   constructor() {
-    super(AUTHENTICATION_ERROR_MESSAGE);
+    super(AUTHORIZATION_ERROR_MESSAGE);
     this.name = "AuthorizationError";
   }
 }

@@ -1,7 +1,7 @@
 "use server";
 
-import { createUserByCredentialsUseCase } from "@/infrastructure/users";
-import { createVerificationUseCase } from "@/infrastructure/verification-tokens";
+import { createUserUseCase } from "@/use-cases/users";
+import { createVerificationTokenUseCase } from "@/use-cases/verification-tokens";
 
 import { z } from "zod";
 import { redirect } from "next/navigation";
@@ -22,13 +22,14 @@ export const registerAction = unauthenticatedAction
     }),
   )
   .handler(async ({ input }) => {
-    const user = await createUserByCredentialsUseCase(input);
+    const user = await createUserUseCase(input.email, input.password);
 
-    const verification = await createVerificationUseCase(user.id);
+    const token = await createVerificationTokenUseCase(user.id);
+
     await sendEmail(
       user.email,
       `Verify your email for ${siteConfig.name}`,
-      VerifyEmail({ token: verification.token }),
+      VerifyEmail({ token }),
     );
 
     redirect("/email-verification");

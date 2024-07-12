@@ -1,8 +1,6 @@
 import { db } from "@/db";
 import { sessions, users } from "@/db/schema";
 
-import type { UserId as CustomUserId } from "@/infrastructure/users";
-
 import { env } from "@/env";
 
 import { cookies } from "next/headers";
@@ -73,12 +71,12 @@ declare module "lucia" {
   interface Register {
     Lucia: typeof lucia;
     DatabaseUserAttributes: DatabaseUserAttributes;
-    UserId: CustomUserId;
+    UserId: number;
   }
 }
 
 interface DatabaseUserAttributes {
-  id: CustomUserId;
+  id: number;
   name: string;
   email: string;
   emailVerified: Date | null;

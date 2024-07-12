@@ -1,6 +1,6 @@
 "use server";
 
-import { deleteUserUseCase } from "@/infrastructure/users";
+import { deleteUserUseCase } from "@/use-cases/users";
 
 import { redirect } from "next/navigation";
 

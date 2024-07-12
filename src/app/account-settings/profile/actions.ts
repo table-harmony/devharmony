@@ -1,9 +1,6 @@
 "use server";
 
-import {
-  updatePasswordUseCase,
-  updateUserUseCase,
-} from "@/infrastructure/users";
+import { updatePasswordUseCase, updateUserUseCase } from "@/use-cases/users";
 
 import { authenticatedAction } from "@/lib/safe-action";
 

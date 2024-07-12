@@ -34,7 +34,7 @@ export default function ErrorPage({
             </PageHeaderDescription>
             <PageActions>
               <Button asChild>
-                <Link href="/auth/login">Login</Link>
+                <Link href="/login">Login</Link>
               </Button>
             </PageActions>
           </PageHeader>

@@ -1,19 +1,21 @@
 import "server-only";
 
 import { db } from "@/db";
-import { verificationTokens } from "@/db/schema";
 
+import { verificationTokens } from "@/db/schema";
 import { eq, lt } from "drizzle-orm";
 
-import { TOKEN_EXPIRATION, TOKEN_LENGTH, generateRandomToken } from "./utils";
+import {
+  generateRandomToken,
+  TOKEN_LENGTH,
+  TOKEN_EXPIRATION,
+} from "@/data-access/utils";
 
-import type { UserId } from "@/infrastructure/users";
-
-export async function createVerification(userId: UserId) {
-  const token = generateRandomToken(TOKEN_LENGTH);
+export async function createVerificationToken(userId: number) {
+  const token = await generateRandomToken(TOKEN_LENGTH);
   const expiresAt = new Date(Date.now() + TOKEN_EXPIRATION);
 
-  const [verification] = await db
+  await db
     .insert(verificationTokens)
     .values({
       userId,
@@ -26,13 +28,12 @@ export async function createVerification(userId: UserId) {
         token,
         expiresAt,
       },
-    })
-    .returning();
+    });
 
-  return verification;
+  return token;
 }
 
-export async function getVerification(token: string) {
+export async function getVerificationToken(token: string) {
   const existingToken = await db.query.verificationTokens.findFirst({
     where: eq(verificationTokens.token, token),
   });
@@ -40,13 +41,13 @@ export async function getVerification(token: string) {
   return existingToken;
 }
 
-export async function deleteVerification(token: string, trx = db) {
+export async function deleteVerificationToken(token: string, trx = db) {
   await trx
     .delete(verificationTokens)
     .where(eq(verificationTokens.token, token));
 }
 
-export async function deleteExpiredVerifications() {
+export async function deleteExpiredVerificationTokens() {
   await db
     .delete(verificationTokens)
     .where(lt(verificationTokens.expiresAt, new Date()));

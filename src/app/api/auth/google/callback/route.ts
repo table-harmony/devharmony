@@ -1,9 +1,4 @@
-import {
-  createUserUseCase,
-  getUserByEmailUseCase,
-  getUserByGoogleUseCase,
-  updateUserUseCase,
-} from "@/infrastructure/users";
+import { createGoogleUserUseCase } from "@/use-cases/users";
 
 import { cookies } from "next/headers";
 
@@ -35,43 +30,11 @@ export async function GET(request: Request): Promise<Response> {
     );
     const googleUser: GoogleUser = await response.json();
 
-    let existingUser = await getUserByGoogleUseCase(googleUser.sub);
-
-    if (existingUser) {
-      await setSession(existingUser.id);
-      return new Response(null, {
-        status: 302,
-        headers: {
-          Location: DEFAULT_LOGIN_REDIRECT,
-        },
-      });
-    }
-
-    existingUser = await getUserByEmailUseCase(googleUser.email);
-
-    if (existingUser) {
-      await updateUserUseCase(existingUser.id, {
-        name: googleUser.name,
-        picture: googleUser.picture,
-        googleId: googleUser.sub,
-        emailVerified: new Date(),
-      });
-
-      await setSession(existingUser.id);
-      return new Response(null, {
-        status: 302,
-        headers: {
-          Location: DEFAULT_LOGIN_REDIRECT,
-        },
-      });
-    }
-
-    const user = await createUserUseCase({
+    const user = await createGoogleUserUseCase({
+      googleId: googleUser.sub,
       email: googleUser.email,
       name: googleUser.name,
       picture: googleUser.picture,
-      googleId: googleUser.sub,
-      emailVerified: new Date(),
     });
 
     await setSession(user.id);

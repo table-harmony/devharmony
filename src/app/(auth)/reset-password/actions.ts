@@ -3,7 +3,7 @@
 import { z } from "zod";
 
 import { unauthenticatedAction } from "@/lib/safe-action";
-import { resetPasswordUseCase } from "@/infrastructure/users";
+import { resetPasswordUseCase } from "@/use-cases/users";
 
 export const resetPasswordAction = unauthenticatedAction
   .createServerAction()
