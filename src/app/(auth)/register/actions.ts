@@ -1,6 +1,6 @@
 "use server";
 
-import { createUserUseCase } from "@/use-cases/users";
+import { createCredentialsUserUseCase } from "@/use-cases/users";
 import { createVerificationTokenUseCase } from "@/use-cases/verification-tokens";
 
 import { z } from "zod";
@@ -22,7 +22,10 @@ export const registerAction = unauthenticatedAction
     }),
   )
   .handler(async ({ input }) => {
-    const user = await createUserUseCase(input.email, input.password);
+    const user = await createCredentialsUserUseCase(
+      input.email,
+      input.password,
+    );
 
     const token = await createVerificationTokenUseCase(user.id);
 

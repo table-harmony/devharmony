@@ -1,42 +1,32 @@
 "use server";
 
-import { getUserByCredentialsUseCase } from "@/use-cases/users";
-import { createVerificationTokenUseCase } from "@/use-cases/verification-tokens";
+import { createMagicLinkUseCase } from "@/use-cases/magic-links";
 
-import { redirect } from "next/navigation";
 import { z } from "zod";
+import { redirect } from "next/navigation";
 
 import { siteConfig } from "@/config/site";
 
-import { unauthenticatedAction } from "@/lib/safe-action";
-import { setSession } from "@/utils/session";
 import { sendEmail } from "@/lib/mail";
+import { unauthenticatedAction } from "@/lib/safe-action";
 
-import { VerifyEmail } from "@/components/emails/verify-email";
+import { MagicLinkEmail } from "@/components/emails/magic-link";
 
-export const loginAction = unauthenticatedAction
+export const magicLinkLoginAction = unauthenticatedAction
   .createServerAction()
   .input(
     z.object({
       email: z.string().email(),
-      password: z.string().min(5),
     }),
   )
   .handler(async ({ input }) => {
-    const user = await getUserByCredentialsUseCase(input.email, input.password);
+    const token = await createMagicLinkUseCase(input.email);
 
-    if (!user.emailVerified) {
-      const token = await createVerificationTokenUseCase(user.id);
+    await sendEmail(
+      input.email,
+      `Magic link sign in for ${siteConfig.name}`,
+      MagicLinkEmail({ token }),
+    );
 
-      await sendEmail(
-        user.email,
-        `Verify your email for ${siteConfig.name}`,
-        VerifyEmail({ token }),
-      );
-
-      redirect("/email-verification");
-    }
-
-    await setSession(user.id);
-    redirect("/");
+    redirect("/magic-email");
   });

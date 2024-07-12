@@ -1,5 +1,6 @@
-import { deleteExpiredPasswordResetTokens } from "@/data-access/reset-tokens";
-import { deleteExpiredVerificationTokens } from "@/data-access/verification-tokens";
+import { deleteExpiredPasswordResetTokensUseCase } from "@/use-cases/reset-tokens";
+import { deleteExpiredVerificationTokensUseCase } from "@/use-cases/verification-tokens";
+import { deleteExpiredMagicLinksUseCase } from "@/use-cases/magic-links";
 
 import { env } from "@/env";
 
@@ -14,8 +15,9 @@ export async function GET(request: Request) {
   try {
     await lucia.deleteExpiredSessions();
 
-    await deleteExpiredPasswordResetTokens();
-    await deleteExpiredVerificationTokens();
+    await deleteExpiredMagicLinksUseCase();
+    await deleteExpiredPasswordResetTokensUseCase();
+    await deleteExpiredVerificationTokensUseCase();
   } catch (e) {
     return new Response("Error", { status: 500 });
   }

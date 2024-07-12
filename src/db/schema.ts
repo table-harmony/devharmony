@@ -12,6 +12,13 @@ export const users = sqliteTable("users", {
   bio: text("bio").notNull().default(""),
 });
 
+export const magicLinks = sqliteTable("magic_links", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  email: text("email").notNull().unique(),
+  token: text("token").notNull(),
+  expiresAt: integer("expires_at", { mode: "timestamp" }).notNull(),
+});
+
 export const resetTokens = sqliteTable("reset_tokens", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   userId: integer("user_id", { mode: "number" })

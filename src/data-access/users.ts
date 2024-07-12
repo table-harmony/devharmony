@@ -57,7 +57,18 @@ export async function getUserByEmail(email: string) {
   return user;
 }
 
-export async function createUser(email: string, password: string) {
+export async function createUser(email: string) {
+  const [user] = await db
+    .insert(users)
+    .values({
+      email,
+    })
+    .returning();
+
+  return user;
+}
+
+export async function createCredentialsUser(email: string, password: string) {
   const salt = generateSalt();
   const hash = await hashPassword(password, salt);
 
@@ -67,17 +78,6 @@ export async function createUser(email: string, password: string) {
       email,
       password: hash,
       salt,
-    })
-    .returning();
-  return user;
-}
-
-export async function createMagicUser(email: string) {
-  const [user] = await db
-    .insert(users)
-    .values({
-      email,
-      emailVerified: new Date(),
     })
     .returning();
 

@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import { CredentialsForm } from "./credentials-form";
 import { Legend } from "../_components/legend";
 import { Button } from "@/components/ui/button";
 import { ChromeIcon } from "@/components/icons";
@@ -9,6 +8,7 @@ import {
   PageHeaderDescription,
   PageHeaderHeading,
 } from "@/components/page-header";
+import { MagicLinkForm } from "./magic-link-form";
 
 export default function LoginPage() {
   return (
@@ -26,10 +26,10 @@ export default function LoginPage() {
             <span className="hidden md:block">Sign in with&nbsp;</span> Google
           </Link>
         </Button>
-        <Legend text="sign in with credentials" />
-        <CredentialsForm />
+        <Legend text="sign in with email" />
+        <MagicLinkForm />
         <Button variant="link" className="w-full" asChild>
-          <Link href="/register">Sign up</Link>
+          <Link href="/login/credentials">Sign in with credentials</Link>
         </Button>
       </div>
     </div>

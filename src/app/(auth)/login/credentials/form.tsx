@@ -6,7 +6,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useServerAction } from "zsa-react";
-import { loginAction } from "./actions";
+import { credentialsLoginAction } from "./actions";
 
 import {
   Form,
@@ -30,7 +30,7 @@ const credentialsSchema = z.object({
 export function CredentialsForm() {
   const { toast } = useToast();
 
-  const { execute, isPending } = useServerAction(loginAction, {
+  const { execute, isPending } = useServerAction(credentialsLoginAction, {
     onError({ err }) {
       toast({ description: err.message, variant: "destructive" });
     },

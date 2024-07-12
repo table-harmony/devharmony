@@ -26,7 +26,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/(main)/dashboard/_components/model-menu.tsx"
+    "src/app/(main)/dashboard/_components/model-menu.tsx",
+    "src/use-cases/magic-link.sx"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,5 +1,6 @@
 import { createTransaction } from "@/data-access/utils";
 import {
+  createCredentialsUser,
   createGoogleUser,
   createUser,
   deleteUser,
@@ -19,6 +20,10 @@ import {
   deletePasswordResetToken,
   getPasswordResetToken,
 } from "@/data-access/reset-tokens";
+import {
+  deleteMagicLink,
+  getMagicLinkByToken,
+} from "@/data-access/magic-links";
 
 import { PublicError } from "@/utils/errors";
 
@@ -45,13 +50,16 @@ export async function getUserByCredentialsUseCase(
   return user;
 }
 
-export async function createUserUseCase(email: string, password: string) {
+export async function createCredentialsUserUseCase(
+  email: string,
+  password: string,
+) {
   const existingUser = await getUserByEmail(email);
 
   if (existingUser)
     throw new PublicError("A user with that email already exists");
 
-  const user = await createUser(email, password);
+  const user = await createCredentialsUser(email, password);
 
   return user;
 }
@@ -64,6 +72,25 @@ export async function createGoogleUserUseCase(googleUser: GoogleUser) {
   }
 
   return existingUser;
+}
+
+export async function magicUserUseCase(token: string) {
+  const magicLink = await getMagicLinkByToken(token);
+
+  if (!magicLink) throw new PublicError("Invalid token");
+
+  if (magicLink.expiresAt.getTime() < Date.now())
+    throw new PublicError("Expired token");
+
+  await deleteMagicLink(token);
+
+  let user = await getUserByEmail(magicLink.email);
+
+  if (!user) user = await createUser(magicLink.email);
+
+  await updateUser(user.id, { emailVerified: new Date() });
+
+  return user.id;
 }
 
 export async function resetPasswordUseCase(token: string, password: string) {
@@ -79,7 +106,7 @@ export async function resetPasswordUseCase(token: string, password: string) {
 
   await createTransaction(async (trx) => {
     await deletePasswordResetToken(token, trx);
-    await updatePassword(resetToken.userId, password);
+    await updatePassword(resetToken.userId, password, trx);
   });
 }
 
