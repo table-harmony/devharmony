@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 
 import { SignedIn, SignedOut } from "@/components/auth";
 
-import { ArrowRightIcon } from "lucide-react";
+import { ArrowRightIcon, SchoolIcon, SearchIcon } from "lucide-react";
 
 export function HeroSection() {
   return (
@@ -27,7 +27,10 @@ export function HeroSection() {
         </SignedOut>
         <SignedIn>
           <Button className="w-72" asChild>
-            <Link href="/account-settings">Settings</Link>
+            <Link href="/schools">
+              <SearchIcon className="mr-2 size-4" />
+              Browse schools
+            </Link>
           </Button>
         </SignedIn>
       </div>

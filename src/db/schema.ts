@@ -1,4 +1,10 @@
-import { integer, text, sqliteTable } from "drizzle-orm/sqlite-core";
+import { relations } from "drizzle-orm";
+import {
+  integer,
+  text,
+  sqliteTable,
+  primaryKey,
+} from "drizzle-orm/sqlite-core";
 
 export const users = sqliteTable("users", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
@@ -49,7 +55,77 @@ export const sessions = sqliteTable("sessions", {
   expiresAt: integer("expires_at").notNull(),
 });
 
+export const schools = sqliteTable("schools", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  creatorId: integer("user_id", { mode: "number" })
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  name: text("name").notNull(),
+  description: text("description").default("").notNull(),
+  isPublic: integer("is_public", { mode: "boolean" }).default(false).notNull(),
+  info: text("info").default(""),
+});
+
+export const teachers = sqliteTable(
+  "teachers",
+  {
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+    schoolId: integer("school_id")
+      .notNull()
+      .references(() => schools.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.schoolId] }),
+  }),
+);
+
+export const students = sqliteTable(
+  "students",
+  {
+    userId: integer("user_id")
+      .notNull()
+      .references(() => users.id),
+    schoolId: integer("school_id")
+      .notNull()
+      .references(() => schools.id),
+  },
+  (t) => ({
+    pk: primaryKey({ columns: [t.userId, t.schoolId] }),
+  }),
+);
+
+/**
+ * RELATIONSHIPS
+ *
+ * Here you can define drizzle relationships between table which helps improve the type safety
+ * in your code.
+ */
+export const schoolRelations = relations(schools, ({ many, one }) => ({
+  creator: one(users, { fields: [schools.creatorId], references: [users.id] }),
+  teachers: many(teachers),
+  students: many(students),
+}));
+
+export const teacherRelations = relations(teachers, ({ one }) => ({
+  user: one(users, { fields: [teachers.userId], references: [users.id] }),
+  school: one(schools, {
+    fields: [teachers.schoolId],
+    references: [schools.id],
+  }),
+}));
+
+export const studentRelations = relations(students, ({ one }) => ({
+  user: one(users, { fields: [students.userId], references: [users.id] }),
+  school: one(schools, {
+    fields: [students.schoolId],
+    references: [schools.id],
+  }),
+}));
+
 export type User = typeof users.$inferSelect;
+export type School = typeof schools.$inferSelect;
 export type ResetToken = typeof resetTokens.$inferSelect;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
 export type Session = typeof sessions.$inferSelect;

@@ -4,6 +4,7 @@ import {
   createGoogleUser,
   createUser,
   deleteUser,
+  getUser,
   getUserByEmail,
   GoogleUser,
   updatePassword,
@@ -48,6 +49,10 @@ export async function getUserByCredentialsUseCase(
   }
 
   return user;
+}
+
+export async function getUserUseCase(userId: number) {
+  return await getUser(userId);
 }
 
 export async function createCredentialsUserUseCase(

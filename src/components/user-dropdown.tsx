@@ -12,7 +12,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { LogOutIcon, SettingsIcon } from "lucide-react";
+import { LayoutDashboardIcon, LogOutIcon, SettingsIcon } from "lucide-react";
 
 export const UserDropdown = async () => {
   const { user } = await getSession();
@@ -33,6 +33,11 @@ export const UserDropdown = async () => {
           <p className="text-xs text-muted-foreground">{user?.email}</p>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+        <DropdownMenuItem asChild>
+          <Link href="/dashboard">
+            <LayoutDashboardIcon className="mr-2 h-4 w-4" /> Dashboard
+          </Link>
+        </DropdownMenuItem>
         <DropdownMenuItem asChild>
           <Link href="/account-settings">
             <SettingsIcon className="mr-2 h-4 w-4" /> Account settings
