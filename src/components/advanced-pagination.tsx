@@ -1,3 +1,5 @@
+"use client";
+
 import {
   Pagination,
   PaginationContent,
@@ -7,25 +9,36 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-export function SchoolsPagination({
+export function AdvancedPagination({
   page,
   totalPages,
-  search,
 }: {
   page: number;
   totalPages: number;
-  search: string;
 }) {
+  const searchParams = useSearchParams();
+  const pathname = usePathname();
+  const { replace } = useRouter();
+
+  function handlePagination(term: number) {
+    const params = new URLSearchParams(searchParams);
+    if (term) {
+      params.set("page", term.toString());
+    } else {
+      params.delete("page");
+    }
+    replace(`${pathname}?${params.toString()}`);
+  }
+
   return (
     <Pagination>
       <PaginationContent>
         {page > 1 && (
           <>
             <PaginationItem>
-              <PaginationPrevious
-                href={`/schools?page=${page - 1}&search=${search}`}
-              />
+              <PaginationPrevious onClick={() => handlePagination(page - 1)} />
             </PaginationItem>
 
             {page > 2 && (
@@ -37,7 +50,7 @@ export function SchoolsPagination({
             <PaginationItem>
               <PaginationLink
                 isActive={false}
-                href={`/schools?page=${page - 1}&search=${search}`}
+                onClick={() => handlePagination(page - 1)}
               >
                 {page - 1}
               </PaginationLink>
@@ -46,17 +59,13 @@ export function SchoolsPagination({
         )}
 
         <PaginationItem>
-          <PaginationLink isActive={true} href={`/schools?page=${page}`}>
-            {page}
-          </PaginationLink>
+          <PaginationLink isActive={true}>{page}</PaginationLink>
         </PaginationItem>
 
         {page < totalPages && (
           <>
             <PaginationItem>
-              <PaginationLink
-                href={`/schools?page=${page + 1}&search=${search}`}
-              >
+              <PaginationLink onClick={() => handlePagination(page + 1)}>
                 {page + 1}
               </PaginationLink>
             </PaginationItem>
@@ -68,9 +77,7 @@ export function SchoolsPagination({
             )}
 
             <PaginationItem>
-              <PaginationNext
-                href={`/schools?page=${page + 1}&search=${search}`}
-              />
+              <PaginationNext onClick={() => handlePagination(page + 1)} />
             </PaginationItem>
           </>
         )}

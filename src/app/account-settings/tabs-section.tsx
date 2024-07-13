@@ -11,15 +11,15 @@ export function SettingsTabs() {
 
   return (
     <Tabs value={currentTab} defaultValue={currentTab}>
-      <TabsList className="space-x-4">
+      <TabsList className="flex h-auto flex-wrap justify-start space-x-2">
         <TabsTrigger value="profile" asChild>
-          <Link href="/account-settings/profile">Profile</Link>
+          <Link href="profile">Profile</Link>
         </TabsTrigger>
         <TabsTrigger value="security" asChild>
-          <Link href="/account-settings/security">Security</Link>
+          <Link href="security">Security</Link>
         </TabsTrigger>
         <TabsTrigger value="danger" asChild>
-          <Link href="/account-settings/danger">Danger</Link>
+          <Link href="danger">Danger</Link>
         </TabsTrigger>
       </TabsList>
     </Tabs>

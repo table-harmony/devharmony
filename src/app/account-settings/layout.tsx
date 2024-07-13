@@ -6,7 +6,7 @@ import { createMetadata } from "@/utils/metadata";
 
 export const metadata = createMetadata({
   title: "Account settings",
-  description: "Manage your account settings and set preferences.",
+  description: "Manage your account and set preferences.",
 });
 
 export default function SettingsLayout({

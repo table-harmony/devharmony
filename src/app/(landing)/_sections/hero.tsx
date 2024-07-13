@@ -27,7 +27,7 @@ export function HeroSection() {
         </SignedOut>
         <SignedIn>
           <Button className="w-72" asChild>
-            <Link href="/schools">
+            <Link href="/browse">
               <SearchIcon className="mr-2 size-4" />
               Browse schools
             </Link>

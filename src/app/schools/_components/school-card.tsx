@@ -1,5 +1,7 @@
 import { School } from "@/db/schema";
 
+import Link from "next/link";
+
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -9,7 +11,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import Link from "next/link";
+import { Skeleton } from "@/components/ui/skeleton";
 import { UsersIcon, GraduationCapIcon, SchoolIcon } from "lucide-react";
 
 export function SchoolCard({
@@ -47,5 +49,21 @@ export function SchoolCard({
         </Button>
       </CardFooter>
     </Card>
+  );
+}
+
+export function SchoolCardSkeleton() {
+  return (
+    <div className="h-[250px] space-y-6 rounded border p-4">
+      <div className="space-y-2">
+        <Skeleton className="h-[30px] w-[140px] rounded" />
+        <Skeleton className="h-[40px] w-full rounded" />
+      </div>
+      <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
+        <Skeleton className="h-[30px] w-[140px] rounded" />
+        <Skeleton className="h-[30px] w-[140px] rounded" />
+      </div>
+      <Skeleton className="h-[40px] w-full rounded" />
+    </div>
   );
 }

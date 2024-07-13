@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, ReactNode, SetStateAction, useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 
 import { z } from "zod";
 
@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useServerAction } from "zsa-react";
-import { createSchoolAction } from "./actions";
+import { createSchoolAction } from "../actions";
 
 import {
   Sheet,
@@ -94,6 +94,7 @@ function CreateSchoolForm({
                   {...field}
                   disabled={isPending}
                   placeholder="Enter school name"
+                  required
                 />
               </FormControl>
               <FormMessage />
@@ -112,6 +113,7 @@ function CreateSchoolForm({
                   disabled={isPending}
                   className="h-[200px]"
                   placeholder="Provide a detailed description of the school."
+                  required
                 />
               </FormControl>
               <FormMessage />

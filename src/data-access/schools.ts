@@ -26,9 +26,7 @@ export async function searchSchools(
   });
 
   const [numResults] = await db
-    .select({
-      count: sql`count(*)`.mapWith(Number).as("count"),
-    })
+    .select({ count: sql`count(*)`.mapWith(Number) })
     .from(schools)
     .where(condition);
 
@@ -48,16 +46,4 @@ export async function createSchool(data: {
 }) {
   const school = await db.insert(schools).values(data).returning();
   return school;
-}
-
-export async function getUserSchools(userId: number) {
-  const res = await db.query.schools.findMany({
-    where: eq(schools.creatorId, userId),
-    with: {
-      teachers: true,
-      students: true,
-    },
-  });
-
-  return res;
 }

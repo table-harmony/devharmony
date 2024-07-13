@@ -8,18 +8,18 @@ import { SearchIcon } from "lucide-react";
 export function SearchForm({ search }: { search?: string }) {
   return (
     <form
-      className="sm:w-96"
+      className="w-full"
       key={search}
       action={async (formData: FormData) => {
         "use server";
         const search = formData.get("search") as string;
-        redirect(search ? `/schools?search=${search}` : "/schools");
+        redirect(search ? `?search=${search}` : "?search=");
       }}
     >
       <div className="flex items-center gap-2">
         <Input
           defaultValue={search}
-          placeholder="Search..."
+          placeholder="Search schools"
           name="search"
           id="school"
         />

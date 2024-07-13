@@ -14,7 +14,7 @@ export function SettingsHeader() {
       </PageHeaderHeading>
       <PageHeaderHeading className="md:hidden">Settings</PageHeaderHeading>
       <PageHeaderDescription>
-        Manage your account settings and set preferences.
+        Manage your account and set preferences.
       </PageHeaderDescription>
       <PageActions>
         <SettingsTabs />
