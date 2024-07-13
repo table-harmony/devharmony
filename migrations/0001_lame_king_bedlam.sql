@@ -1,1 +1,0 @@
-ALTER TABLE `users` ADD `bio` text DEFAULT '' NOT NULL;

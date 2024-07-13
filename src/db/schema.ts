@@ -71,10 +71,10 @@ export const teachers = sqliteTable(
   {
     userId: integer("user_id")
       .notNull()
-      .references(() => users.id),
+      .references(() => users.id, { onDelete: "cascade" }),
     schoolId: integer("school_id")
       .notNull()
-      .references(() => schools.id),
+      .references(() => schools.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.userId, t.schoolId] }),
@@ -86,10 +86,11 @@ export const students = sqliteTable(
   {
     userId: integer("user_id")
       .notNull()
-      .references(() => users.id),
+      .unique()
+      .references(() => users.id, { onDelete: "cascade" }),
     schoolId: integer("school_id")
       .notNull()
-      .references(() => schools.id),
+      .references(() => schools.id, { onDelete: "cascade" }),
   },
   (t) => ({
     pk: primaryKey({ columns: [t.userId, t.schoolId] }),
@@ -108,7 +109,7 @@ export const schoolRelations = relations(schools, ({ many, one }) => ({
   students: many(students),
 }));
 
-export const teacherRelations = relations(teachers, ({ one }) => ({
+export const teacherRelations = relations(teachers, ({ many, one }) => ({
   user: one(users, { fields: [teachers.userId], references: [users.id] }),
   school: one(schools, {
     fields: [teachers.schoolId],
