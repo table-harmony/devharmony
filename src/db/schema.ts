@@ -1,4 +1,4 @@
-import { relations } from "drizzle-orm";
+import { relations, sql } from "drizzle-orm";
 import {
   integer,
   text,
@@ -63,6 +63,21 @@ export const feedbacks = sqliteTable("feedbacks", {
   title: text("title").notNull(),
   label: text("label").default("").notNull(),
   message: text("message").default("").notNull(),
+  createdAt: text("createdAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
+});
+
+export const notifications = sqliteTable("notifications", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: integer("user_id", { mode: "number" })
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  title: text("title").notNull(),
+  read: integer("read", { mode: "boolean" }).default(false).notNull(),
+  createdAt: text("createdAt")
+    .notNull()
+    .default(sql`(current_timestamp)`),
 });
 
 export const schools = sqliteTable("schools", {
@@ -137,6 +152,7 @@ export const studentRelations = relations(students, ({ one }) => ({
 
 export type User = typeof users.$inferSelect;
 export type School = typeof schools.$inferSelect;
+export type Notification = typeof notifications.$inferSelect;
 export type ResetToken = typeof resetTokens.$inferSelect;
 export type VerificationToken = typeof verificationTokens.$inferSelect;
 export type Session = typeof sessions.$inferSelect;

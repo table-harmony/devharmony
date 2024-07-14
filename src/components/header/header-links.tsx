@@ -22,7 +22,7 @@ export async function HeaderLinks() {
 
   return (
     <div className="flex items-center gap-4">
-      <Link href="/" className="flex items-center gap-2">
+      <Link href="/" className="flex items-center gap-2" aria-label="logo">
         <LogoIcon className="size-6" />
       </Link>
       <div className="hidden items-center gap-4 md:flex">
