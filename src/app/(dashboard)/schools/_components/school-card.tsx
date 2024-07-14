@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { UsersIcon, GraduationCapIcon, SchoolIcon } from "lucide-react";
+import { gridStyles } from "@/styles/common";
 
 export function SchoolCard({
   school,
@@ -52,7 +53,7 @@ export function SchoolCard({
   );
 }
 
-export function SchoolCardSkeleton() {
+function SchoolCardSkeleton() {
   return (
     <div className="h-[250px] space-y-6 rounded border p-4">
       <div className="space-y-2">
@@ -64,6 +65,16 @@ export function SchoolCardSkeleton() {
         <Skeleton className="h-[30px] w-[140px] rounded" />
       </div>
       <Skeleton className="h-[40px] w-full rounded" />
+    </div>
+  );
+}
+
+export function SchoolCardGridSkeleton() {
+  return (
+    <div className={gridStyles}>
+      {new Array(9).fill("").map((v, idx) => (
+        <SchoolCardSkeleton key={idx} />
+      ))}
     </div>
   );
 }

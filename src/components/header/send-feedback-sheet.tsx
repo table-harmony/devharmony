@@ -1,6 +1,6 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 import { z } from "zod";
 
@@ -8,7 +8,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
 import { useServerAction } from "zsa-react";
-import { createSchoolAction } from "../actions";
+import { sendFeedbackAction } from "./actions";
 
 import {
   Sheet,
@@ -29,36 +29,49 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { useToast } from "@/components/ui/use-toast";
-import { LoaderButton } from "@/components/loader-button";
-import { Button } from "@/components/ui/button";
-import { PlusCircleIcon } from "lucide-react";
 import { Textarea } from "@/components/ui/textarea";
-import { Switch } from "@/components/ui/switch";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { LoaderButton } from "@/components/loader-button";
+
+const LABELS = [
+  "Issue",
+  "Idea",
+  "Question",
+  "Complaint",
+  "Feature request",
+  "Other",
+];
 
 const formSchema = z.object({
-  name: z.string({
-    message: "Name is required",
+  title: z.string({
+    message: "Title is required",
   }),
-  isPublic: z.boolean().default(false),
-  description: z.string({
-    message: "Description is required",
+  label: z.string(),
+  message: z.string({
+    message: "Message is required",
   }),
 });
 
-function CreateSchoolForm({
+function SendFeedbackForm({
   setShowSheet,
 }: {
   setShowSheet: Dispatch<SetStateAction<boolean>>;
 }) {
   const { toast } = useToast();
 
-  const { execute, isPending } = useServerAction(createSchoolAction, {
+  const { execute, isPending } = useServerAction(sendFeedbackAction, {
     onError({ err }) {
       toast({ description: err.message, variant: "destructive" });
     },
     onSuccess() {
       toast({
-        description: "School successfully created!",
+        description: "Feedback sent!",
         variant: "success",
       });
     },
@@ -70,9 +83,9 @@ function CreateSchoolForm({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      name: "",
-      isPublic: false,
-      description: "",
+      title: "",
+      label: "Feature request",
+      message: "",
     },
   });
 
@@ -85,15 +98,15 @@ function CreateSchoolForm({
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-4 space-y-4">
         <FormField
           control={form.control}
-          name="name"
+          name="title"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Name</FormLabel>
+              <FormLabel>Title</FormLabel>
               <FormControl>
                 <Input
                   {...field}
                   disabled={isPending}
-                  placeholder="Enter school name"
+                  placeholder="Add dark mode"
                   required
                 />
               </FormControl>
@@ -103,16 +116,39 @@ function CreateSchoolForm({
         />
         <FormField
           control={form.control}
-          name="description"
+          name="label"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Description</FormLabel>
+              <FormLabel>Label</FormLabel>
+              <FormControl>
+                <Select {...field}>
+                  <SelectTrigger>
+                    <SelectValue />
+                  </SelectTrigger>
+                  <SelectContent>
+                    {LABELS.map((label) => (
+                      <SelectItem key={label} value={label}>
+                        {label}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </FormControl>
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name="message"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Message</FormLabel>
               <FormControl>
                 <Textarea
                   {...field}
                   disabled={isPending}
                   className="h-[200px]"
-                  placeholder="Provide a detailed description of the school."
+                  placeholder="Please add a dark mode to the app."
                   required
                 />
               </FormControl>
@@ -120,29 +156,9 @@ function CreateSchoolForm({
             </FormItem>
           )}
         />
-        <FormField
-          control={form.control}
-          name="isPublic"
-          render={({ field }) => (
-            <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
-              <div className="space-y-0.5">
-                <FormLabel className="text-base">Is public</FormLabel>
-                <FormDescription>
-                  Make the school publicly visible to everyone.
-                </FormDescription>
-              </div>
-              <FormControl>
-                <Switch
-                  checked={field.value}
-                  onCheckedChange={field.onChange}
-                />
-              </FormControl>
-            </FormItem>
-          )}
-        />
         <div className="flex w-full sm:justify-end">
-          <LoaderButton isLoading={isPending} className="w-full sm:w-auto">
-            Create
+          <LoaderButton className="w-full sm:w-auto" isLoading={isPending}>
+            Send
           </LoaderButton>
         </div>
       </form>
@@ -150,25 +166,21 @@ function CreateSchoolForm({
   );
 }
 
-export function CreateSchoolSheet() {
+export function SendFeedbackSheet({ children }: { children: ReactNode }) {
   const [showSheet, setShowSheet] = useState(false);
 
   return (
     <Sheet open={showSheet} onOpenChange={setShowSheet}>
-      <SheetTrigger asChild>
-        <Button>
-          <PlusCircleIcon className="mr-2 size-4" /> Create school
-        </Button>
-      </SheetTrigger>
+      <SheetTrigger asChild>{children}</SheetTrigger>
 
       <SheetContent>
         <SheetHeader>
-          <SheetTitle>Create school</SheetTitle>
+          <SheetTitle>Feedback </SheetTitle>
           <SheetDescription>
-            Fill in the details below to create a new school.
+            We value your feedback. How can we improve your experience?
           </SheetDescription>
         </SheetHeader>
-        <CreateSchoolForm setShowSheet={setShowSheet} />
+        <SendFeedbackForm setShowSheet={setShowSheet} />
       </SheetContent>
     </Sheet>
   );

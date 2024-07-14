@@ -1,5 +1,3 @@
-import { SiteFooter } from "@/components/site-footer";
-import { SiteHeader } from "@/components/site-header";
 import { SettingsHeader } from "./settings-header";
 
 import { createMetadata } from "@/utils/metadata";
@@ -16,12 +14,10 @@ export default function SettingsLayout({
 }) {
   return (
     <>
-      <SiteHeader />
-      <main className="container flex-1">
+      <div className="container">
         <SettingsHeader />
         {children}
-      </main>
-      <SiteFooter />
+      </div>
     </>
   );
 }

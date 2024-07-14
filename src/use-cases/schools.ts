@@ -1,4 +1,8 @@
-import { createSchool, searchSchools } from "@/data-access/schools";
+import {
+  createSchool,
+  getUserSchools,
+  searchSchools,
+} from "@/data-access/schools";
 
 export async function searchSchoolsUseCase(
   search: string,
@@ -17,4 +21,8 @@ export async function createSchoolUseCase(data: {
 }) {
   const school = await createSchool(data);
   return school;
+}
+
+export async function getUserSchoolsUseCase(userId: number) {
+  return await getUserSchools(userId);
 }

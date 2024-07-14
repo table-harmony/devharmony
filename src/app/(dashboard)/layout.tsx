@@ -1,7 +1,6 @@
 import { SiteHeader } from "@/components/header/header";
-import { SiteFooter } from "@/components/site-footer";
 
-export default function SchoolsLayout({
+export default function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
@@ -10,7 +9,6 @@ export default function SchoolsLayout({
     <>
       <SiteHeader />
       <main className="flex-1">{children}</main>
-      <SiteFooter />
     </>
   );
 }

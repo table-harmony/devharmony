@@ -10,9 +10,10 @@ export async function sendEmail(
   email: string,
   subject: string,
   body: React.ReactNode,
+  from?: string,
 ) {
   const { error } = await resend.emails.send({
-    from: EMAIL_FROM,
+    from: from ?? EMAIL_FROM,
     to: email,
     subject,
     react: <>{body}</>,
@@ -25,13 +26,14 @@ export async function sendEmail(
 
 export async function sendEmailBatch(
   emails: {
+    from?: string;
     to: string;
     subject: string;
     body: React.ReactNode;
   }[],
 ) {
   const batch = emails.map((email) => ({
-    from: EMAIL_FROM,
+    from: email.from ?? EMAIL_FROM,
     to: email.to,
     subject: email.subject,
     react: <>{email.body}</>,

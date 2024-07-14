@@ -14,7 +14,7 @@ export function SubmitButton({
 }: {
   children: ReactNode;
   className?: string;
-  icon: ReactNode;
+  icon?: ReactNode;
 } & ButtonProps) {
   const { pending } = useFormStatus();
 

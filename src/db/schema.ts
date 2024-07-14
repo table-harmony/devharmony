@@ -55,6 +55,16 @@ export const sessions = sqliteTable("sessions", {
   expiresAt: integer("expires_at").notNull(),
 });
 
+export const feedbacks = sqliteTable("feedbacks", {
+  id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
+  userId: integer("user_id", { mode: "number" })
+    .references(() => users.id, { onDelete: "cascade" })
+    .notNull(),
+  title: text("title").notNull(),
+  label: text("label").default("").notNull(),
+  message: text("message").default("").notNull(),
+});
+
 export const schools = sqliteTable("schools", {
   id: integer("id", { mode: "number" }).primaryKey({ autoIncrement: true }),
   creatorId: integer("user_id", { mode: "number" })

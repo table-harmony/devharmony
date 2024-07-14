@@ -5,19 +5,9 @@ import { Suspense } from "react";
 import { AdvancedPagination } from "@/components/advanced-pagination";
 import {
   SchoolCard,
-  SchoolCardSkeleton,
-} from "../../schools/_components/school-card";
+  SchoolCardGridSkeleton,
+} from "@/app/(dashboard)/schools/_components/school-card";
 import { cardStyles, gridStyles } from "@/styles/common";
-
-function SchoolListSkeleton() {
-  return (
-    <div className={gridStyles}>
-      {new Array(9).fill("").map((v, idx) => (
-        <SchoolCardSkeleton key={idx} />
-      ))}
-    </div>
-  );
-}
 
 async function SchoolList({ search, page }: { search?: string; page: number }) {
   const perPage = 2;
@@ -67,7 +57,7 @@ export function SchoolListWrapper({
   search?: string;
 }) {
   return (
-    <Suspense fallback={<SchoolListSkeleton />}>
+    <Suspense fallback={<SchoolCardGridSkeleton />}>
       <SchoolList page={page} search={search} />
     </Suspense>
   );

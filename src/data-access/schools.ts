@@ -33,7 +33,6 @@ export async function searchSchools(
   return {
     data,
     total: numResults.count,
-    perPage,
   };
 }
 
@@ -46,4 +45,16 @@ export async function createSchool(data: {
 }) {
   const school = await db.insert(schools).values(data).returning();
   return school;
+}
+
+export async function getUserSchools(userId: number) {
+  const data = await db.query.schools.findMany({
+    where: eq(schools.creatorId, userId),
+    with: {
+      teachers: true,
+      students: true,
+    },
+  });
+
+  return data;
 }
