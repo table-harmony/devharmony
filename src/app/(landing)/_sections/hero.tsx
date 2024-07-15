@@ -14,8 +14,8 @@ export function HeroSection() {
           {siteConfig.description}
         </h1>
         <p className="max-w-2xl font-light text-muted-foreground md:text-lg lg:text-xl">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus
-          hendrerit urna nec ultricies.
+          Track, maintain, and streamline every aspect of your schools with
+          DevHarmony
         </p>
         <SignedOut>
           <Button className="w-72" asChild>

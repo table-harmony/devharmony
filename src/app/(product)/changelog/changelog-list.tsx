@@ -14,7 +14,7 @@ type ChangeLog = {
   post: string;
 };
 
-const projectId = env.PROJECT_PLANNER_ID;
+const projectId = env.NEXT_PUBLIC_PLANNER_ID;
 
 export async function ChangelogList() {
   unstable_noStore();
