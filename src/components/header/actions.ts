@@ -7,6 +7,8 @@ import { sendEmail } from "@/lib/mail";
 import { z } from "zod";
 
 import { FeedbackEmail } from "@/components/emails/feedback";
+import { revalidateTag } from "next/cache";
+import { updateNotificationUseCase } from "@/use-cases/notifications";
 
 export const sendFeedbackAction = authenticatedAction
   .createServerAction()
@@ -29,4 +31,12 @@ export const sendFeedbackAction = authenticatedAction
       FeedbackEmail(feedback),
       ctx.user.email,
     );
+  });
+
+export const markNotificationAsReadAction = authenticatedAction
+  .createServerAction()
+  .input(z.object({ notificationId: z.number() }))
+  .handler(async ({ input, ctx }) => {
+    await updateNotificationUseCase(input.notificationId, { read: true });
+    await revalidateTag("notifications");
   });

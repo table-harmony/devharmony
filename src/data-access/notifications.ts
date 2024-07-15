@@ -30,9 +30,10 @@ export async function updateNotification(
   return notification;
 }
 
-export async function getUnreadNotifications(userId: number) {
+export async function getUnreadNotifications(userId: number, limit?: number) {
   return await db.query.notifications.findMany({
     where: and(eq(notifications.userId, userId), eq(notifications.read, false)),
+    limit: limit,
   });
 }
 
