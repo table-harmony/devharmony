@@ -58,3 +58,7 @@ export async function getUserSchools(userId: number) {
 
   return data;
 }
+
+export async function deleteSchool(schoolId: number) {
+  await db.delete(schools).where(eq(schools.id, schoolId));
+}

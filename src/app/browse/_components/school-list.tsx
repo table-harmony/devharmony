@@ -6,7 +6,7 @@ import { AdvancedPagination } from "@/components/advanced-pagination";
 import {
   SchoolCard,
   SchoolCardGridSkeleton,
-} from "@/app/(dashboard)/schools/_components/school-card";
+} from "@/app/(dashboard)/schools/school-card";
 import { cardStyles, gridStyles } from "@/styles/common";
 
 async function SchoolList({ search, page }: { search?: string; page: number }) {

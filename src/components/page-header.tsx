@@ -58,7 +58,9 @@ function PageActions({
   className,
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) {
-  return <div className={cn("flex gap-2 py-2", className)} {...props} />;
+  return (
+    <div className={cn("flex flex-wrap gap-2 py-2", className)} {...props} />
+  );
 }
 
 export { PageActions, PageHeader, PageHeaderDescription, PageHeaderHeading };

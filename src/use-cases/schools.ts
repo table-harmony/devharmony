@@ -1,8 +1,10 @@
 import {
   createSchool,
+  deleteSchool,
   getUserSchools,
   searchSchools,
 } from "@/data-access/schools";
+import { AuthorizationError } from "@/utils/errors";
 
 export async function searchSchoolsUseCase(
   search: string,
@@ -25,4 +27,13 @@ export async function createSchoolUseCase(data: {
 
 export async function getUserSchoolsUseCase(userId: number) {
   return await getUserSchools(userId);
+}
+
+export async function deleteSchoolUseCase(schoolId: number, userId: number) {
+  const schools = await getUserSchools(userId);
+
+  if (!schools.some((school) => school.id === schoolId))
+    throw new AuthorizationError();
+
+  await deleteSchool(schoolId);
 }
