@@ -4,6 +4,7 @@ import { format } from "date-fns";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 import Image from "next/image";
+import { env } from "@/env";
 
 type ChangeLog = {
   id: string;
