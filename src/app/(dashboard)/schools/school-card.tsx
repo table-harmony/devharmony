@@ -108,14 +108,16 @@ function MenuButton({ schoolId }: { schoolId: number }) {
 
 function SchoolCardSkeleton() {
   return (
-    <div className="h-[125px] space-y-6 rounded border p-4">
+    <div className="h-[250px] space-y-6 rounded border p-4">
       <div className="space-y-2">
-        <Skeleton className="h-[20px] w-[140px] rounded" />
-        <Skeleton className="h-[15px] w-full rounded" />
+        <Skeleton className="h-[30px] w-[140px] rounded" />
+        <Skeleton className="h-[40px] w-full rounded" />
       </div>
-      <div className="flex justify-center">
-        <Skeleton className="h-[25px] w-[250px] rounded" />
+      <div className="flex flex-col items-center justify-center gap-10 md:flex-row">
+        <Skeleton className="h-[30px] w-[140px] rounded" />
+        <Skeleton className="h-[30px] w-[140px] rounded" />
       </div>
+      <Skeleton className="h-[40px] w-full rounded" />
     </div>
   );
 }

@@ -20,16 +20,14 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Separator } from "@/components/ui/separator";
-import { useState } from "react";
 
 export function MenuButton() {
   const { user } = useSession();
   const { isMobile } = useMediaQuery();
-  const [open, setOpen] = useState(false);
 
   if (!isMobile)
     return (
-      <Popover open={open} onOpenChange={setOpen}>
+      <Popover>
         <PopoverTrigger asChild>
           <Button variant="ghost" className="relative h-8 w-8 rounded-full">
             <Avatar className="h-8 w-8">
@@ -47,19 +45,16 @@ export function MenuButton() {
           <div className="grid space-y-4 text-sm text-muted-foreground">
             <Link
               href="/account-settings"
-              className="flex w-full items-center gap-2 duration-200 hover:text-neutral-700 dark:hover:text-neutral-200"
-              onClick={() => setOpen(false)}
+              className="flex items-center hover:text-primary"
             >
-              <SettingsIcon className="size-4" />
+              <SettingsIcon className="mr-2 size-4" />
               Account settings
             </Link>
-            <Separator />
             <Link
               href="/logout"
-              className="flex w-full items-center gap-2 hover:text-neutral-700 dark:hover:text-neutral-200"
-              onClick={() => setOpen(false)}
+              className="flex items-center hover:text-primary"
             >
-              <LogOutIcon className="size-4" />
+              <LogOutIcon className="mr-2 size-4" />
               Logout
             </Link>
           </div>

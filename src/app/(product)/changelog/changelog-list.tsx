@@ -4,8 +4,6 @@ import { format } from "date-fns";
 import { MDXRemote } from "next-mdx-remote/rsc";
 
 import Image from "next/image";
-import { env } from "@/env";
-import { cardStyles } from "@/styles/common";
 
 type ChangeLog = {
   id: string;
@@ -20,13 +18,13 @@ export async function ChangelogList() {
   unstable_noStore();
 
   const changelogs = await fetch(
-    `https://projectplannerai.com/api/changelog?projectId=${projectId}`,
+    `https://projectplannerai.com/api/changelog?projectId=j5701hxfwpmeqn625rjqgestb16qvhe0`,
   ).then(async (res) => res.json() as Promise<ChangeLog[]>);
 
   return (
     <>
       {changelogs.length === 0 && (
-        <div className={cardStyles}>
+        <div className="flex w-full flex-col items-center justify-center space-y-10 rounded-lg border border-muted-foreground/20 bg-primary-foreground/50 py-16">
           <p className="text-balance text-lg font-semibold md:text-xl">
             No changelogs found.
           </p>

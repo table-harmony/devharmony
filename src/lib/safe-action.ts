@@ -40,6 +40,4 @@ export const unauthenticatedAction = createServerActionProcedure()
   .experimental_shapeError(shapeErrors)
   .handler(async () => {
     await assertRateLimit();
-
-    return { user: null, session: null };
   });

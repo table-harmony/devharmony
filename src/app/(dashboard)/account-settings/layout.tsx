@@ -14,7 +14,7 @@ export default function SettingsLayout({
 }) {
   return (
     <>
-      <div className="container mb-10">
+      <div className="container">
         <SettingsHeader />
         {children}
       </div>

@@ -34,6 +34,7 @@ export default function SchoolsPage() {
 
 async function OwnedSchools() {
   const { user } = await assertAuthenticated();
+
   const schools = await getUserSchoolsUseCase(user.id);
 
   if (schools.length === 0) {

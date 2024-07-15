@@ -84,7 +84,7 @@ function SendFeedbackForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: "",
-      label: LABELS[0],
+      label: "Feature request",
       message: "",
     },
   });
@@ -118,13 +118,10 @@ function SendFeedbackForm({
           control={form.control}
           name="label"
           render={({ field }) => (
-            <FormItem {...field}>
+            <FormItem>
               <FormLabel>Label</FormLabel>
               <FormControl>
-                <Select
-                  onValueChange={field.onChange}
-                  defaultValue={field.value}
-                >
+                <Select {...field}>
                   <SelectTrigger>
                     <SelectValue />
                   </SelectTrigger>

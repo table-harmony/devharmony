@@ -18,13 +18,6 @@ export async function markAllNotificationsAsReadUseCase(userId: number) {
   );
 }
 
-export async function getUnreadNotificationsUseCase(
-  userId: number,
-  limit?: number,
-) {
-  return await getUnreadNotifications(userId, limit);
-}
-
 export async function deleteNotificationsUseCase(notifications: number[]) {
   await Promise.all(
     notifications.map((notificationId) => deleteNotification(notificationId)),

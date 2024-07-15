@@ -13,7 +13,6 @@ import { setSession } from "@/utils/session";
 import { sendEmail } from "@/lib/mail";
 
 import { VerifyEmail } from "@/components/emails/verify-email";
-import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 
 export const credentialsLoginAction = unauthenticatedAction
   .createServerAction()
@@ -39,5 +38,5 @@ export const credentialsLoginAction = unauthenticatedAction
     }
 
     await setSession(user.id);
-    redirect(DEFAULT_LOGIN_REDIRECT);
+    redirect("/");
   });
