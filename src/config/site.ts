@@ -1,7 +1,7 @@
 export const siteConfig = {
   name: "DevHarmony",
   url: "https://devharmony.vercel.app",
-  description: "Manage Your Side Projects in One Place",
+  description: "Manage Your Schools in One Place",
   ogImage: "https://cdn-icons-png.flaticon.com/512/1531/1531344.png",
   links: {
     github: "https://github.com/table-harmony/devharmony",
