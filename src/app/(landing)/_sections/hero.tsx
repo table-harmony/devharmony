@@ -3,20 +3,19 @@ import Link from "next/link";
 import { siteConfig } from "@/config/site";
 
 import { Button } from "@/components/ui/button";
-
 import { SignedIn, SignedOut } from "@/components/auth";
-
-import { ArrowRightIcon, SchoolIcon, SearchIcon } from "lucide-react";
+import { ArrowRightIcon } from "lucide-react";
 
 export function HeroSection() {
   return (
     <section className="container py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
-      <div className="flex flex-col items-center space-y-5 text-center">
-        <h1 className="text-4xl font-extrabold leading-none tracking-tight md:text-5xl xl:text-6xl">
-          Welcome to {siteConfig.name.toUpperCase()}
-        </h1>
-        <p className="max-w-3xl font-light text-muted-foreground md:text-lg lg:text-xl">
+      <div className="flex flex-col items-center space-y-7 text-center">
+        <h1 className="max-w-3xl text-5xl font-extrabold leading-none tracking-tight md:text-6xl xl:text-7xl">
           {siteConfig.description}
+        </h1>
+        <p className="max-w-2xl font-light text-muted-foreground md:text-lg lg:text-xl">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi cursus
+          hendrerit urna nec ultricies.
         </p>
         <SignedOut>
           <Button className="w-72" asChild>
@@ -27,10 +26,7 @@ export function HeroSection() {
         </SignedOut>
         <SignedIn>
           <Button className="w-72" asChild>
-            <Link href="/browse">
-              <SearchIcon className="mr-2 size-4" />
-              Browse schools
-            </Link>
+            <Link href="/schools">Schools</Link>
           </Button>
         </SignedIn>
       </div>

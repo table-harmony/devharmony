@@ -23,7 +23,7 @@ interface DataTablePaginationProps {
 }
 
 export function DataTablePagination({
-  pageSizeOptions = [10, 20, 30, 40, 50],
+  pageSizeOptions = [5, 10, 15, 20, 25],
 }: DataTablePaginationProps) {
   const { table } = useContext(DataTableContext);
 

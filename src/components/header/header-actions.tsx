@@ -1,16 +1,12 @@
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
-import { BellIcon, MessageCircleIcon } from "lucide-react";
+import { MessageCircleIcon } from "lucide-react";
 import Link from "next/link";
 import { getSession } from "@/utils/session";
 import { MenuButton } from "./menu-button";
 import { SendFeedbackSheet } from "./send-feedback-sheet";
+import { Notifications } from "./notifications";
+import { getUnreadNotificationsUseCase } from "@/use-cases/notifications";
 
 export async function HeaderActions() {
   const { user } = await getSession();
@@ -30,11 +26,7 @@ export async function HeaderActions() {
           <MessageCircleIcon className="size-4" />
         </Button>
       </SendFeedbackSheet>
-      <Button size="icon" variant="ghost" aria-label="notifications" asChild>
-        <Link href="/notifications">
-          <BellIcon className="size-4" />
-        </Link>
-      </Button>
+      <NotificationsWrapper />
       <div className="hidden md:block">
         <ModeToggle variant="button" />
       </div>
@@ -43,4 +35,16 @@ export async function HeaderActions() {
       </div>
     </div>
   );
+}
+
+export async function NotificationsWrapper() {
+  const { user } = await getSession();
+
+  if (!user) {
+    return null;
+  }
+
+  const notifications = await getUnreadNotificationsUseCase(user.id, 3);
+
+  return <Notifications notifications={notifications} />;
 }

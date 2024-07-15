@@ -3,7 +3,7 @@ import { NotificationsDataTableWrapper } from "./_data-table/notifications-data-
 
 export default function NotificationsPage() {
   return (
-    <div className="container">
+    <div className="container mb-10">
       <PageHeader>
         <PageHeaderHeading>Notifications</PageHeaderHeading>
       </PageHeader>

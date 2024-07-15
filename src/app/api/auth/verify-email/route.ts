@@ -2,6 +2,7 @@ import { verifyEmailUseCase } from "@/use-cases/users";
 
 import { DEFAULT_LOGIN_REDIRECT } from "@/config/routes";
 import { setSession } from "@/utils/session";
+import { assertRateLimit } from "@/lib/limiter";
 
 export async function GET(request: Request): Promise<Response> {
   const url = new URL(request.url);
@@ -16,6 +17,8 @@ export async function GET(request: Request): Promise<Response> {
     });
 
   try {
+    await assertRateLimit();
+
     const userId = await verifyEmailUseCase(token);
 
     await setSession(userId);
