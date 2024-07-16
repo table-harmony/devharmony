@@ -11,11 +11,10 @@ export function HeroSection() {
     <section className="container py-8 md:py-12 md:pb-8 lg:py-24 lg:pb-20">
       <div className="flex flex-col items-center space-y-7 text-center">
         <h1 className="max-w-3xl text-5xl font-extrabold leading-none tracking-tight md:text-6xl xl:text-7xl">
-          {siteConfig.description}
+          Manage Your Schools in One Place
         </h1>
-        <p className="max-w-2xl font-light text-muted-foreground md:text-lg lg:text-xl">
-          Track, maintain, and streamline every aspect of your schools with
-          DevHarmony
+        <p className="max-w-sm font-light text-muted-foreground md:text-lg lg:text-xl">
+          {siteConfig.description}
         </p>
         <SignedOut>
           <Button className="w-72" asChild>

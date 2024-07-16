@@ -38,7 +38,7 @@ export function MenuButton() {
             </Avatar>
           </Button>
         </PopoverTrigger>
-        <PopoverContent className="grid space-y-4">
+        <PopoverContent className="grid space-y-4" align="end">
           <div className="font-medium leading-none">
             <p className="text-sm">{user?.name}</p>
             <p className="text-xs text-muted-foreground">{user?.email}</p>
@@ -74,17 +74,26 @@ export function MenuButton() {
           <MenuIcon className="size-4" />
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="grid space-y-4 text-sm text-muted-foreground">
-        <Link href="/schools" className="flex items-center hover:text-primary">
+      <PopoverContent
+        className="grid space-y-4 text-sm text-muted-foreground"
+        align="end"
+      >
+        <Link
+          href="/schools"
+          className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200"
+        >
           <SchoolIcon className="mr-2 size-4" /> Schools
         </Link>
-        <Link href="/browse" className="flex items-center hover:text-primary">
+        <Link
+          href="/browse"
+          className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200"
+        >
           <SearchIcon className="mr-2 size-4" />
           Browse schools
         </Link>
         <Link
           href="/account-settings"
-          className="flex items-center hover:text-primary"
+          className="flex items-center hover:text-neutral-700 dark:hover:text-neutral-200"
         >
           <SettingsIcon className="mr-2 size-4" />
           Account settings
@@ -92,7 +101,7 @@ export function MenuButton() {
         <Separator />
         <Link
           href="/"
-          className="flex items-center justify-between hover:text-primary"
+          className="flex items-center justify-between hover:text-neutral-700 dark:hover:text-neutral-200"
         >
           Homepage
           <ExternalLinkIcon className="size-4" />
@@ -100,7 +109,10 @@ export function MenuButton() {
         <div className="flex items-center justify-between">
           Theme <ModeToggle />
         </div>
-        <Link href="/logout" className="hover:text-primary">
+        <Link
+          href="/logout"
+          className="hover:text-neutral-700 dark:hover:text-neutral-200"
+        >
           Logout
         </Link>
       </PopoverContent>

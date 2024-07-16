@@ -54,15 +54,23 @@ export function UpdatePasswordForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex max-w-md gap-2 space-y-2"
+      >
         <FormField
           control={form.control}
           name="password"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormLabel className="sr-only">Password</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="******" type="password" />
+                <Input
+                  {...field}
+                  disabled={isPending}
+                  placeholder="******"
+                  type="password"
+                />
               </FormControl>
               <FormMessage />
             </FormItem>

@@ -27,6 +27,7 @@ import {
 } from "@/data-access/magic-links";
 
 import { PublicError } from "@/utils/errors";
+import { deleteFile, uploadFile } from "@/lib/files";
 
 export async function deleteUserUseCase(userId: number) {
   await deleteUser(userId);
@@ -148,4 +149,18 @@ export async function updateUserUseCase(userId: number, data: Partial<User>) {
 
 export async function updatePasswordUseCase(userId: number, password: string) {
   await updatePassword(userId, password);
+}
+
+export async function updateImageUseCase(userId: number, file: File) {
+  const user = await getUser(userId);
+
+  if (!user) throw new PublicError("User does not exist");
+
+  if (!file.type.startsWith("image"))
+    throw new PublicError("File must be an image");
+
+  if (user.picture) await deleteFile(user.picture);
+
+  const { url } = await uploadFile(`users/${user.id}`, file);
+  await updateUser(user.id, { picture: url });
 }

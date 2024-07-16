@@ -1,11 +1,30 @@
 "use server";
 
-import { updatePasswordUseCase, updateUserUseCase } from "@/use-cases/users";
+import {
+  updateImageUseCase,
+  updatePasswordUseCase,
+  updateUserUseCase,
+} from "@/use-cases/users";
 
 import { authenticatedAction } from "@/lib/safe-action";
 
 import { z } from "zod";
 import { revalidateTag } from "next/cache";
+
+export const updateImageAction = authenticatedAction
+  .createServerAction()
+  .input(
+    z.object({
+      fileWrapper: z.instanceof(FormData),
+    }),
+  )
+  .handler(async ({ input, ctx }) => {
+    const file = input.fileWrapper.get("file") as File;
+
+    await updateImageUseCase(ctx.user.id, file);
+
+    revalidateTag("user");
+  });
 
 export const updatePasswordAction = authenticatedAction
   .createServerAction()

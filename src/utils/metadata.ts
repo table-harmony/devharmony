@@ -10,7 +10,7 @@ export function createMetadata(override: Metadata): Metadata {
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,
-      url: env.NEXT_PUBLIC_APP_URL,
+      url: BASE_URL,
       images: "/banner.png",
       siteName: siteConfig.name,
       ...override.openGraph,
@@ -19,6 +19,4 @@ export function createMetadata(override: Metadata): Metadata {
 }
 
 export const BASE_URL =
-  env.NODE_ENV === "development"
-    ? "http://localhost:3000"
-    : env.NEXT_PUBLIC_APP_URL;
+  env.NODE_ENV === "development" ? "http://localhost:3000" : siteConfig.url;

@@ -52,15 +52,18 @@ export function UpdateNameForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-2">
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className="flex max-w-md gap-2 space-y-2"
+      >
         <FormField
           control={form.control}
           name="name"
           render={({ field }) => (
-            <FormItem>
+            <FormItem className="w-full">
               <FormLabel className="sr-only">Name</FormLabel>
               <FormControl>
-                <Input {...field} required />
+                <Input {...field} disabled={isPending} required />
               </FormControl>
               <FormMessage />
             </FormItem>

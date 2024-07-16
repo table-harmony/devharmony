@@ -5,6 +5,9 @@ export const env = createEnv({
   server: {
     DATABASE_URL: z.string().url(),
     DB_AUTH_TOKEN: z.string(),
+    KV_REST_API_URL: z.string().url(),
+    KV_REST_API_TOKEN: z.string(),
+    BLOB_READ_WRITE_TOKEN: z.string(),
     CRON_SECERT: z.string(),
     GOOGLE_CLIENT_ID: z.string().trim().min(1),
     GOOGLE_CLIENT_SECRET: z.string().trim().min(1),
@@ -15,12 +18,14 @@ export const env = createEnv({
   },
   client: {
     NEXT_PUBLIC_PLANNER_ID: z.string(),
-    NEXT_PUBLIC_APP_URL: z.string().url(),
   },
   runtimeEnv: {
     // Server-side env vars
     DATABASE_URL: process.env.DATABASE_URL,
     DB_AUTH_TOKEN: process.env.DB_AUTH_TOKEN,
+    KV_REST_API_URL: process.env.KV_REST_API_URL,
+    KV_REST_API_TOKEN: process.env.KV_REST_API_TOKEN,
+    BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
     CRON_SECERT: process.env.CRON_SECRET,
     NODE_ENV: process.env.NODE_ENV,
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
@@ -28,7 +33,6 @@ export const env = createEnv({
     RESEND_API_KEY: process.env.RESEND_API_KEY,
 
     // Client-side env vars
-    NEXT_PUBLIC_APP_URL: process.env.NEXT_PUBLIC_APP_URL,
     NEXT_PUBLIC_PLANNER_ID: process.env.NEXT_PUBLIC_PLANNER_ID,
   },
 

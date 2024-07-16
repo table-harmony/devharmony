@@ -37,7 +37,7 @@ export function Notifications({
           )}
         </Button>
       </PopoverTrigger>
-      <PopoverContent className="grid space-y-4">
+      <PopoverContent className="grid space-y-4 md:w-96" align="end">
         <div className="flex items-center justify-between text-sm font-semibold">
           Notifications
           <Link

@@ -42,6 +42,7 @@ export function EditBioForm() {
         extensions={extensions}
         content={user?.bio}
         editable={true}
+        immediatelyRender={false}
       />
 
       <div className="flex justify-end">
