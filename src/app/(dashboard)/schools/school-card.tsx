@@ -88,7 +88,7 @@ function MenuButton({ schoolId }: { schoolId: number }) {
           className="w-full justify-start text-muted-foreground hover:!text-muted-foreground"
           asChild
         >
-          <Link href="#">
+          <Link href={`/schools/${schoolId}/school-settings`}>
             <SettingsIcon className="mr-2 size-4" /> Settings
           </Link>
         </Button>
