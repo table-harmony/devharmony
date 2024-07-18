@@ -29,7 +29,6 @@ export const sendFeedbackAction = authenticatedAction
       "tableharmony123@gmail.com",
       `Feedback from ${ctx.user.name}`,
       FeedbackEmail(feedback),
-      ctx.user.email,
     );
   });
 
@@ -38,5 +37,5 @@ export const markNotificationAsReadAction = authenticatedAction
   .input(z.object({ notificationId: z.number() }))
   .handler(async ({ input, ctx }) => {
     await updateNotificationUseCase(input.notificationId, { read: true });
-    await revalidateTag("notifications");
+    revalidateTag("notifications");
   });
