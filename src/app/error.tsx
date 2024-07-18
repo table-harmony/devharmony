@@ -38,7 +38,12 @@ export default function ErrorPage({
               </Button>
             </PageActions>
           </PageHeader>
-          <Image src="/assets/error.svg" alt="error" width="300" height="300" />
+          <Image
+            src="/assets/fixing-bugs.svg"
+            alt="error"
+            width="300"
+            height="300"
+          />
         </>
       ) : (
         <>
@@ -46,7 +51,12 @@ export default function ErrorPage({
             <PageHeaderHeading>Oops! Something went wrong</PageHeaderHeading>
             <PageHeaderDescription>{error.message}</PageHeaderDescription>
           </PageHeader>
-          <Image src="/assets/error.svg" alt="error" width="300" height="300" />
+          <Image
+            src="/assets/fixing-bugs.svg"
+            alt="error"
+            width="300"
+            height="300"
+          />
         </>
       )}
     </div>

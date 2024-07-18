@@ -161,6 +161,6 @@ export async function updateImageUseCase(userId: number, file: File) {
 
   if (user.picture) await deleteFile(user.picture);
 
-  const { url } = await uploadFile(`users/${user.id}`, file);
+  const { url } = await uploadFile(`users/avatars/${user.id}`, file);
   await updateUser(user.id, { picture: url });
 }

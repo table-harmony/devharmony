@@ -16,7 +16,7 @@ export default function EmailVerificationPage() {
         </PageHeaderDescription>
       </PageHeader>
       <div className="flex justify-center">
-        <Image src="/assets/email.svg" alt="email" width="300" height="300" />
+        <Image src="/assets/mailbox.svg" alt="email" width="300" height="300" />
       </div>
     </div>
   );
