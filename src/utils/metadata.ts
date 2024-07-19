@@ -7,6 +7,9 @@ import type { Metadata } from "next/types";
 export function createMetadata(override: Metadata): Metadata {
   return {
     ...override,
+    icons: [
+      { rel: "icon", type: "image/png", sizes: "16x16", url: "/logo.png" },
+    ],
     openGraph: {
       title: override.title ?? undefined,
       description: override.description ?? undefined,

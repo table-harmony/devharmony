@@ -26,14 +26,13 @@ export function HeaderLinks() {
 
   if (!isLoggedIn) {
     return (
-      <div>
-        <Link href="/" className="flex items-center gap-2">
-          <LogoIcon className="size-6" />
-          <span className="font-semibold uppercase">
-            dev<span className="text-primary">harmony</span>
-          </span>
-        </Link>
-      </div>
+      <Link href="/" className="flex w-fit items-center space-x-2">
+        <LogoIcon className="size-7" />
+        <span className="flex flex-col -space-y-2 font-semibold uppercase">
+          <span>dev</span>
+          <span className="text-primary">harmony</span>
+        </span>
+      </Link>
     );
   }
 
