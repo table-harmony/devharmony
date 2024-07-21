@@ -4,13 +4,13 @@ import { LogoIcon } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { SchoolIcon, SearchIcon } from "lucide-react";
 import Link from "next/link";
-import { useSession } from "@/components/providers/session-provider";
 import useMediaQuery from "@/hooks/use-media-query";
 import { usePathname } from "next/navigation";
+import { useSession } from "@clerk/nextjs";
 
 export function HeaderLinks() {
-  const { user } = useSession();
-  const isLoggedIn = !!user;
+  const { session } = useSession();
+  const isLoggedIn = !!session;
   const { isMobile } = useMediaQuery();
   const path = usePathname();
 

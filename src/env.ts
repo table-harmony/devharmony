@@ -3,14 +3,10 @@ import { z } from "zod";
 
 export const env = createEnv({
   server: {
-    DATABASE_URL: z.string().url(),
-    DB_AUTH_TOKEN: z.string(),
-    KV_REST_API_URL: z.string().url(),
-    KV_REST_API_TOKEN: z.string(),
-    BLOB_READ_WRITE_TOKEN: z.string(),
-    CRON_SECERT: z.string(),
-    GOOGLE_CLIENT_ID: z.string().trim().min(1),
-    GOOGLE_CLIENT_SECRET: z.string().trim().min(1),
+    CONVEX_DEPLOYMENT: z.string(),
+    CLERK_SECRET_KEY: z.string(),
+    CLERK_JWT_ISSUER_DOMAIN: z.string().url(),
+    CLERK_WEBHOOK_SECRET: z.string(),
     RESEND_API_KEY: z.string(),
     EMAIL_FROM: z.string(),
     NODE_ENV: z
@@ -18,24 +14,29 @@ export const env = createEnv({
       .default("development"),
   },
   client: {
+    NEXT_PUBLIC_CONVEX_URL: z.string().url(),
     NEXT_PUBLIC_PLANNER_ID: z.string(),
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: z.string(),
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: z.string(),
   },
   runtimeEnv: {
     // Server-side env vars
-    DATABASE_URL: process.env.DATABASE_URL,
-    DB_AUTH_TOKEN: process.env.DB_AUTH_TOKEN,
-    KV_REST_API_URL: process.env.KV_REST_API_URL,
-    KV_REST_API_TOKEN: process.env.KV_REST_API_TOKEN,
-    BLOB_READ_WRITE_TOKEN: process.env.BLOB_READ_WRITE_TOKEN,
-    CRON_SECERT: process.env.CRON_SECRET,
-    NODE_ENV: process.env.NODE_ENV,
-    GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
-    GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
+    CONVEX_DEPLOYMENT: process.env.CONVEX_DEPLOYMENT,
+    CLERK_SECRET_KEY: process.env.CLERK_SECRET_KEY,
+    CLERK_JWT_ISSUER_DOMAIN: process.env.CLERK_JWT_ISSUER_DOMAIN,
+    CLERK_WEBHOOK_SECRET: process.env.CLERK_WEBHOOK_SECRET,
     RESEND_API_KEY: process.env.RESEND_API_KEY,
     EMAIL_FROM: process.env.EMAIL_FROM,
+    NODE_ENV: process.env.NODE_ENV,
 
     // Client-side env vars
+    NEXT_PUBLIC_CONVEX_URL: process.env.NEXT_PUBLIC_CONVEX_URL,
     NEXT_PUBLIC_PLANNER_ID: process.env.NEXT_PUBLIC_PLANNER_ID,
+    NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY:
+      process.env.NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY,
+    NEXT_PUBLIC_CLERK_SIGN_IN_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL,
+    NEXT_PUBLIC_CLERK_SIGN_UP_URL: process.env.NEXT_PUBLIC_CLERK_SIGN_UP_URL,
   },
 
   /**

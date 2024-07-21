@@ -2,8 +2,9 @@ import Link from "next/link";
 
 import { siteConfig } from "@/config/site";
 
+import { SignedIn, SignedOut } from "@clerk/nextjs";
+
 import { Button } from "@/components/ui/button";
-import { SignedIn, SignedOut } from "@/components/auth";
 import { ArrowRightIcon } from "lucide-react";
 
 export function HeroSection() {
@@ -18,7 +19,7 @@ export function HeroSection() {
         </p>
         <SignedOut>
           <Button className="w-72" asChild>
-            <Link href="/login">
+            <Link href="/sign-in">
               Get started <ArrowRightIcon className="ml-2 size-4" />
             </Link>
           </Button>

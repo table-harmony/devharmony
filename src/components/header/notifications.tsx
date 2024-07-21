@@ -3,10 +3,7 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { BellIcon, EyeIcon } from "lucide-react";
-import { Notification } from "@/db/schema";
-import { useServerAction } from "zsa-react";
 import { useState } from "react";
-import { markNotificationAsReadAction } from "./actions";
 import { Separator } from "@/components/ui/separator";
 import {
   Popover,
@@ -14,13 +11,19 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 
+type Notification = {
+  id: string;
+  title: string;
+};
+
 export function Notifications({
   notifications,
 }: {
   notifications: Notification[];
 }) {
   const [isOpen, setIsOpen] = useState(false);
-  const { execute, isPending } = useServerAction(markNotificationAsReadAction);
+
+  //TODO: mark notification as read
 
   return (
     <Popover open={isOpen} onOpenChange={setIsOpen}>
@@ -62,15 +65,7 @@ export function Notifications({
               className="flex items-center justify-between hover:!bg-inherit"
             >
               <span className="w-36 truncate">{notification.title}</span>
-              <Button
-                variant="ghost"
-                size="icon"
-                aria-label="read"
-                disabled={isPending}
-                onClick={async () => {
-                  await execute({ notificationId: notification.id });
-                }}
-              >
+              <Button variant="ghost" size="icon" aria-label="read">
                 <EyeIcon className="size-3" />
               </Button>
             </div>

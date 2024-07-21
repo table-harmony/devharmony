@@ -3,7 +3,6 @@ import { env } from "@/env";
 import { createServerActionProcedure } from "zsa";
 
 import { assertAuthenticated } from "@/utils/session";
-import { assertRateLimit } from "@/lib/limiter";
 import { PublicError } from "@/utils/errors";
 
 function shapeErrors({ err }: any) {
@@ -29,17 +28,13 @@ function shapeErrors({ err }: any) {
 export const authenticatedAction = createServerActionProcedure()
   .experimental_shapeError(shapeErrors)
   .handler(async () => {
-    await assertRateLimit();
+    const user = await assertAuthenticated();
 
-    const { user, session } = await assertAuthenticated();
-
-    return { user, session };
+    return { user };
   });
 
 export const unauthenticatedAction = createServerActionProcedure()
   .experimental_shapeError(shapeErrors)
   .handler(async () => {
-    await assertRateLimit();
-
     return { user: null, session: null };
   });

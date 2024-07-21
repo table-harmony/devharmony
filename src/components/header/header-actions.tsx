@@ -1,21 +1,22 @@
+import { currentUser } from "@clerk/nextjs/server";
+
+import Link from "next/link";
+
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import { MessageCircleIcon } from "lucide-react";
-import Link from "next/link";
-import { getSession } from "@/utils/session";
-import { MenuButton } from "./menu-button";
 import { SendFeedbackSheet } from "./send-feedback-sheet";
 import { Notifications } from "./notifications";
-import { getUnreadNotificationsUseCase } from "@/use-cases/notifications";
+import { MessageCircleIcon } from "lucide-react";
+import { UserButton } from "@clerk/nextjs";
 
 export async function HeaderActions() {
-  const { user } = await getSession();
+  const user = await currentUser();
   const isLoggedIn = !!user;
 
   if (!isLoggedIn)
     return (
       <Button asChild>
-        <Link href="/login">Login</Link>
+        <Link href="/sign-in">Sign in</Link>
       </Button>
     );
 
@@ -31,20 +32,18 @@ export async function HeaderActions() {
         <ModeToggle variant="button" />
       </div>
       <div className="flex items-center md:ml-2">
-        <MenuButton />
+        <UserButton />
       </div>
     </div>
   );
 }
 
 export async function NotificationsWrapper() {
-  const { user } = await getSession();
+  const user = await currentUser();
 
   if (!user) {
     return null;
   }
 
-  const notifications = await getUnreadNotificationsUseCase(user.id, 3);
-
-  return <Notifications notifications={notifications} />;
+  return <Notifications notifications={[]} />;
 }

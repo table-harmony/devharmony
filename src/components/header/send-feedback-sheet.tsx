@@ -7,9 +7,6 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 
-import { useServerAction } from "zsa-react";
-import { sendFeedbackAction } from "./actions";
-
 import {
   Sheet,
   SheetContent,
@@ -37,7 +34,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { LoaderButton } from "@/components/loader-button";
+import { SubmitButton } from "../submit-button";
 
 const LABELS = [
   "Issue",
@@ -65,21 +62,6 @@ function SendFeedbackForm({
 }) {
   const { toast } = useToast();
 
-  const { execute, isPending } = useServerAction(sendFeedbackAction, {
-    onError({ err }) {
-      toast({ description: err.message, variant: "destructive" });
-    },
-    onSuccess() {
-      toast({
-        description: "Feedback sent!",
-        variant: "success",
-      });
-    },
-    onFinish() {
-      setShowSheet(false);
-    },
-  });
-
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -90,7 +72,7 @@ function SendFeedbackForm({
   });
 
   function onSubmit(values: z.infer<typeof formSchema>) {
-    execute(values);
+    //TODO: create feedback
   }
 
   return (
@@ -103,12 +85,7 @@ function SendFeedbackForm({
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input
-                  {...field}
-                  disabled={isPending}
-                  placeholder="Add dark mode"
-                  required
-                />
+                <Input {...field} placeholder="Add dark mode" required />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -149,7 +126,6 @@ function SendFeedbackForm({
               <FormControl>
                 <Textarea
                   {...field}
-                  disabled={isPending}
                   className="h-[200px]"
                   placeholder="Please add a dark mode to the app."
                   required
@@ -160,9 +136,7 @@ function SendFeedbackForm({
           )}
         />
         <div className="flex w-full sm:justify-end">
-          <LoaderButton className="w-full sm:w-auto" isLoading={isPending}>
-            Send
-          </LoaderButton>
+          <SubmitButton className="w-full sm:w-auto">Send</SubmitButton>
         </div>
       </form>
     </Form>

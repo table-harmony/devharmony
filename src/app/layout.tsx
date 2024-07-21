@@ -1,4 +1,4 @@
-import "./globals.css";
+import "@/styles/globals.css";
 import { Rubik as FontSans } from "next/font/google";
 
 import { Viewport } from "next";

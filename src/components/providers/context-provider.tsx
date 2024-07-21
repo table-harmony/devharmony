@@ -1,27 +1,26 @@
-import { getSession } from "@/utils/session";
-
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import { ConvexProvider } from "@/components/providers/convex-provider";
+import { ClerkProvider } from "@/components/providers/clerk-provider";
 import { Toaster } from "@/components/ui/toaster";
-import { SessionProvider } from "@/components/providers/session-provider";
 
 export async function ContextProvider({
   children,
 }: {
   children: React.ReactNode;
 }) {
-  const session = await getSession();
-
   return (
-    <SessionProvider value={session}>
-      <ThemeProvider
-        attribute="class"
-        defaultTheme="system"
-        enableSystem
-        disableTransitionOnChange
-      >
-        {children}
-        <Toaster />
-      </ThemeProvider>
-    </SessionProvider>
+    <ThemeProvider
+      attribute="class"
+      defaultTheme="system"
+      enableSystem
+      disableTransitionOnChange
+    >
+      <ClerkProvider>
+        <ConvexProvider>
+          {children}
+          <Toaster />
+        </ConvexProvider>
+      </ClerkProvider>
+    </ThemeProvider>
   );
 }
