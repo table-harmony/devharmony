@@ -55,6 +55,7 @@ export function LogoIcon(props: React.SVGProps<SVGSVGElement>) {
       <g
         transform="translate(0.000000,512.000000) scale(0.100000,-0.100000)"
         stroke="none"
+        fill="currentColor"
       >
         <path
           d="M1618 4911 c-119 -39 -217 -125 -269 -234 -21 -47 -40 -125 -74 -309

@@ -35,6 +35,12 @@ export function MenuButton() {
         align="end"
       >
         <Link
+          href="/browse"
+          className="hover:text-neutral-700 dark:hover:text-neutral-200"
+        >
+          Browse
+        </Link>
+        <Link
           href="/dashboard"
           className="hover:text-neutral-700 dark:hover:text-neutral-200"
         >

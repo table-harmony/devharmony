@@ -1,14 +1,14 @@
 import { SiteHeader } from "@/components/header/header";
 import { SiteFooter } from "@/components/site-footer";
-import { Links } from "./links";
+import { Links } from "@/app/dashboard/links";
 import { createMetadata } from "@/utils/metadata";
 
 export const metadata = createMetadata({
-  title: "Dashboard",
+  title: "Browse",
   description: "TODO",
 });
 
-export default function DashboardLayout({
+export default function BrowseLayout({
   children,
 }: {
   children: React.ReactNode;
