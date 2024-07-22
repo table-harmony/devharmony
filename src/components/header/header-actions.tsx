@@ -1,49 +1,59 @@
-import { currentUser } from "@clerk/nextjs/server";
+"use client";
 
 import Link from "next/link";
 
+import { Notifications } from "./notifications";
+import { SendFeedbackSheet } from "./send-feedback-sheet";
+
+import { useSession } from "@clerk/nextjs";
+
 import { ModeToggle } from "@/components/mode-toggle";
 import { Button } from "@/components/ui/button";
-import { SendFeedbackSheet } from "./send-feedback-sheet";
-import { Notifications } from "./notifications";
 import { MessageCircleIcon } from "lucide-react";
-import { UserButton } from "@clerk/nextjs";
+import { usePathname } from "next/navigation";
+import { publicRoutes } from "@/config/routes";
+import { MenuButton } from "./menu-button";
+import useMediaQuery from "@/hooks/use-media-query";
 
-export async function HeaderActions() {
-  const user = await currentUser();
-  const isLoggedIn = !!user;
+export function HeaderActions() {
+  const { isSignedIn } = useSession();
+  const { isMobile } = useMediaQuery();
+  const path = usePathname();
 
-  if (!isLoggedIn)
+  if (!isSignedIn) {
     return (
       <Button asChild>
         <Link href="/sign-in">Sign in</Link>
       </Button>
     );
+  }
+
+  if (isMobile) return <MenuButton />;
+
+  const isPublicRoute = publicRoutes.some((route) => path === route);
+
+  if (isPublicRoute) {
+    return (
+      <Button asChild>
+        <Link href="/dashboard">Dashboard</Link>
+      </Button>
+    );
+  }
 
   return (
-    <div className="flex items-center">
+    <div className="flex items-center gap-0.5">
       <SendFeedbackSheet>
         <Button size="icon" variant="ghost" aria-label="feedback">
           <MessageCircleIcon className="size-4" />
         </Button>
       </SendFeedbackSheet>
-      <NotificationsWrapper />
+      <Notifications />
       <div className="hidden md:block">
         <ModeToggle variant="button" />
       </div>
       <div className="flex items-center md:ml-2">
-        <UserButton />
+        <MenuButton />
       </div>
     </div>
   );
-}
-
-export async function NotificationsWrapper() {
-  const user = await currentUser();
-
-  if (!user) {
-    return null;
-  }
-
-  return <Notifications notifications={[]} />;
 }

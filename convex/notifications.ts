@@ -1,4 +1,9 @@
-import { internalMutation, internalQuery } from "./_generated/server";
+import {
+  internalMutation,
+  internalQuery,
+  mutation,
+  query,
+} from "./_generated/server";
 import { ConvexError, v } from "convex/values";
 
 import { getCurrentUser, getUser } from "./users";
@@ -21,20 +26,20 @@ export const createNotification = internalMutation({
   },
 });
 
-export const getUserNotifications = internalQuery({
-  args: {
-    title: v.string(),
-  },
-  async handler(ctx, args) {
+export const getUserNotifications = query({
+  async handler(ctx) {
     const user = await getCurrentUser(ctx, {});
 
     if (!user) return null;
 
-    //TODO: collect notifications
+    return await ctx.db
+      .query("notifications")
+      .withIndex("by_userId", (q) => q.eq("userId", user._id))
+      .collect();
   },
 });
 
-export const updateNotification = internalMutation({
+export const updateNotification = mutation({
   args: {
     notificationId: v.id("notifications"),
     isRead: v.boolean(),

@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { ModeToggle } from "@/components/mode-toggle";
 import { LogoIcon, LinkedinIcon, GithubIcon } from "@/components/icons";
+import { Logo } from "./logo";
 
 export function SiteFooter() {
   return (
@@ -111,13 +112,7 @@ function Socials() {
 function Header() {
   return (
     <div className="space-y-4">
-      <Link href="/" className="flex w-fit items-center space-x-2">
-        <LogoIcon className="size-7" />
-        <span className="flex flex-col -space-y-2 font-semibold uppercase">
-          <span>dev</span>
-          <span className="text-primary">harmony</span>
-        </span>
-      </Link>
+      <Logo />
       <p className="max-w-xs text-sm text-muted-foreground">
         {siteConfig.description}
       </p>

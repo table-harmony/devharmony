@@ -4,13 +4,15 @@ import { env } from "@/env";
 
 const resend = new Resend(env.RESEND_API_KEY);
 
+const EMAIL_FROM = "mail@devharmony.io";
+
 export async function sendEmail(
   email: string,
   subject: string,
   body: React.ReactNode,
 ) {
   const { error } = await resend.emails.send({
-    from: env.EMAIL_FROM,
+    from: EMAIL_FROM,
     to: email,
     subject,
     react: <>{body}</>,
@@ -29,7 +31,7 @@ export async function sendEmailBatch(
   }[],
 ) {
   const batch = emails.map((email) => ({
-    from: env.EMAIL_FROM,
+    from: EMAIL_FROM,
     to: email.to,
     subject: email.subject,
     react: <>{email.body}</>,

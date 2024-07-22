@@ -1,5 +1,8 @@
 "use client";
 
+import { api } from "../../../convex/_generated/api";
+import { useMutation } from "convex/react";
+
 import { Dispatch, ReactNode, SetStateAction, useState } from "react";
 
 import { z } from "zod";
@@ -18,7 +21,6 @@ import {
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -34,7 +36,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { SubmitButton } from "../submit-button";
+import { LoaderButton } from "@/components/loader-button";
 
 const LABELS = [
   "Issue",
@@ -61,6 +63,7 @@ function SendFeedbackForm({
   setShowSheet: Dispatch<SetStateAction<boolean>>;
 }) {
   const { toast } = useToast();
+  const createFeedback = useMutation(api.feedbacks.createFeedback);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -71,8 +74,19 @@ function SendFeedbackForm({
     },
   });
 
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    //TODO: create feedback
+  const isLoading = form.formState.isSubmitting;
+
+  async function onSubmit(values: z.infer<typeof formSchema>) {
+    try {
+      await createFeedback(values);
+      toast({ description: "Feedback sent!", variant: "success" });
+    } catch (error) {
+      console.error(error);
+      toast({ description: "Something went wrong", variant: "destructive" });
+    }
+
+    form.reset();
+    setShowSheet(false);
   }
 
   return (
@@ -85,7 +99,12 @@ function SendFeedbackForm({
             <FormItem>
               <FormLabel>Title</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Add dark mode" required />
+                <Input
+                  {...field}
+                  placeholder="Add dark mode"
+                  disabled={isLoading}
+                  required
+                />
               </FormControl>
               <FormMessage />
             </FormItem>
@@ -101,6 +120,7 @@ function SendFeedbackForm({
                 <Select
                   onValueChange={field.onChange}
                   defaultValue={field.value}
+                  disabled={isLoading}
                 >
                   <SelectTrigger>
                     <SelectValue />
@@ -128,6 +148,7 @@ function SendFeedbackForm({
                   {...field}
                   className="h-[200px]"
                   placeholder="Please add a dark mode to the app."
+                  disabled={isLoading}
                   required
                 />
               </FormControl>
@@ -136,7 +157,9 @@ function SendFeedbackForm({
           )}
         />
         <div className="flex w-full sm:justify-end">
-          <SubmitButton className="w-full sm:w-auto">Send</SubmitButton>
+          <LoaderButton isLoading={isLoading} className="w-full sm:w-auto">
+            Send
+          </LoaderButton>
         </div>
       </form>
     </Form>

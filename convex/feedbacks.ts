@@ -1,9 +1,9 @@
 import { ConvexError, v } from "convex/values";
-import { internalMutation } from "./_generated/server";
+import { mutation } from "./_generated/server";
 
 import { getCurrentUser } from "./users";
 
-export const createFeedback = internalMutation({
+export const createFeedback = mutation({
   args: {
     title: v.string(),
     label: v.string(),
