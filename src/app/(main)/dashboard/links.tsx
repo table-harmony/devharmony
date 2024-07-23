@@ -5,7 +5,7 @@ import { SearchIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
-export function Links() {
+export function MainLinks() {
   const path = usePathname();
 
   return (

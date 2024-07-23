@@ -5,9 +5,9 @@ import { dark } from "@clerk/themes";
 import { useTheme } from "next-themes";
 
 export function ClerkProvider({ children }: { children: React.ReactNode }) {
-  const { theme } = useTheme();
+  const { resolvedTheme } = useTheme();
 
-  if (theme === "dark") {
+  if (resolvedTheme === "dark") {
     return (
       <ImportedClerkProvider appearance={{ baseTheme: dark }}>
         {children}

@@ -39,7 +39,7 @@ http.route({
             internal.users.getUserByClerkId,
             {
               clerkId: result.data.id!,
-            },
+            }
           );
 
           if (!updatedUser) throw new ConvexError("User does not exist");
@@ -54,7 +54,7 @@ http.route({
             internal.users.getUserByClerkId,
             {
               clerkId: result.data.id!,
-            },
+            }
           );
 
           if (!deletedUser) throw new ConvexError("User does not exist");

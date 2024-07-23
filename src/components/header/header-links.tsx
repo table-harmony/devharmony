@@ -1,5 +1,8 @@
 "use client";
 
+import { api } from "../../../convex/_generated/api";
+import { useQuery } from "convex/react";
+
 import Link from "next/link";
 
 import { usePathname } from "next/navigation";
@@ -8,12 +11,11 @@ import useMediaQuery from "@/hooks/use-media-query";
 import { LogoIcon } from "@/components/icons";
 import { Logo } from "@/components/logo";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
-import { useSession } from "@clerk/nextjs";
 import { SlashIcon } from "lucide-react";
 import { publicRoutes } from "@/config/routes";
 
 export function HeaderLinks({ links }: { links?: React.ReactNode }) {
-  const { session, isSignedIn } = useSession();
+  const user = useQuery(api.users.getCurrentUser);
   const { isMobile } = useMediaQuery();
   const path = usePathname();
 
@@ -27,7 +29,7 @@ export function HeaderLinks({ links }: { links?: React.ReactNode }) {
 
   const isPublicRoute = publicRoutes.some((route) => path === route);
 
-  if (!isSignedIn || isPublicRoute) {
+  if (!user || isPublicRoute) {
     return (
       <>
         <Logo />
@@ -48,10 +50,10 @@ export function HeaderLinks({ links }: { links?: React.ReactNode }) {
 
       <Link href="/dashboard" className="flex items-center gap-2">
         <Avatar className="size-6">
-          <AvatarImage src={session?.user.imageUrl} alt="profile" />
+          <AvatarImage src={user?.image} alt="profile" />
           <AvatarFallback>SC</AvatarFallback>
         </Avatar>
-        <span>{session?.user.fullName}</span>
+        <span>{user?.name}</span>
       </Link>
       {links}
     </div>
