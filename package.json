@@ -50,7 +50,7 @@
     "convex": "^1.16.0",
     "date-fns": "^3.6.0",
     "framer-motion": "^11.5.5",
-    "lucide-react": "^0.364.0",
+    "lucide-react": "^0.479.0",
     "next": "^14.2.12",
     "next-mdx-remote": "^5.0.0",
     "next-pwa": "^5.6.0",
