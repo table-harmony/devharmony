@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@clerk/clerk-sdk-node": "^5.0.42",
-    "@clerk/nextjs": "^5.6.0",
+    "@clerk/nextjs": "^5.7.2",
     "@clerk/themes": "^2.1.30",
     "@hookform/resolvers": "^3.9.0",
     "@mdx-js/loader": "^3.0.1",
@@ -51,7 +51,7 @@
     "date-fns": "^3.6.0",
     "framer-motion": "^11.5.5",
     "lucide-react": "^0.364.0",
-    "next": "^14.2.12",
+    "next": "^14.2.32",
     "next-mdx-remote": "^5.0.0",
     "next-pwa": "^5.6.0",
     "next-themes": "^0.3.0",
